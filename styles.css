@@ -94,7 +94,7 @@ form input[type="submit"] {
 }
 
 #closeButton:hover {
-  color: rgb(255, 25, 25);
+  color: #f00;
 }
 
 #enviarButton:hover{
