@@ -1,25 +1,38 @@
 const overlay = document.getElementById('overlay');
 const popup = document.getElementById('popup');
-const close = document.getElementById('close');
-const closeButton = document.getElementById('closeButton');
 const citasLink = document.querySelector('nav ul li:nth-child(1) a');
-const submitBtn = document.getElementById('submitBtn');
+const closeButton = document.getElementById('closeButton');
+
+let isDragging = false;
+let offsetX, offsetY;
 
 citasLink.addEventListener('click', function (e) {
-  e.preventDefault();
-  overlay.style.display = 'flex';
-});
-
-close.addEventListener('click', function () {
-  overlay.style.display = 'none';
+    e.preventDefault();
+    overlay.style.display = 'flex';
 });
 
 closeButton.addEventListener('click', function () {
-  overlay.style.display = 'none';
+    overlay.style.display = 'none';
 });
 
-submitBtn.addEventListener('click', function (e) {
-  e.preventDefault();
-  // código para enviar el formulario
-  // o acción adicional antes de enviarlo
+popup.addEventListener('mousedown', function (e) {
+    isDragging = true;
+    offsetX = e.clientX - popup.getBoundingClientRect().left;
+    offsetY = e.clientY - popup.getBoundingClientRect().top;
+    popup.style.cursor = 'grabbing';
+});
+
+document.addEventListener('mousemove', function (e) {
+    if (!isDragging) return;
+
+    const newX = e.clientX - offsetX;
+    const newY = e.clientY - offsetY;
+
+    popup.style.left = newX + 'px';
+    popup.style.top = newY + 'px';
+});
+
+document.addEventListener('mouseup', function () {
+    isDragging = false;
+    popup.style.cursor = 'grab';
 });

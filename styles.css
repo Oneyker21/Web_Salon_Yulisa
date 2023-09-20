@@ -43,7 +43,10 @@ nav ul li a {
   border-radius: 10px;
   padding: 20px;
   animation: popupAnimation 0.3s ease-in-out;
+  position: absolute; /* Añade esta línea */
 }
+
+
 
 @keyframes popupAnimation {
   0% {
@@ -83,21 +86,14 @@ form input[type="submit"] {
   padding: 10px;
 }
 
-#closeButton
-
-#closeButton {
-  top: -45px;
-  right: 2px;
-  font-size: 15px;
-  color: #333;
-  text-decoration: none;
-}
-
 #closeButton:hover {
-  color: #f00;
+  background-color: #f00;
+  color: #000000;
+  font-weight: bold;
 }
 
 #enviarButton:hover{
-  color: rgb(21, 255, 0)
-
+  background-color: rgb(21, 255, 0);
+  color: #000000;
+  font-weight: bold;
 }
