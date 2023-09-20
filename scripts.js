@@ -19,7 +19,6 @@ popup.addEventListener('mousedown', function (e) {
     isDragging = true;
     offsetX = e.clientX - popup.getBoundingClientRect().left;
     offsetY = e.clientY - popup.getBoundingClientRect().top;
-    popup.style.cursor = 'grabbing';
 });
 
 document.addEventListener('mousemove', function (e) {
@@ -34,5 +33,4 @@ document.addEventListener('mousemove', function (e) {
 
 document.addEventListener('mouseup', function () {
     isDragging = false;
-    popup.style.cursor = 'grab';
 });

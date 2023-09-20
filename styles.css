@@ -43,7 +43,7 @@ nav ul li a {
   border-radius: 10px;
   padding: 20px;
   animation: popupAnimation 0.3s ease-in-out;
-  position: absolute; /* Añade esta línea */
+  position: absolute;
 }
 
 
