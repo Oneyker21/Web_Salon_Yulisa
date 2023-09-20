@@ -1,228 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
     <title>Salón de Belleza</title>
-    <style>
-        /* Estilos CSS para la barra de menú */
-        .navbar {
-            background-color: #333333;
-            overflow: hidden;
-        }
-        
-        .navbar a {
-            float: left;
-            color: #ffffff;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-        }
-        
-        .navbar a:hover {
-            background-color: #555555;
-        }
-        
-        /* Estilos CSS para las secciones */
-        .section {
-            display: none;
-            padding: 20px;
-        }
-        
-        /* Estilos CSS para los formularios */
-        .form-container {
-            display: none;
-            position: absolute;
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            z-index: 1;
-        }
-        
-        /* Estilos CSS para los botones de los formularios */
-        .form-btn {
-            background-color: #333333;
-            color: #ffffff;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .form-btn:hover {
-            background-color: #555555;
-        }
-        
-        /* Estilos CSS para las animaciones */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateY(-50%); }
-            to { transform: translateY(0%); }
-        }
-        
-        .slide-in {
-            animation: slideIn 0.5s ease;
-        }
-        
-        /* Estilos CSS para las burbujas */
-        .bubble {
-            position: absolute;
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            display: none;
-        }
-    </style>
-    <script>
-        var formularioAbierto = null; // Variable para almacenar el formulario abierto actualmente
-        
-        // Función JavaScript para mostrar la sección seleccionada
-        function mostrarSeccion(seccion) {
-            var secciones = document.getElementsByClassName("section");
-            for (var i = 0; i < secciones.length; i++) {
-                secciones[i].style.display = "none";
-            }
-            
-            // Cerrar el formulario abierto actualmente si existe
-            if (formularioAbierto !== null) {
-                formularioAbierto.style.display = "none";
-            }
-            
-            document.getElementById(seccion).style.display = "block";
-        }
-        
-        // Función JavaScript para mostrar el formulario correspondiente al botón
-        function mostrarFormulario(formularioId) {
-            var formulario = document.getElementById(formularioId);
-            formulario.style.display = "block";
-            
-            // Actualizar el formulario abierto actualmente
-            formularioAbierto = formulario;
-            
-            // Posicionar la burbuja al lado del botón correspondiente
-            var boton = document.getElementById(formularioId + "-btn");
-            var bubble = document.getElementById(formularioId + "-bubble");
-            var botonRect = boton.getBoundingClientRect();
-            
-            bubble.style.top = botonRect.top + "px";
-            bubble.style.left = botonRect.left + botonRect.width + "px";
-            
-            // Animaciones
-            formulario.classList.add("fade-in");
-            formulario.classList.add("slide-in");
-        }
-        
-        // Función JavaScript para cerrar el formulario
-        function cerrarFormulario() {
-            if (formularioAbierto !== null) {
-                formularioAbierto.style.display = "none";
-                formularioAbierto = null;
-            }
-        }
-    </script>
 </head>
 <body>
-    <div class="navbar">
-        <a href="#" onclick="mostrarSeccion('citas')">Citas</a>
-        <a href="#" onclick="mostrarSeccion('trabajos')">Trabajos</a>
-        <a href="#" onclick="mostrarSeccion('galeria')">Galería</a>
-        <a href="#" onclick="mostrarSeccion('contacto')">Contacto</a>
-    </div>
-    
-    <div id="citas" class="section">
-        <!-- Contenido de la sección de citas -->
-        <h1>Haz tu cita</h1>
-        <!-- Botón para mostrar el formulario de citas -->
-        <button id="citas-form-btn" class="form-btn" onclick="mostrarFormulario('citas-form')">Agendar cita</button>
-        <!-- Burbuja del formulario de citas -->
-        <div id="citas-form-bubble" class="bubble">
-            <h2>Formulario de citas</h2>
-            <!-- Botón de cierre del formulario -->
-            <button class="form-btn" onclick="cerrarFormulario()">Cerrar</button>
-            <form>
-                <!-- Aquí puedes agregar los campos necesarios para el formulario de citas -->
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required><br><br>
-                
-                <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha" name="fecha" required><br><br>
-                
-                <label for="hora">Hora:</label>
-                <input type="time" id="hora" name="hora" required><br><br>
-                
-                <input class="form-btn" type="submit" value="Enviar">
-            </form>
-        </div>
-    </div>
-    
-    <div id="trabajos" class="section">
-        <!-- Contenido de la sección de trabajos -->
-        <h1>Nuestros trabajos</h1>
-        <!-- Botón para mostrar el formulario de trabajos -->
-        <button id="trabajos-form-btn" class="form-btn" onclick="mostrarFormulario('trabajos-form')">Publicar trabajo</button>
-        <!-- Burbuja del formulario de trabajos -->
-        <div id="trabajos-form-bubble" class="bubble">
-            <h2>Formulario de trabajos</h2>
-            <!-- Botón de cierre del formulario -->
-            <button class="form-btn" onclick="cerrarFormulario()">Cerrar</button>
-            <form>
-                <!-- Aquí puedes agregar los campos necesarios para el formulario de trabajos -->
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required><br><br>
-                
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" required></textarea><br><br>
-                
-                <label for="foto">Foto:</label>
-                <input type="file" id="foto" name="foto" accept="image/*" required><br><br>
-                
-                <input class="form-btn" type="submit" value="Enviar">
-            </form>
-        </div>
-    </div>
-    
-    <div id="galeria" class="section">
-        <!-- Contenido de la sección de galería -->
-        <h1>Galería de trabajos</h1>
-        <!-- Botón para mostrar el formulario de reseñas -->
-        <button id="resena-form-btn" class="form-btn" onclick="mostrarFormulario('resena-form')">Dejar reseña</button>
-        <!-- Burbuja del formulario de reseñas -->
-        <div id="resena-form-bubble" class="bubble">
-            <h2>Formulario de reseñas</h2>
-            <!-- Botón de cierre del formulario -->
-            <button class="form-btn" onclick="cerrarFormulario()">Cerrar</button>
-            <form>
-                <!-- Aquí puedes agregar los campos necesarios para el formulario de reseñas -->
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required><br><br>
-                
-                <label for="comentario">Comentario:</label>
-                <textarea id="comentario" name="comentario" required></textarea><br><br>
-                
-                <input class="form-btn" type="submit" value="Enviar">
-            </form>
-        </div>
-    </div>
-    
-    <div id="contacto" class="section">
-        <!-- Contenido de la sección de contacto -->
-        <h1>Contacto y ubicación</h1>
-        <!-- Aquí puedes agregar información de contacto y un mapa con la ubicación del local -->
-    </div>
-    
-    <script>
-        // Mostrar la sección de citas por defecto al cargar la página
-        mostrarSeccion('citas');
-    </script>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Citas</a></li>
+                <li><a href="#">Galería de trabajos</a></li>
+                <li><a href="#">Reseñas</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+<main>
+  <!-- Aquí puedes agregar el contenido principal de tu página -->
+</main>
+
+<div class="overlay" id="overlay">
+  <div class="popup" id="popup">
+    <h2>Solicitar cita</h2>
+    <form>
+      <input type="text" placeholder="Nombre">
+      <input type="text" placeholder="Apellido">
+      <input type="tel" placeholder="Número de teléfono">
+      <input type="date" placeholder="Fecha">
+      <input type="time" placeholder="Hora">
+      <select>
+        <option value="estilismo">Estilismo de cabello</option>
+        <option value="manicura">Manicura y pedicura</option>
+        <option value="maquillaje">Maquillaje</option>
+      </select>
+      <textarea placeholder="Especifica tus necesidades"></textarea>
+      <input type="submit" value="Enviar">
+      <input type="submit" id="closeButton" value="Cerrar">
+    </form>
+  </div>
+</div>
+    <footer>
+        <!--contenido del pie de página -->
+    </footer>
+<script src="scripts.js"></script>
 </body>
 </html>
