@@ -1,6 +1,6 @@
-const overlay = document.getElementById('overlay');
+const overlay = document.getElementById('popup2');
 const popup = document.getElementById('popup');
-const citasLink = document.querySelector('nav ul li:nth-child(1) a');
+const citasLink = document.querySelector('nav ul li:nth-child(5) a');
 const closeButton = document.getElementById('closeButton');
 
 let isDragging = false;
