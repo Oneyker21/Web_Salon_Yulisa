@@ -1,16 +1,13 @@
-/* Estilos para el área de agregar reseña */
+
 .agregar-reseña {
-    width: 180px; /* Ancho del formulario */
+    width: 180px;
     background-color: #fff;
-    padding: 30px; /* Relleno del formulario */
+    padding: 30px;
     margin: 20px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Resto de estilos sin cambios */
-
-/* Estilos para la barra de menú */
 header {
     background-color: #f2f2f2;
     padding: 10px;
@@ -49,25 +46,23 @@ nav ul li a:hover {
     padding: 20px;
 }
 
-/* Estilos para el área de agregar reseña */
 .agregar-reseña {
-    width: 180px; /* Ancho del formulario */
+    width: 180px; 
     background-color: #fff;
-    padding: 20px; /* Relleno del formulario */
+    padding: 20px; 
     margin: 20px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilos para el área de reseñas */
 .reseñas {
-    flex: 1; /* Expande el espacio disponible en el lado izquierdo */
+    flex: 1; 
     background-color: #fff;
     padding: 20px;
     margin: 20px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    overflow-y: auto; /* Agrega barra de desplazamiento si es necesario */
+    overflow-y: auto; 
 }
 
 input[type="submit"] {
