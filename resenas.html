@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="/contacto.html">
-    <link rel="stylesheet" href="/gdtrabajos.html">
-    <link rel="stylesheet" href="/resenas.html">
+    <link rel="stylesheet" href="/CSS/styles.css">
+    <link rel="stylesheet" href="/CSS/resenas.css">
     <title>Reseñas</title>
 </head>
 <body>
@@ -21,15 +19,16 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main class="contenedor">
         <div class="reseñas">
-            <!-- Mostrar reseñas y puntuaciones aquí -->
+            <!-- Contenido de reseñas -->
         </div>
         <div class="agregar-reseña">
             <h3>Deja tu reseña</h3>
             <form>
+                <input type="text" placeholder="Usuario">
                 <textarea placeholder="Escribe tu reseña"></textarea>
-                <input type="number" placeholder="Puntuación (1-5)">
+                <input type="number" placeholder="Puntuación (1-5)" max="5" min="0">
                 <input type="submit" value="Enviar reseña">
             </form>
         </div>

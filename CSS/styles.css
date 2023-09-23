@@ -45,7 +45,7 @@ nav ul li a:hover {
   width: 400px;
   max-width: 90%;
   border-radius: 10px;
-  border: 3px solid #808080;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1);
   padding: 20px;
   animation: popupAnimation 0.3s ease-in-out;
   position: absolute;
