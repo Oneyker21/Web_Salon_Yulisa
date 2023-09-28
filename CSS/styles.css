@@ -14,10 +14,6 @@ nav ul li {
   margin-right: 0%;
 }
 
-textarea {
-  resize: none;
-}
-
 nav ul li a {
   text-decoration: none;
   color: #333;
@@ -51,6 +47,10 @@ nav ul li a:hover {
   position: absolute;
 }
 
+
+textarea {
+  resize: none;
+}
 
 
 @keyframes popupAnimation {

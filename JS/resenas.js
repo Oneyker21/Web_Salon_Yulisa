@@ -1,1 +1,0 @@
-//carpeta para mostrar reseñas
