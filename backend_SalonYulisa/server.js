@@ -1,7 +1,5 @@
 
 //Configuracion de la conexion a la base de datos
-
-
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
