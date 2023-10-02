@@ -1,3 +1,4 @@
+const map = document.getElementById('map')
 const overlay = document.getElementById('popup2');
 const popup = document.getElementById('popup');
 const citasLink = document.querySelector('nav ul li:nth-child(5) a');
@@ -33,4 +34,15 @@ document.addEventListener('mousemove', function (e) {
 
 document.addEventListener('mouseup', function () {
     isDragging = false;
+});
+document.getElementById('map', function (e){
+    var coord = {lat:-34.5956145 ,lng: -58.4431949};
+    var map = new google.maps.Map(document.getElementById('map'),{
+        zoom: 10,
+        center: coord
+    });
+    var marker = new google.maps.Marker({
+        position: coord,
+        map: map
+      });
 });

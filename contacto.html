@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/CSS/styles.css">
     <link rel="stylesheet" href="/CSS/contacto.css">
-    <link rel="stylesheet" href="/contacto.html">
-    <link rel="stylesheet" href="/gdtrabajos.html">
-    <link rel="stylesheet" href="/resenas.html">
     <title>Contacto</title>
 </head>
 <body>
@@ -27,13 +24,15 @@
             <h2>Contacto</h2>
             <p>Dirección: [Dirección]</p>
             <p>Correo electrónico: [Correo electrónico]</p>
-            <!-- Agregar un mapautilizando una API de mapas -->
-            <!-- Mostrar las dos imágenes de tu portafolio -->
+            <div id="map"></div>
+                        <!-- Mostrar las dos imágenes de tu portafolio -->
             <div class="portafolio">
                 <img src="imagen1.jpg" alt="Portafolio 1">
                 <img src="imagen2.jpg" alt="Portafolio 2">
             </div>
         </section>
     </main>
+    <script src="scripts.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik&callback=iniciarMap"></script>
 </body>
 </html>
