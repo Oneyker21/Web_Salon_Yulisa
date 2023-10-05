@@ -114,6 +114,18 @@ module.exports = (db) => {
 
   //------------------------------------------------CRUD EMPLEADO-----------------------------------------------
 
+  /*  
+   curl http://localhost:5000/crud/empleados
+ 
+   curl -X POST -H "Content-Type: application/json" -d "{\"nombre\":\"Oneyker\",\"apellido\":\"Galeano\",\"telefono\":\"12345678\",\"direccion\":\"la chula mula\"}" http://localhost:5000/crud/empleados
+ 
+  curl -X PUT -H "Content-Type: application/json" -d "{\"nombre\":\"NuevoNombre\",\"apellido\":\"NuevoApellido\",\"telefono\":\"NuevoTelefono\",\"direccion\":\"NuevaDireccion\"}" http://localhost:5000/crud/empleados/1
+ 
+   curl -X DELETE http://localhost:5000/crud/empleados/1 */
+
+
+
+
   // Ruta para leer registros de la tabla Empleado
   router.get('/empleados', (req, res) => {
     const sql = 'SELECT * FROM Empleado';
@@ -136,7 +148,7 @@ module.exports = (db) => {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    const sql = `INSERT INTO Empleado (nombre, apellido, telefono, direccion) VALUES (?, ?, ?, ?)`;
+    const sql = `INSERT INTO Empleado ( nombre, apellido, telefono, direccion) VALUES ( ?, ?, ?, ?)`;
     const values = [nombre, apellido, telefono, direccion];
 
     db.query(sql, values, (err, result) => {
@@ -193,6 +205,17 @@ module.exports = (db) => {
   });
 
   //------------------------------------------------CRUD CITAS-----------------------------------------------
+
+    /* 
+  curl http://localhost:5000/crud/citas
+
+  curl -X POST -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-05\",\"id_cliente\":1,\"id_empleado\":2}" http://localhost:5000/crud/citas
+
+  curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-06\",\"id_cliente\":3,\"id_empleado\":4}" http://localhost:5000/crud/citas/1
+
+  curl -X DELETE http://localhost:5000/crud/citas/1
+  
+  */
 
   // Ruta para leer registros de la tabla Cita
   router.get('/citas', (req, res) => {
@@ -274,6 +297,18 @@ module.exports = (db) => {
 
 
   //------------------------------------------------CRUD SERVICIOS-----------------------------------------------
+  /* 
+  curl http://localhost:5000/crud/servicios
+
+  curl -X POST -H "Content-Type: application/json" -d "{\"nombre_servicio\":\"NombreServicio\",\"descripcion\":\"DescripciónServicio\",\"precio_servicio\":100,\"cod_cita\":1}" http://localhost:5000/crud/servicios
+
+  curl -X PUT -H "Content-Type: application/json" -d "{\"nombre_servicio\":\"NuevoNombre\",\"descripcion\":\"NuevaDescripción\",\"precio_servicio\":200,\"cod_cita\":2}" http://localhost:5000/crud/servicios/1
+
+  curl -X DELETE http://localhost:5000/crud/servicios/1
+
+  */
+
+
 
   // Ruta para leer registros de la tabla Servicios
   router.get('/servicios', (req, res) => {
@@ -355,6 +390,17 @@ module.exports = (db) => {
 
 
   //------------------------------------------------CRUD TESTIMONIOS-----------------------------------------------
+
+/* 
+  curl http://localhost:5000/crud/testimonios
+
+  curl -X POST -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-05\",\"testimonio\":\"Este es un testimonio\",\"id_cliente\":1}" http://localhost:5000/crud/testimonios
+
+  curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-10\",\"testimonio\":\"Testimonio actualizado\",\"id_cliente\":2}" http://localhost:5000/crud/testimonios/1
+
+  curl -X DELETE http://localhost:5000/crud/testimonios/1
+
+*/
 
   // Ruta para leer registros de la tabla Testimonio
   router.get('/testimonios', (req, res) => {
