@@ -1,4 +1,3 @@
-
 //Configuracion de la conexion a la base de datos
 const express = require('express');
 const mysql = require('mysql');
@@ -32,8 +31,3 @@ app.use('/crud', crudRoutes);
 app.listen(port, () => {
     console.log(`Servidor backend en funcionamiento en el puerto ${port}`);
 });
-
-
-
-
-
