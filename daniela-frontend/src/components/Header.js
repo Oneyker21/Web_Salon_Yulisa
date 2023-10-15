@@ -27,7 +27,7 @@ function Header() {
                 <Link to="/" className="link-unstyled">Inicio</Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/about" className="link-unstyled">Informacion</Link>
+                <Link to="/about" className="link-unstyled">Contacto</Link>
               </Nav.Link>
               <NavDropdown title="Usuarios" id="clientes">
                 <NavDropdown.Item>
@@ -58,6 +58,22 @@ function Header() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
                   <Link to="/eliminar-cita" className="link-unstyled">Eliminar Cita</Link>
+                </NavDropdown.Item>
+              </NavDropdown>
+
+              <NavDropdown title="Trabajos" id=" Trabajos">
+                <NavDropdown.Item>
+                  <Link to="/customer" className="link-unstyled">Registrar Trabajos</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/actualizar-cita" className="link-unstyled">Actualizar Trabajos</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/ver-cita" className="link-unstyled">Ver Trabajos</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>
+                  <Link to="/eliminar-cita" className="link-unstyled">Eliminar Trabajos</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
