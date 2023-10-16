@@ -12,7 +12,7 @@ const router = express.Router();
 
 module.exports = (db) => {
   // Ruta para leer registros de la tabla Cliente
-  router.get('/clientes', (req, res) => {
+  router.get('/readclientes', (req, res) => {
     // Realiza una consulta SQL para seleccionar todos los registros de la tabla Cliente
     const sql = 'SELECT * FROM Cliente';
 
@@ -29,7 +29,7 @@ module.exports = (db) => {
   });
 
   // Ruta para crear un nuevo registro en la tabla Cliente
-  router.post('/clientes', (req, res) => {
+  router.post('/createclientes', (req, res) => {
     // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
     const { nombre, apellido, telefono } = req.body;
 
@@ -55,7 +55,7 @@ module.exports = (db) => {
   });
 
   // Ruta para actualizar un registro existente en la tabla Cliente por ID
-  router.put('/clientes/:id_cliente', (req, res) => {
+  router.put('/upgradeclientes/:id_cliente', (req, res) => {
     // Obtén el ID del cliente a actualizar desde los parámetros de la URL
     const id_cliente = req.params.id_cliente;
 
@@ -89,7 +89,7 @@ module.exports = (db) => {
   });
 
   // Ruta para eliminar un registro existente en la tabla Cliente por ID
-  router.delete('/clientes/:id_cliente', (req, res) => {
+  router.delete('/deleteclientes/:id_cliente', (req, res) => {
     // Obtén el ID del cliente a eliminar desde los parámetros de la URL
     const id_cliente = req.params.id_cliente;
 
@@ -127,7 +127,7 @@ module.exports = (db) => {
 
 
   // Ruta para leer registros de la tabla Empleado
-  router.get('/empleados', (req, res) => {
+  router.get('/readempleados', (req, res) => {
     const sql = 'SELECT * FROM Empleado';
 
     db.query(sql, (err, result) => {
@@ -141,7 +141,7 @@ module.exports = (db) => {
   });
 
   // Ruta para crear un nuevo registro en la tabla Empleado
-  router.post('/empleados', (req, res) => {
+  router.post('/createempleados', (req, res) => {
     const { nombre, apellido, telefono, direccion } = req.body;
 
     if (!nombre || !apellido || !telefono || !direccion) {
@@ -162,7 +162,7 @@ module.exports = (db) => {
   });
 
   // Ruta para actualizar un registro existente en la tabla Empleado por ID
-  router.put('/empleados/:id_empleado', (req, res) => {
+  router.put('/upgradeempleados/:id_empleado', (req, res) => {
     const id_empleado = req.params.id_empleado;
     const { nombre, apellido, telefono, direccion } = req.body;
 
@@ -189,7 +189,7 @@ module.exports = (db) => {
   });
 
   // Ruta para eliminar un registro existente en la tabla Empleado por ID
-  router.delete('/empleados/:id_empleado', (req, res) => {
+  router.delete('/deleteempleados/:id_empleado', (req, res) => {
     const id_empleado = req.params.id_empleado;
 
     const sql = 'DELETE FROM Empleado WHERE id_empleado = ?';
@@ -218,7 +218,7 @@ module.exports = (db) => {
   */
 
   // Ruta para leer registros de la tabla Cita
-  router.get('/citas', (req, res) => {
+  router.get('/readcitas', (req, res) => {
     const sql = 'SELECT * FROM Cita';
 
     db.query(sql, (err, result) => {
@@ -232,7 +232,7 @@ module.exports = (db) => {
   });
 
   // Ruta para crear un nuevo registro en la tabla Cita
-  router.post('/citas', (req, res) => {
+  router.post('/createcitas', (req, res) => {
     const { fecha_cita, id_cliente, id_empleado } = req.body;
 
     if (!fecha_cita || !id_cliente || !id_empleado) {
@@ -253,7 +253,7 @@ module.exports = (db) => {
   });
 
   // Ruta para actualizar un registro existente en la tabla Cita por ID
-  router.put('/citas/:cod_cita', (req, res) => {
+  router.put('/upgradecitas/:cod_cita', (req, res) => {
     const cod_cita = req.params.cod_cita;
     const { fecha_cita, id_cliente, id_empleado } = req.body;
 
@@ -280,7 +280,7 @@ module.exports = (db) => {
   });
 
   // Ruta para eliminar un registro existente en la tabla Cita por ID
-  router.delete('/citas/:cod_cita', (req, res) => {
+  router.delete('/deletecitas/:cod_cita', (req, res) => {
     const cod_cita = req.params.cod_cita;
 
     const sql = 'DELETE FROM Cita WHERE cod_cita = ?';
@@ -311,7 +311,7 @@ module.exports = (db) => {
 
 
   // Ruta para leer registros de la tabla Servicios
-  router.get('/servicios', (req, res) => {
+  router.get('/readservicios', (req, res) => {
     const sql = 'SELECT * FROM Servicios';
 
     db.query(sql, (err, result) => {
@@ -325,7 +325,7 @@ module.exports = (db) => {
   });
 
   // Ruta para crear un nuevo registro en la tabla Servicios
-  router.post('/servicios', (req, res) => {
+  router.post('/createservicios', (req, res) => {
     const { nombre_servicio, descripcion, precio_servicio, cod_cita } = req.body;
 
     if (!nombre_servicio || !descripcion || !precio_servicio || !cod_cita) {
@@ -346,7 +346,7 @@ module.exports = (db) => {
   });
 
   // Ruta para actualizar un registro existente en la tabla Servicios por ID
-  router.put('/servicios/:id_servicios', (req, res) => {
+  router.put('/upgradeservicios/:id_servicios', (req, res) => {
     const id_servicios = req.params.id_servicios;
     const { nombre_servicio, descripcion, precio_servicio, cod_cita } = req.body;
 
@@ -373,7 +373,7 @@ module.exports = (db) => {
   });
 
   // Ruta para eliminar un registro existente en la tabla Servicios por ID
-  router.delete('/servicios/:id_servicios', (req, res) => {
+  router.delete('/deleteservicios/:id_servicios', (req, res) => {
     const id_servicios = req.params.id_servicios;
 
     const sql = 'DELETE FROM Servicios WHERE id_servicios = ?';
@@ -403,7 +403,7 @@ module.exports = (db) => {
 */
 
   // Ruta para leer registros de la tabla Testimonio
-  router.get('/testimonios', (req, res) => {
+  router.get('/readtestimonios', (req, res) => {
     const sql = 'SELECT * FROM Testimonio';
 
     db.query(sql, (err, result) => {
@@ -417,7 +417,7 @@ module.exports = (db) => {
   });
 
   // Ruta para crear un nuevo registro en la tabla Testimonio
-  router.post('/testimonios', (req, res) => {
+  router.post('/createtestimonios', (req, res) => {
     const { fecha_testimonio, testimonio, id_cliente } = req.body;
 
     if (!fecha_testimonio || !testimonio || !id_cliente) {
@@ -438,7 +438,7 @@ module.exports = (db) => {
   });
 
   // Ruta para actualizar un registro existente en la tabla Testimonio por ID
-  router.put('/testimonios/:id_testimonio', (req, res) => {
+  router.put('/upgradetestimonios/:id_testimonio', (req, res) => {
     const id_testimonio = req.params.id_testimonio;
     const { fecha_testimonio, testimonio, id_cliente } = req.body;
 
@@ -465,7 +465,7 @@ module.exports = (db) => {
   });
 
   // Ruta para eliminar un registro existente en la tabla Testimonio por ID
-  router.delete('/testimonios/:id_testimonio', (req, res) => {
+  router.delete('/deletetestimonios/:id_testimonio', (req, res) => {
     const id_testimonio = req.params.id_testimonio;
 
     const sql = 'DELETE FROM Testimonio WHERE id_testimonio = ?';
