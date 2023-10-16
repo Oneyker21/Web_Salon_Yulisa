@@ -99,25 +99,57 @@ function Header() {
         <Offcanvas.Body>
           <Nav className="flex-column">
             <Nav.Link>
-              <Link to="/" className="link-unstyled">Inicio</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to="/about" className="link-unstyled">About</Link>
-            </Nav.Link>
-            <NavDropdown title="Clientes" id="clientes">
-              <NavDropdown.Item>
-                <Link to="/customer" className="link-unstyled">Registrar Cliente</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to="/actualizar-cliente" className="link-unstyled">Actualizar Cliente</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to="/ver-cliente" className="link-unstyled">Ver Cliente</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item>
-                <Link to="/eliminar-cliente" className="link-unstyled">Eliminar Cliente</Link>
-              </NavDropdown.Item>
+            <Link to="/" className="link-unstyled">Inicio</Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to="/about" className="link-unstyled">Contacto</Link>
+              </Nav.Link>
+              <NavDropdown title="Usuarios" id="clientes">
+                <NavDropdown.Item>
+                  <Link to="/customer" className="link-unstyled">Registrar Usuario</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/actualizar-cliente" className="link-unstyled">Actualizar Usuario</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/ver-cliente" className="link-unstyled">Ver Usuario</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>
+                  <Link to="/eliminar-cliente" className="link-unstyled">Eliminar Usuario</Link>
+                </NavDropdown.Item>
+              </NavDropdown>
+
+              <NavDropdown title="Cita" id=" Cita">
+                <NavDropdown.Item>
+                  <Link to="/customer" className="link-unstyled">Registrar Cita</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/actualizar-cita" className="link-unstyled">Actualizar Cita</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/ver-cita" className="link-unstyled">Ver Cita</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>
+                  <Link to="/eliminar-cita" className="link-unstyled">Eliminar Cita</Link>
+                </NavDropdown.Item>
+              </NavDropdown>
+
+              <NavDropdown title="Trabajos" id=" Trabajos">
+                <NavDropdown.Item>
+                  <Link to="/customer" className="link-unstyled">Registrar Trabajos</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/actualizar-cita" className="link-unstyled">Actualizar Trabajos</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/ver-cita" className="link-unstyled">Ver Trabajos</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>
+                  <Link to="/eliminar-cita" className="link-unstyled">Eliminar Trabajos</Link>
+                </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Offcanvas.Body>
