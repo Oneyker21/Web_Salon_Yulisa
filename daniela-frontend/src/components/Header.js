@@ -45,9 +45,9 @@ function Header() {
                 </NavDropdown.Item>
               </NavDropdown>
 
-              <NavDropdown title="Cita" id=" Cita">
+              <NavDropdown title="Citas" id="Cita">
                 <NavDropdown.Item>
-                  <Link to="/customer" className="link-unstyled">Registrar Cita</Link>
+                  <Link to="/citas" className="link-unstyled">Registrar Cita</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item>
                   <Link to="/actualizar-cita" className="link-unstyled">Actualizar Cita</Link>
