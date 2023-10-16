@@ -27,9 +27,3 @@
     border-color: #a02f91;
   }
 }
-
-.custom-button:active{
-  background-color: #a02f91;
-  color: #ffffff;
-  border-color: #a02f91;
-}
