@@ -115,7 +115,7 @@ function Customer() {
                 </Col>
               </Row>
               <div className="center-button">
-                <Button variant="primary" type="submit" className="mt-3" size="lg">
+                <Button variant="primary" type="submit" className="mt-3 custom-button" size="lg">
                   Registrar
                 </Button>
               </div>

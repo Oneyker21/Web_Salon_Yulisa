@@ -10,3 +10,17 @@
 .center-button {
   text-align: center;
 }
+
+.custom-button {
+  background-color: #610655;
+  color: #ffffff;
+  transition: .2s;
+  border-width: 3px;
+  border-color: #610655;
+
+  &:hover {
+    background-color: #a02f91;
+    color: #ffffff;
+  border-color: #a02f91;
+  }
+}
