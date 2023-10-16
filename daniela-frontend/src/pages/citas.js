@@ -3,7 +3,7 @@ import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bo
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function citas() {
+function Citas() {
 
   // Crear un estado para cada campo del formulario
   const [nombre, setNombre] = useState('');
@@ -128,4 +128,4 @@ function citas() {
   );
 }
 
-export default citas;
+export default Citas;
