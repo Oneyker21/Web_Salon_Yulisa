@@ -37,7 +37,7 @@ function Header() {
                   <Link to="/actualizar-cliente" className="link-unstyled">Actualizar Usuario</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item>
-                  <Link to="/ver-cliente" className="link-unstyled">Ver Usuario</Link>
+                  <Link to="/vercliente" className="link-unstyled">Ver Usuario</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
