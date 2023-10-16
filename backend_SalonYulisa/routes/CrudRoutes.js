@@ -115,13 +115,13 @@ module.exports = (db) => {
   //------------------------------------------------CRUD EMPLEADO-----------------------------------------------
 
   /*  
-   curl http://localhost:5000/crud/empleados
+   curl http://localhost:5000/crud/readempleados
  
-   curl -X POST -H "Content-Type: application/json" -d "{\"nombre\":\"Oneyker\",\"apellido\":\"Galeano\",\"telefono\":\"12345678\",\"direccion\":\"la chula mula\"}" http://localhost:5000/crud/empleados
+   curl -X POST -H "Content-Type: application/json" -d "{\"nombre\":\"Oneyker\",\"apellido\":\"Galeano\",\"telefono\":\"12345678\",\"direccion\":\"la chula mula\"}" http://localhost:5000/crud/createempleados
  
-  curl -X PUT -H "Content-Type: application/json" -d "{\"nombre\":\"NuevoNombre\",\"apellido\":\"NuevoApellido\",\"telefono\":\"NuevoTelefono\",\"direccion\":\"NuevaDireccion\"}" http://localhost:5000/crud/empleados/1
+  curl -X PUT -H "Content-Type: application/json" -d "{\"nombre\":\"NuevoNombre\",\"apellido\":\"NuevoApellido\",\"telefono\":\"NuevoTelefono\",\"direccion\":\"NuevaDireccion\"}" http://localhost:5000/crud/upgradeempleados/1
  
-   curl -X DELETE http://localhost:5000/crud/empleados/1 */
+   curl -X DELETE http://localhost:5000/crud/deleteempleados/1 */
 
 
 
@@ -207,13 +207,13 @@ module.exports = (db) => {
   //------------------------------------------------CRUD CITAS-----------------------------------------------
 
     /* 
-  curl http://localhost:5000/crud/citas
+  curl http://localhost:5000/crud/readcitas
 
-  curl -X POST -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-05\",\"id_cliente\":1,\"id_empleado\":2}" http://localhost:5000/crud/citas
+  curl -X POST -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-05\",\"id_cliente\":1,\"id_empleado\":2}" http://localhost:5000/crud/createcitas
 
-  curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-06\",\"id_cliente\":3,\"id_empleado\":4}" http://localhost:5000/crud/citas/1
+  curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-06\",\"id_cliente\":3,\"id_empleado\":4}" http://localhost:5000/crud/upgradecitas/1
 
-  curl -X DELETE http://localhost:5000/crud/citas/1
+  curl -X DELETE http://localhost:5000/crud/deletecitas/1
   
   */
 
@@ -298,13 +298,13 @@ module.exports = (db) => {
 
   //------------------------------------------------CRUD SERVICIOS-----------------------------------------------
   /* 
-  curl http://localhost:5000/crud/servicios
+  curl http://localhost:5000/crud/readservicios
 
-  curl -X POST -H "Content-Type: application/json" -d "{\"nombre_servicio\":\"NombreServicio\",\"descripcion\":\"DescripciónServicio\",\"precio_servicio\":100,\"cod_cita\":1}" http://localhost:5000/crud/servicios
+  curl -X POST -H "Content-Type: application/json" -d "{\"nombre_servicio\":\"NombreServicio\",\"descripcion\":\"DescripciónServicio\",\"precio_servicio\":100,\"cod_cita\":1}" http://localhost:5000/crud/createservicios
 
-  curl -X PUT -H "Content-Type: application/json" -d "{\"nombre_servicio\":\"NuevoNombre\",\"descripcion\":\"NuevaDescripción\",\"precio_servicio\":200,\"cod_cita\":2}" http://localhost:5000/crud/servicios/1
+  curl -X PUT -H "Content-Type: application/json" -d "{\"nombre_servicio\":\"NuevoNombre\",\"descripcion\":\"NuevaDescripción\",\"precio_servicio\":200,\"cod_cita\":2}" http://localhost:5000/crud/upgradeservicios/1
 
-  curl -X DELETE http://localhost:5000/crud/servicios/1
+  curl -X DELETE http://localhost:5000/crud/deleteservicios/1
 
   */
 
@@ -392,13 +392,13 @@ module.exports = (db) => {
   //------------------------------------------------CRUD TESTIMONIOS-----------------------------------------------
 
 /* 
-  curl http://localhost:5000/crud/testimonios
+  curl http://localhost:5000/crud/readtestimonios
 
-  curl -X POST -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-05\",\"testimonio\":\"Este es un testimonio\",\"id_cliente\":1}" http://localhost:5000/crud/testimonios
+  curl -X POST -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-05\",\"testimonio\":\"Este es un testimonio\",\"id_cliente\":1}" http://localhost:5000/crud/createtestimonios
 
-  curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-10\",\"testimonio\":\"Testimonio actualizado\",\"id_cliente\":2}" http://localhost:5000/crud/testimonios/1
+  curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-10\",\"testimonio\":\"Testimonio actualizado\",\"id_cliente\":2}" http://localhost:5000/crud/upgradetestimonios/1
 
-  curl -X DELETE http://localhost:5000/crud/testimonios/1
+  curl -X DELETE http://localhost:5000/crud/deletetestimonios/1
 
 */
 
