@@ -11,7 +11,7 @@ app.use(express.json());
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'ONEYKER2105',
+    password: 'Mysql2023',
     database: 'salon_yulisa'
 });
 
@@ -25,7 +25,7 @@ db.connect((err) => {
 
 app.use(cors());
 
-const crudRoutes = require('./routes/crudRoutes.js')(db); //Pasa la instancia de la base de datos a crudRoutes
+const crudRoutes = require('./routes/CrudRoutes.js')(db); //Pasa la instancia de la base de datos a crudRoutes
 app.use('/crud', crudRoutes);
 
 app.listen(port, () => {

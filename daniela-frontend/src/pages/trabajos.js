@@ -3,12 +3,14 @@ import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bo
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function Usuario() {
+function Trabajos() {
 
   // Crear un estado para cada campo del formulario
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
-  const [telefono, setTelefono] = useState(''); // Cambié la variable a 'telefono'
+  const [cedula, setCedula] = useState('');
+  const [direccionEnvio, setDireccionEnvio] = useState('');
+  const [historialdecompras, setHistorialDeCompras] = useState('');
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
@@ -18,7 +20,9 @@ function Usuario() {
     const formData = {
       nombre,
       apellido,
-      telefono, // Mantuve 'telefono'
+      cedula,
+      direccionEnvio,
+      historialdecompras,
     };
 
     try {
@@ -37,7 +41,9 @@ function Usuario() {
         // Reiniciar los campos del formulario
         setNombre('');
         setApellido('');
-        setTelefono('');
+        setCedula('');
+        setDireccionEnvio('');
+        setHistorialDeCompras('');
       } else {
         alert('Error al registrar el cliente');
       }
@@ -47,17 +53,17 @@ function Usuario() {
     }
   };
 
-  return (
+  return(
     <div>
       <Header />
-
+      
       <Container>
         <Card className="mt-3">
           <Card.Body>
-            <Card.Title>Registro de Clientes</Card.Title>
+            <Card.Title>Registro de Trabajos</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="4">
+                <Col sm="6" md="6" lg="6">
                   <FloatingLabel controlId="nombre" label="Nombre">
                     <Form.Control
                       type="text"
@@ -67,7 +73,7 @@ function Usuario() {
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="6" md="6" lg="4">
+                <Col sm="6" md="6" lg="6">
                   <FloatingLabel controlId="apellido" label="Apellido">
                     <Form.Control
                       type="text"
@@ -77,13 +83,33 @@ function Usuario() {
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="12" md="6" lg="4">
-                  <FloatingLabel controlId="telefono" label="Teléfono">
-                    <Form.Control
-                      type="text"
-                      placeholder="Ingrese el teléfono"
-                      value={telefono}
-                      onChange={(e) => setTelefono(e.target.value)}
+                <Col sm="12" md="6" lg="6">
+                  <FloatingLabel controlId="cedula" label="Cédula">
+                    <Form.Control 
+                      type="text" 
+                      placeholder="Ingrese la cédula"
+                      value={cedula}
+                      onChange={(e) => setCedula(e.target.value)} 
+                    />
+                  </FloatingLabel>
+                </Col>
+                <Col sm="12" md="6" lg="6">
+                  <FloatingLabel controlId="direccion" label="Dirección">
+                    <Form.Control 
+                      type="text" 
+                      placeholder="Ingrese la dirección"
+                      value={direccionEnvio}
+                      onChange={(e) => setDireccionEnvio(e.target.value)} 
+                    />
+                  </FloatingLabel>
+                </Col>
+                <Col sm="12" md="12" lg="12">
+                  <FloatingLabel controlId="historialdecompras" label="Historial de compras">
+                    <Form.Control 
+                      type="text" 
+                      placeholder="Ingrese el historial de compras" 
+                      value={historialdecompras}
+                      onChange={(e) => setHistorialDeCompras(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
@@ -97,8 +123,9 @@ function Usuario() {
           </Card.Body>
         </Card>
       </Container>
+
     </div>
   );
 }
 
-export default Usuario;
+export default Trabajos;
