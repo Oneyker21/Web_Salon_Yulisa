@@ -29,9 +29,9 @@ function Header() {
               <Nav.Link>
                 <Link to="/about" className="link-unstyled">Contacto</Link>
               </Nav.Link>
-              <NavDropdown title="Usuarios" id="clientes">
+              <NavDropdown title="Usuarios" id="Estilistas">
                 <NavDropdown.Item>
-                  <Link to="/customer" className="link-unstyled">Registrar Usuario</Link>
+                  <Link to="/usuario" className="link-unstyled">Registrar Usuario</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item>
                   <Link to="/actualizar-cliente" className="link-unstyled">Actualizar Usuario</Link>

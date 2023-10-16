@@ -3,7 +3,7 @@ import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bo
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function Customer() {
+function Usuario() {
 
   // Crear un estado para cada campo del formulario
   const [nombre, setNombre] = useState('');
@@ -60,7 +60,7 @@ function Customer() {
       <Container>
         <Card className="mt-3">
           <Card.Body>
-            <Card.Title>Registro de Cliente</Card.Title>
+            <Card.Title>Registro de Usuarios</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
                 <Col sm="6" md="6" lg="6">
@@ -128,4 +128,4 @@ function Customer() {
   );
 }
 
-export default Customer;
+export default Usuario;
