@@ -92,7 +92,7 @@ function Usuariolist() {
 
       <Card className="m-3">
         <Card.Body>
-          <Card.Title className="mb-3">Listado de Clientes</Card.Title>
+          <Card.Title className="mb-6">Listado de Clientes</Card.Title>
           <Table striped bordered hover>
             <thead>
               <tr>
