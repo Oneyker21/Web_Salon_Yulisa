@@ -11,6 +11,7 @@ function Usuariolist() {
     apellido: '',
     telefono: '',
   });
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Función para abrir el modal y pasar los datos del cliente seleccionado
   const openModal = (cliente) => {
@@ -34,7 +35,11 @@ function Usuariolist() {
   };
 
   const loadClientes = () => {
-    fetch('http://localhost:5000/crud/readclientes')
+    const url = searchTerm
+      ? `http://localhost:5000/crud/searchclientes?term=${encodeURIComponent(searchTerm)}`
+      : 'http://localhost:5000/crud/readclientes';
+
+    fetch(url)
       .then((response) => response.json())
       .then((data) => setClientes(data))
       .catch((error) => console.error('Error al obtener los clientes:', error));
@@ -80,11 +85,8 @@ function Usuariolist() {
 
   // Realiza una solicitud GET al servidor para obtener los clientes
   useEffect(() => {
-    fetch('http://localhost:5000/crud/readclientes')
-      .then((response) => response.json())
-      .then((data) => setClientes(data))
-      .catch((error) => console.error('Error al obtener los docentes y personas:', error));
-  }, []);
+    loadClientes();
+  }, [searchTerm]);
 
   return (
     <div>
@@ -93,6 +95,13 @@ function Usuariolist() {
       <Card className="m-3">
         <Card.Body>
           <Card.Title className="mb-6">Listado de Clientes</Card.Title>
+          <Form.Control
+            type="text"
+            placeholder="Buscar clientes"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="mb-3"
+          />
           <Table striped bordered hover>
             <thead>
               <tr>

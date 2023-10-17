@@ -1,3 +1,4 @@
+USE salon_yulisa;
 /* TRIGGER */
 
 -- Tabla Bitacora
@@ -53,3 +54,24 @@ AFTER DELETE ON Empleado
 FOR EACH ROW
 INSERT INTO bitacora(transaccion, usuario, fecha, tabla)
 VALUES ('DELETE', current_user(),NOW(), 'Empleado');
+
+-- Disparador Insertar Cita
+CREATE TRIGGER InsertarCita_bitacora
+AFTER INSERT ON Cita
+FOR EACH ROW
+INSERT INTO bitacora(transaccion, usuario, fecha, tabla)
+VALUES ('INSERT', current_user(), NOW(), 'Cita');
+
+-- Actualizar
+CREATE TRIGGER ActualizarCita_bitacora
+AFTER UPDATE ON Cita
+FOR EACH ROW
+INSERT INTO bitacora(transaccion, usuario, fecha, tabla)
+VALUES ('UPDATE', current_user(), NOW(), 'Cita');
+
+-- Eliminar
+CREATE TRIGGER EliminarCita_bitacora
+AFTER DELETE ON Cita
+FOR EACH ROW
+INSERT INTO bitacora(transaccion, usuario, fecha, tabla)
+VALUES ('DELETE', current_user(), NOW(), 'Cita');
