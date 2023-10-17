@@ -3,24 +3,26 @@ import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } 
 import Header from '../components/Header';
 
 function Usuariolist() {
-  const [clientes, setClientes] = useState([]);
+  const [empleados, setEmpleados] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [selectedCliente, setSelectedCliente] = useState({});
+  const [selectedEmpleado, setSelectedEmpleado] = useState({});
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
     telefono: '',
+    direccion: '',
   });
   const [searchTerm, setSearchTerm] = useState('');
 
   // Función para abrir el modal y pasar los datos del cliente seleccionado
-  const openModal = (cliente) => {
-    setSelectedCliente(cliente);
+  const openModal = (empleado) => {
+    setSelectedEmpleado(empleado);
 
     setFormData({
-      nombre: cliente.nombre,
-      apellido: cliente.apellido,
-      telefono: cliente.telefono,
+      nombre: empleado.nombre,
+      apellido: empleado.apellido,
+      telefono: empleado.telefono,
+      direccion: empleado.direccion,
     });
     setShowModal(true);
   };
@@ -34,21 +36,21 @@ function Usuariolist() {
     });
   };
 
-  const loadClientes = () => {
+  const loadEmpleados = () => {
     const url = searchTerm
-      ? `http://localhost:5000/crud/searchclientes?term=${encodeURIComponent(searchTerm)}`
-      : 'http://localhost:5000/crud/readclientes';
+      ? `http://localhost:5000/crud/searchempleados?term=${encodeURIComponent(searchTerm)}`
+      : 'http://localhost:5000/crud/readempleados';
 
     fetch(url)
       .then((response) => response.json())
-      .then((data) => setClientes(data))
-      .catch((error) => console.error('Error al obtener los clientes:', error));
+      .then((data) => setEmpleados(data))
+      .catch((error) => console.error('Error al obtener los empleados:', error));
   };
 
   // Función para enviar el formulario de actualización
   const handleUpdate = () => {
     // Realiza la solicitud PUT al servidor para actualizar el registro
-    fetch(`http://localhost:5000/crud/upgradeclientes/${selectedCliente.id_cliente}`, {
+    fetch(`http://localhost:5000/crud/upgradeempleados/${selectedEmpleado.id_empleado}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -57,35 +59,35 @@ function Usuariolist() {
     })
       .then((response) => {
         if (response.ok) {
-          // La actualización fue exitosa, puedes cerrar el modal y refrescar la lista de clientes
+          // La actualización fue exitosa, puedes cerrar el modal y refrescar la lista de empleados
           setShowModal(false);
-          loadClientes(); // Cargar la lista de clientes actualizada
+          loadEmpleados(); // Cargar la lista de empleados actualizada
         }
       })
       .catch((error) => console.error('Error al actualizar el registro:', error));
   };
 
-  // Función para eliminar un cliente
-  const handleDelete = (idCliente) => {
-    const confirmation = window.confirm('¿Seguro que deseas eliminar este cliente?');
+  // Función para eliminar un empleado
+  const handleDelete = (idEmpleado) => {
+    const confirmation = window.confirm('¿Seguro que deseas eliminar este empleado?');
     if (confirmation) {
-      // Realiza la solicitud DELETE al servidor para eliminar el cliente
-      fetch(`http://localhost:5000/crud/deleteclientes/${idCliente}`, {
+      // Realiza la solicitud DELETE al servidor para eliminar el empleado
+      fetch(`http://localhost:5000/crud/deleteempleados/${idEmpleado}`, {
         method: 'DELETE',
       })
         .then((response) => {
           if (response.ok) {
-            // La eliminación fue exitosa, refresca la lista de clientes
-            loadClientes();
+            // La eliminación fue exitosa, refresca la lista de empleados
+            loadEmpleados();
           }
         })
-        .catch((error) => console.error('Error al eliminar el cliente:', error));
+        .catch((error) => console.error('Error al eliminar el empleado:', error));
     }
   };
 
-  // Realiza una solicitud GET al servidor para obtener los clientes
+  // Realiza una solicitud GET al servidor para obtener los empleados
   useEffect(() => {
-    loadClientes();
+    loadEmpleados();
   }, [searchTerm]);
 
   return (
@@ -94,10 +96,10 @@ function Usuariolist() {
 
       <Card className="m-3">
         <Card.Body>
-          <Card.Title className="mb-6">Listado de Clientes</Card.Title>
+          <Card.Title className="mb-6">Listado de Empleados</Card.Title>
           <Form.Control
             type="text"
-            placeholder="Buscar clientes"
+            placeholder="Buscar empleado"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="mb-3"
@@ -109,19 +111,21 @@ function Usuariolist() {
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Teléfono</th>
+                <th>Dirección</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {clientes.map((cliente) => (
-                <tr key={cliente.id_cliente}>
-                  <td>{cliente.id_cliente}</td>
-                  <td>{cliente.nombre}</td>
-                  <td>{cliente.apellido}</td>
-                  <td>{cliente.telefono}</td>
+              {empleados.map((empleado) => (
+                <tr key={empleado.id_empleado}>
+                  <td>{empleado.id_empleado}</td>
+                  <td>{empleado.nombre}</td>
+                  <td>{empleado.apellido}</td>
+                  <td>{empleado.telefono}</td>
+                  <td>{empleado.direccion}</td>
                   <td>
-                    <Button variant="primary" onClick={() => openModal(cliente)}>Actualizar</Button>
-                    <Button variant="danger" onClick={() => handleDelete(cliente.id_cliente)}>Eliminar</Button>
+                    <Button variant="primary" onClick={() => openModal(empleado)}>Actualizar</Button>
+                    <Button variant="danger" onClick={() => handleDelete(empleado.id_empleado)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -132,12 +136,12 @@ function Usuariolist() {
 
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Actualizar Cliente</Modal.Title>
+          <Modal.Title>Actualizar Empleado</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Card className="mt-3">
             <Card.Body>
-              <Card.Title>Registro de Cliente</Card.Title>
+              <Card.Title>Registro de Empleado</Card.Title>
               <Form className="mt-3">
                 <Row className="g-3">
                   <Col sm="6" md="6" lg="4">
@@ -163,7 +167,7 @@ function Usuariolist() {
                       />
                     </FloatingLabel>
                   </Col>
-
+                  
                   <Col sm="12" md="6" lg="4">
                     <FloatingLabel controlId="telefono" label="Teléfono">
                       <Form.Control
@@ -175,6 +179,18 @@ function Usuariolist() {
                       />
                     </FloatingLabel>
                   </Col>
+                  <Col sm="12" md="6" lg="12">
+                    <FloatingLabel controlId="direccion" label="Dirección">
+                      <Form.Control
+                        type="text"
+                        placeholder="Ingrese la dirección"
+                        name="direccion"
+                        value={formData.direccion}
+                        onChange={handleFormChange}
+                      />
+                    </FloatingLabel>
+                  </Col>
+                  
                 </Row>
               </Form>
             </Card.Body>

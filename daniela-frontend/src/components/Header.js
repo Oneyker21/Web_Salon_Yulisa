@@ -29,19 +29,13 @@ function Header() {
               <Nav.Link>
                 <Link to="/about" className="link-unstyled">Contacto</Link>
               </Nav.Link>
-              <NavDropdown title="Usuarios" id="Estilistas">
+              <NavDropdown title="Empleados" id="Estilistas">
                 <NavDropdown.Item>
-                  <Link to="/usuario" className="link-unstyled">Registrar Usuario</Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to="/actualizar-cliente" className="link-unstyled">Actualizar Usuario</Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to="/vercliente" className="link-unstyled">Ver Usuario</Link>
+                  <Link to="/usuario" className="link-unstyled">Registrar Empleado</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
-                  <Link to="/eliminar-cliente" className="link-unstyled">Eliminar Usuario</Link>
+                  <Link to="/vercliente" className="link-unstyled">Empleados</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
@@ -49,15 +43,9 @@ function Header() {
                 <NavDropdown.Item>
                   <Link to="/citas" className="link-unstyled">Registrar Cita</Link>
                 </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to="/actualizar-cita" className="link-unstyled">Actualizar Cita</Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to="/ver-cita" className="link-unstyled">Ver Cita</Link>
-                </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
-                  <Link to="/eliminar-cita" className="link-unstyled">Eliminar Cita</Link>
+                  <Link to="/ver-cita" className="link-unstyled">citas</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
@@ -65,15 +53,9 @@ function Header() {
                 <NavDropdown.Item>
                   <Link to="/trabajo" className="link-unstyled">Registrar Trabajos</Link>
                 </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to="/actualizar-cita" className="link-unstyled">Actualizar Trabajos</Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to="/ver-cita" className="link-unstyled">Ver Trabajos</Link>
-                </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
-                  <Link to="/eliminar-cita" className="link-unstyled">Eliminar Trabajos</Link>
+                  <Link to="/ver-cita" className="link-unstyled">Trabajos</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
