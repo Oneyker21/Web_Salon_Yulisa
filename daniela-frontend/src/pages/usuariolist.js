@@ -7,9 +7,9 @@ function Usuariolist() {
   const [showModal, setShowModal] = useState(false);
   const [selectedCliente, setSelectedCliente] = useState({});
   const [formData, setFormData] = useState({
-    Nombres: '',
-    Apellidos: '',
-    Telefono: '',
+    nombre: '',
+    apellido: '',
+    telefono: '',
   });
 
   // Función para abrir el modal y pasar los datos del cliente seleccionado
@@ -17,9 +17,9 @@ function Usuariolist() {
     setSelectedCliente(cliente);
 
     setFormData({
-      Nombres: cliente.Nombres,
-      Apellidos: cliente.Apellidos,
-      Telefono: cliente.Telefono,
+      nombre: cliente.nombre,
+      apellido: cliente.apellido,
+      telefono: cliente.telefono,
     });
     setShowModal(true);
   };
@@ -80,7 +80,10 @@ function Usuariolist() {
 
   // Realiza una solicitud GET al servidor para obtener los clientes
   useEffect(() => {
-    loadClientes();
+    fetch('http://localhost:5000/crud/readclientes')
+      .then((response) => response.json())
+      .then((data) => setClientes(data))
+      .catch((error) => console.error('Error al obtener los docentes y personas:', error));
   }, []);
 
   return (
@@ -104,9 +107,9 @@ function Usuariolist() {
               {clientes.map((cliente) => (
                 <tr key={cliente.id_cliente}>
                   <td>{cliente.id_cliente}</td>
-                  <td>{cliente.Nombres}</td>
-                  <td>{cliente.Apellidos}</td>
-                  <td>{cliente.Telefono}</td>
+                  <td>{cliente.nombre}</td>
+                  <td>{cliente.apellido}</td>
+                  <td>{cliente.telefono}</td>
                   <td>
                     <Button variant="primary" onClick={() => openModal(cliente)}>Actualizar</Button>
                     <Button variant="danger" onClick={() => handleDelete(cliente.id_cliente)}>Eliminar</Button>
@@ -129,24 +132,24 @@ function Usuariolist() {
               <Form className="mt-3">
                 <Row className="g-3">
                   <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="nombres" label="Nombres">
+                    <FloatingLabel controlId="nombre" label="Nombres">
                       <Form.Control
                         type="text"
                         placeholder="Ingrese los nombres"
-                        name="Nombres"
-                        value={formData.Nombres}
+                        name="nombre"
+                        value={formData.nombre}
                         onChange={handleFormChange}
                       />
                     </FloatingLabel>
                   </Col>
 
                   <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="apellidos" label="Apellidos">
+                    <FloatingLabel controlId="apellido" label="Apellidos">
                       <Form.Control
                         type="text"
                         placeholder="Ingrese los apellidos"
-                        name="Apellidos"
-                        value={formData.Apellidos}
+                        name="apellido"
+                        value={formData.apellido}
                         onChange={handleFormChange}
                       />
                     </FloatingLabel>
@@ -157,8 +160,8 @@ function Usuariolist() {
                       <Form.Control
                         type="number"
                         placeholder="Ingrese el teléfono"
-                        name="Telefono"
-                        value={formData.Telefono}
+                        name="telefono"
+                        value={formData.telefono}
                         onChange={handleFormChange}
                       />
                     </FloatingLabel>
