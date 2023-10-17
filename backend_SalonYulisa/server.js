@@ -8,10 +8,20 @@ const port = 5000;
 app.use(express.json());
 
 // Configuración de la conexión a la base de datos
-const db = mysql.createConnection({
+
+/* Daniela */
+/* const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'Mysql2023',
+    database: 'salon_yulisa'
+}); */
+
+/* Oneyker */
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'ONEYKER2105',
     database: 'salon_yulisa'
 });
 
