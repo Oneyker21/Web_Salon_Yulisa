@@ -206,16 +206,16 @@ module.exports = (db) => {
 
   //------------------------------------------------CRUD CITAS-----------------------------------------------
 
-    /* 
-  curl http://localhost:5000/crud/readcitas
+  /* 
+curl http://localhost:5000/crud/readcitas
 
-  curl -X POST -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-05\",\"id_cliente\":1,\"id_empleado\":2}" http://localhost:5000/crud/createcitas
+curl -X POST -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-05\",\"id_cliente\":1,\"id_empleado\":2}" http://localhost:5000/crud/createcitas
 
-  curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-06\",\"id_cliente\":3,\"id_empleado\":4}" http://localhost:5000/crud/upgradecitas/1
+curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-06\",\"id_cliente\":3,\"id_empleado\":4}" http://localhost:5000/crud/upgradecitas/1
 
-  curl -X DELETE http://localhost:5000/crud/deletecitas/1
-  
-  */
+curl -X DELETE http://localhost:5000/crud/deletecitas/1
+ 
+*/
 
   // Ruta para leer registros de la tabla Cita
   router.get('/readcitas', (req, res) => {
@@ -391,16 +391,16 @@ module.exports = (db) => {
 
   //------------------------------------------------CRUD TESTIMONIOS-----------------------------------------------
 
-/* 
-  curl http://localhost:5000/crud/readtestimonios
-
-  curl -X POST -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-05\",\"testimonio\":\"Este es un testimonio\",\"id_cliente\":1}" http://localhost:5000/crud/createtestimonios
-
-  curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-10\",\"testimonio\":\"Testimonio actualizado\",\"id_cliente\":2}" http://localhost:5000/crud/upgradetestimonios/1
-
-  curl -X DELETE http://localhost:5000/crud/deletetestimonios/1
-
-*/
+  /* 
+    curl http://localhost:5000/crud/readtestimonios
+  
+    curl -X POST -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-05\",\"testimonio\":\"Este es un testimonio\",\"id_cliente\":1}" http://localhost:5000/crud/createtestimonios
+  
+    curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-10\",\"testimonio\":\"Testimonio actualizado\",\"id_cliente\":2}" http://localhost:5000/crud/upgradetestimonios/1
+  
+    curl -X DELETE http://localhost:5000/crud/deletetestimonios/1
+  
+  */
 
   // Ruta para leer registros de la tabla Testimonio
   router.get('/readtestimonios', (req, res) => {
