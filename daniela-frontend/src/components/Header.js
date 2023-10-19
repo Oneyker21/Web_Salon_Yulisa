@@ -39,6 +39,16 @@ function Header() {
                 </NavDropdown.Item>
               </NavDropdown>
 
+              <NavDropdown title="Clientes" id="Clientes">
+                <NavDropdown.Item>
+                  <Link to="/cliente" className="link-unstyled">Registrar Cliente</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>
+                  <Link to="/vercliente" className="link-unstyled">Clientes</Link>
+                </NavDropdown.Item>
+              </NavDropdown>
+
               <NavDropdown title="Citas" id="Cita">
                 <NavDropdown.Item>
                   <Link to="/citas" className="link-unstyled">Registrar Cita</Link>
