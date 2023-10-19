@@ -31,11 +31,11 @@ function Header() {
               </Nav.Link>
               <NavDropdown title="Empleados" id="Estilistas">
                 <NavDropdown.Item>
-                  <Link to="/usuario" className="link-unstyled">Registrar Empleado</Link>
+                  <Link to="/empleado" className="link-unstyled">Registrar Empleado</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
-                  <Link to="/vercliente" className="link-unstyled">Empleados</Link>
+                  <Link to="/verempleado" className="link-unstyled">Empleados</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
