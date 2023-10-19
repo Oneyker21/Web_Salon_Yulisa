@@ -167,7 +167,7 @@ function Usuariolist() {
                       />
                     </FloatingLabel>
                   </Col>
-
+                  
                   <Col sm="12" md="6" lg="4">
                     <FloatingLabel controlId="telefono" label="Teléfono">
                       <Form.Control
@@ -190,7 +190,7 @@ function Usuariolist() {
                       />
                     </FloatingLabel>
                   </Col>
-
+                  
                 </Row>
               </Form>
             </Card.Body>
