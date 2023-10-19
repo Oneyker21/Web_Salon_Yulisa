@@ -4,6 +4,8 @@ CREATE DATABASE Salon_yulisa;
 # SELECCION DE BD
 USE Salon_yulisa;
 
+select * from bitacora;
+
 # CREACION DE TABLA Cliente
 CREATE TABLE Cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,

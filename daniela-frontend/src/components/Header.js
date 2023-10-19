@@ -55,7 +55,7 @@ function Header() {
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
-                  <Link to="/ver-cita" className="link-unstyled">citas</Link>
+                  <Link to="/citaslist" className="link-unstyled">citas</Link>
                 </NavDropdown.Item>
               </NavDropdown>
 
