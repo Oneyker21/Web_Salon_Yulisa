@@ -94,7 +94,7 @@ function Usuariolist() {
 
       <Card className="m-3">
         <Card.Body>
-          <Card.Title className="mb-6">Listado de Citas</Card.Title>
+          <Card.Title className="mb-6 title">Listado de Citas</Card.Title>
           <Form.Control
             type="text"
             placeholder="Buscar cita"
@@ -104,7 +104,7 @@ function Usuariolist() {
           />
           <Table striped bordered hover>
             <thead>
-              <tr>
+              <tr className='centrado'>
                 <th>Código</th>
                 <th>Fecha de Cita</th>
                 <th>ID Cliente</th>
@@ -114,14 +114,14 @@ function Usuariolist() {
             </thead>
             <tbody>
               {citas.map((cita) => (
-                <tr key={cita.cod_cita}>
+                <tr className='centrado' key={cita.cod_cita}>
                   <td>{cita.cod_cita}</td>
                   <td>{formatDateForInput(cita.fecha_cita)}</td>
                   <td>{cita.id_cliente}</td>
                   <td>{cita.id_empleado}</td>
-                  <td>
-                    <Button variant="primary" onClick={() => openModal(cita)}>Actualizar</Button>
-                    <Button variant="danger" onClick={() => handleDelete(cita.cod_cita)}>Eliminar</Button>
+                  <td className='buttomsAE'>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(cita)}>Actualizar</Button>
+                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cita.cod_cita)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -144,7 +144,7 @@ function Usuariolist() {
                     <FloatingLabel controlId="fecha_cita" label="Fecha de Cita">
                       <Form.Control
                         type="date"
-                        name="fechaCita"
+                        name="fecha_cita"
                         value={formData.fecha_cita}
                         onChange={handleFormChange}
                       />
@@ -155,7 +155,7 @@ function Usuariolist() {
                     <FloatingLabel controlId="id_cliente" label="ID Cliente">
                       <Form.Control
                         type="text"
-                        name="idCliente"
+                        name="id_cliente"
                         value={formData.id_cliente}
                         onChange={handleFormChange}
                       />
@@ -166,7 +166,7 @@ function Usuariolist() {
                     <FloatingLabel controlId="id_empleado" label="ID Empleado">
                       <Form.Control
                         type="text"
-                        name="idEmpleado"
+                        name="id_empleado"
                         value={formData.id_empleado}
                         onChange={handleFormChange}
                       />

@@ -48,11 +48,11 @@ function Usuario() {
       <Container>
         <Card className="mt-3">
           <Card.Body>
-            <Card.Title>Registro de Citas</Card.Title>
+            <Card.Title className='title'>Registro de Citas</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
                 <Col sm="6" md="6" lg="4">
-                  <FloatingLabel controlId="fechaCita" label="Fecha de Cita">
+                  <FloatingLabel controlId="fecha_cita" label="Fecha de Cita">
                     <Form.Control
                       type="date"
                       value={fecha_cita}
@@ -61,7 +61,7 @@ function Usuario() {
                   </FloatingLabel>
                 </Col>
                 <Col sm="6" md="6" lg="4">
-                  <FloatingLabel controlId="idCliente" label="ID Cliente">
+                  <FloatingLabel controlId="id_cliente" label="ID Cliente">
                     <Form.Control
                       type="text"
                       value={id_cliente}
@@ -70,7 +70,7 @@ function Usuario() {
                   </FloatingLabel>
                 </Col>
                 <Col sm="6" md="6" lg="4">
-                  <FloatingLabel controlId="idEmpleado" label="ID Empleado">
+                  <FloatingLabel controlId="id_empleado" label="ID Empleado">
                     <Form.Control
                       type="text"
                       value={id_empleado}

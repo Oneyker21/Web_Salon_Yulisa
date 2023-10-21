@@ -19,10 +19,10 @@ function App() {
         <Route path="/citas" element={<Citas />} />
         <Route path="/citaslist" element={<CitasList />} />
         <Route path="/empleado" element={<Empleado />} />
-        <Route path="/trabajo" element={<Trabajos />} />
         <Route path="/verempleado" element={<VerEmpleado />} />
         <Route path="/cliente" element={<Cliente />} />
         <Route path="/vercliente" element={<VerCliente />} />
+        <Route path="/trabajo" element={<Trabajos />} />
       </Routes>
     </Router>
   );

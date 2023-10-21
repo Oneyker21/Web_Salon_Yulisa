@@ -27,3 +27,31 @@
     border-color: #a02f91;
   }
 }
+
+.title{
+  background-color: #a02f91;
+  color:#ffffff;
+  padding: 5px 10px 10px 10px;
+  border: 3px solid #610655;
+  border-radius: 10px;
+  cursor: default;
+  text-align: center;
+}
+.buttomsAE{
+  text-align: center;
+}
+.actualizar{
+  margin-right: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  border-radius: 5px;
+}
+.eliminar{
+  margin-left: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  border-radius: 5px;
+}
+.centrado{
+  text-align: center;
+}

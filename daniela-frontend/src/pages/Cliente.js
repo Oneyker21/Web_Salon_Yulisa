@@ -53,7 +53,7 @@ function Usuario() {
       <Container>
         <Card className="mt-3">
           <Card.Body>
-            <Card.Title>Registro de Clientes</Card.Title>
+            <Card.Title className='title'>Registro de Clientes</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
                 <Col sm="6" md="6" lg="4">

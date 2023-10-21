@@ -96,7 +96,7 @@ function Usuariolist() {
 
       <Card className="m-3">
         <Card.Body>
-          <Card.Title className="mb-6">Listado de Clientes</Card.Title>
+          <Card.Title className="mb-6 title">Listado de Clientes</Card.Title>
           <Form.Control
             type="text"
             placeholder="Buscar cliente"
@@ -106,7 +106,7 @@ function Usuariolist() {
           />
           <Table striped bordered hover>
             <thead>
-              <tr>
+              <tr className='centrado'>
                 <th>ID</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
@@ -116,14 +116,14 @@ function Usuariolist() {
             </thead>
             <tbody>
               {clientes.map((cliente) => (
-                <tr key={cliente.id_cliente}>
+                <tr className='centrado' key={cliente.id_cliente}>
                   <td>{cliente.id_cliente}</td>
                   <td>{cliente.nombre}</td>
                   <td>{cliente.apellido}</td>
                   <td>{cliente.telefono}</td>
                   <td>
-                    <Button variant="primary" onClick={() => openModal(cliente)}>Actualizar</Button>
-                    <Button variant="danger" onClick={() => handleDelete(cliente.id_cliente)}>Eliminar</Button>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(cliente)}>Actualizar</Button>
+                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cliente.id_cliente)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}

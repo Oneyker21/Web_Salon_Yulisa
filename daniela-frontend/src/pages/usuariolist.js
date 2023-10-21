@@ -96,7 +96,7 @@ function Usuariolist() {
 
       <Card className="m-3">
         <Card.Body>
-          <Card.Title className="mb-6">Listado de Empleados</Card.Title>
+          <Card.Title className="mb-6 title">Listado de Empleados</Card.Title>
           <Form.Control
             type="text"
             placeholder="Buscar empleado"
@@ -106,26 +106,26 @@ function Usuariolist() {
           />
           <Table striped bordered hover>
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Teléfono</th>
-                <th>Dirección</th>
-                <th>Acciones</th>
+              <tr className='centrado'>
+                <th >ID</th>
+                <th >Nombres</th>
+                <th >Apellidos</th>
+                <th >Teléfono</th>
+                <th >Dirección</th>
+                <th >Acciones</th>
               </tr>
             </thead>
             <tbody>
               {empleados.map((empleado) => (
-                <tr key={empleado.id_empleado}>
-                  <td>{empleado.id_empleado}</td>
-                  <td>{empleado.nombre}</td>
-                  <td>{empleado.apellido}</td>
-                  <td>{empleado.telefono}</td>
-                  <td>{empleado.direccion}</td>
+                <tr className='centrado' key={empleado.id_empleado}>
+                  <td >{empleado.id_empleado}</td>
+                  <td >{empleado.nombre}</td>
+                  <td >{empleado.apellido}</td>
+                  <td >{empleado.telefono}</td>
+                  <td >{empleado.direccion}</td>
                   <td>
-                    <Button variant="primary" onClick={() => openModal(empleado)}>Actualizar</Button>
-                    <Button variant="danger" onClick={() => handleDelete(empleado.id_empleado)}>Eliminar</Button>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(empleado)}>Actualizar</Button>
+                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(empleado.id_empleado)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
