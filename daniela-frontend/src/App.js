@@ -10,6 +10,8 @@ import ServicioList from './pages/ServicioList';
 import VerEmpleado from './pages/UsuarioList';
 import Cliente from './pages/Cliente';
 import VerCliente from './pages/ClienteList';
+import TestimonioList from './pages/TestimonioList';
+import Testimonio from './pages/Testimonio';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/vercliente" element={<VerCliente />} />
         <Route path="/servicio" element={<Servicio />} />
         <Route path="/serviciolist" element={<ServicioList />} />
+        <Route path="/testimoniolist" element={<TestimonioList />} />
+        <Route path="/testimonio" element={<Testimonio />} />
       </Routes>
     </Router>
   );
