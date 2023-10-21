@@ -6,6 +6,7 @@ import Citas from './pages/Cita';
 import CitasList from './pages/CitaList';
 import Empleado from './pages/Usuario';
 import Servicio from './pages/Servicio';
+import ServicioList from './pages/ServicioList';
 import VerEmpleado from './pages/UsuarioList';
 import Cliente from './pages/Cliente';
 import VerCliente from './pages/ClienteList';
@@ -23,6 +24,7 @@ function App() {
         <Route path="/cliente" element={<Cliente />} />
         <Route path="/vercliente" element={<VerCliente />} />
         <Route path="/servicio" element={<Servicio />} />
+        <Route path="/serviciolist" element={<ServicioList />} />
       </Routes>
     </Router>
   );
