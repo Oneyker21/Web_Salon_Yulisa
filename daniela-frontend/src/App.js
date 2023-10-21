@@ -4,9 +4,9 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Citas from './pages/Cita';
 import CitasList from './pages/CitaList';
-import Empleado from './pages/usuarios';
-import Trabajos from './pages/trabajos';
-import VerEmpleado from './pages/usuariolist';
+import Empleado from './pages/Usuario';
+import Servicio from './pages/Servicio';
+import VerEmpleado from './pages/UsuarioList';
 import Cliente from './pages/Cliente';
 import VerCliente from './pages/ClienteList';
 
@@ -22,7 +22,7 @@ function App() {
         <Route path="/verempleado" element={<VerEmpleado />} />
         <Route path="/cliente" element={<Cliente />} />
         <Route path="/vercliente" element={<VerCliente />} />
-        <Route path="/trabajo" element={<Trabajos />} />
+        <Route path="/servicio" element={<Servicio />} />
       </Routes>
     </Router>
   );

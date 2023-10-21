@@ -61,7 +61,7 @@ function Header() {
 
               <NavDropdown title="Trabajos" id=" Trabajos">
                 <NavDropdown.Item>
-                  <Link to="/trabajo" className="link-unstyled">Registrar Trabajos</Link>
+                  <Link to="/servicio" className="link-unstyled">Registrar Trabajos</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item>
