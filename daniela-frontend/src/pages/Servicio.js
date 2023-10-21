@@ -3,14 +3,13 @@ import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bo
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function Trabajos() {
-
+function Usuario() {
   // Crear un estado para cada campo del formulario
-  const [nombre, setNombre] = useState('');
-  const [apellido, setApellido] = useState('');
-  const [cedula, setCedula] = useState('');
-  const [direccionEnvio, setDireccionEnvio] = useState('');
-  const [historialdecompras, setHistorialDeCompras] = useState('');
+  const [nombre_servicio, setNombreServicio] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [precio_servicio, setPrecioServicio] = useState('');
+  const [cod_cita, setCodCita] = useState('');
+
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
@@ -18,16 +17,15 @@ function Trabajos() {
 
     // Crear un objeto con los datos del formulario
     const formData = {
-      nombre,
-      apellido,
-      cedula,
-      direccionEnvio,
-      historialdecompras,
+      nombre_servicio,
+      descripcion,
+      precio_servicio,
+      cod_cita,
     };
 
     try {
       // Realizar una solicitud HTTP al backend para enviar los datos
-      const response = await fetch('http://localhost:5000/crud/createclientes', {
+      const response = await fetch('http://localhost:5000/crud/createservicios', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,13 +37,12 @@ function Trabajos() {
         // El registro se creó exitosamente
         alert('Registro exitoso');
         // Reiniciar los campos del formulario
-        setNombre('');
-        setApellido('');
-        setCedula('');
-        setDireccionEnvio('');
-        setHistorialDeCompras('');
+        setNombreServicio('');
+        setDescripcion('');
+        setPrecioServicio('');
+        setCodCita('');
       } else {
-        alert('Error al registrar el cliente');
+        alert('Error al registrar el servicio');
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
@@ -53,66 +50,58 @@ function Trabajos() {
     }
   };
 
-  return(
+  return (
     <div>
       <Header />
-      
+
       <Container>
         <Card className="mt-3">
           <Card.Body>
-            <Card.Title className='title'>Registro de Trabajos</Card.Title>
+            <Card.Title className='title'>Registro de Servicios</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="6">
-                  <FloatingLabel controlId="nombre" label="Nombre">
+                <Col sm="6" md="6" lg="4">
+                  <FloatingLabel controlId="nombre_servicio" label="Nombre Del Servicio">
                     <Form.Control
                       type="text"
                       placeholder="Ingrese el nombre"
-                      value={nombre}
-                      onChange={(e) => setNombre(e.target.value)}
+                      value={nombre_servicio}
+                      onChange={(e) => setNombreServicio(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="6" md="6" lg="6">
-                  <FloatingLabel controlId="apellido" label="Apellido">
+                <Col sm="6" md="6" lg="4">
+                  <FloatingLabel controlId="descripcion" label="Descripcion">
                     <Form.Control
                       type="text"
-                      placeholder="Ingrese el apellido"
-                      value={apellido}
-                      onChange={(e) => setApellido(e.target.value)}
+                      placeholder="Ingrese la descripcion"
+                      value={descripcion}
+                      onChange={(e) => setDescripcion(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="12" md="6" lg="6">
-                  <FloatingLabel controlId="cedula" label="Cédula">
-                    <Form.Control 
-                      type="text" 
-                      placeholder="Ingrese la cédula"
-                      value={cedula}
-                      onChange={(e) => setCedula(e.target.value)} 
+                <Col sm="12" md="6" lg="4">
+                  <FloatingLabel controlId="precio_servicio" label="Precio">
+                    <Form.Control
+                      type="number"
+                      placeholder="Ingrese el teléfono"
+                      value={precio_servicio}
+                      onChange={(e) => setPrecioServicio(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="12" md="6" lg="6">
-                  <FloatingLabel controlId="direccion" label="Dirección">
-                    <Form.Control 
-                      type="text" 
-                      placeholder="Ingrese la dirección"
-                      value={direccionEnvio}
-                      onChange={(e) => setDireccionEnvio(e.target.value)} 
+
+                <Col sm="12" md="6" lg="4">
+                  <FloatingLabel controlId="cod_cita" label="ID Cita">
+                    <Form.Control
+                      type="text"
+                      placeholder="ID Cita"
+                      value={cod_cita}
+                      onChange={(e) => setCodCita(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="12" md="12" lg="12">
-                  <FloatingLabel controlId="historialdecompras" label="Historial de compras">
-                    <Form.Control 
-                      type="text" 
-                      placeholder="Ingrese el historial de compras" 
-                      value={historialdecompras}
-                      onChange={(e) => setHistorialDeCompras(e.target.value)}
-                    />
-                  </FloatingLabel>
-                </Col>
+
               </Row>
               <div className="center-button">
                 <Button variant="primary" type="submit" className="mt-3 custom-button" size="lg">
@@ -123,9 +112,8 @@ function Trabajos() {
           </Card.Body>
         </Card>
       </Container>
-
     </div>
   );
 }
 
-export default Trabajos;
+export default Usuario;

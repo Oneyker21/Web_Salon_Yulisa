@@ -55,6 +55,7 @@ function Usuario() {
                   <FloatingLabel controlId="fecha_cita" label="Fecha de Cita">
                     <Form.Control
                       type="date"
+                      placeholder='Fecha de Cita'
                       value={fecha_cita}
                       onChange={(e) => setFechaCita(e.target.value)}
                     />
@@ -64,20 +65,24 @@ function Usuario() {
                   <FloatingLabel controlId="id_cliente" label="ID Cliente">
                     <Form.Control
                       type="text"
+                      placeholder='ID Cliente'
                       value={id_cliente}
                       onChange={(e) => setIdCliente(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
+
                 <Col sm="6" md="6" lg="4">
                   <FloatingLabel controlId="id_empleado" label="ID Empleado">
                     <Form.Control
                       type="text"
+                      placeholder="ID Empleado"
                       value={id_empleado}
                       onChange={(e) => setIdEmpleado(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
+
               </Row>
               <div className="center-button">
                 <Button variant="primary" type="submit" className="mt-3 custom-button" size="lg">
