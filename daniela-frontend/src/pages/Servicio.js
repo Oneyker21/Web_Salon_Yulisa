@@ -70,16 +70,7 @@ function Usuario() {
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="6" md="6" lg="4">
-                  <FloatingLabel controlId="descripcion" label="Descripcion">
-                    <Form.Control
-                      type="text"
-                      placeholder="Ingrese la descripcion"
-                      value={descripcion}
-                      onChange={(e) => setDescripcion(e.target.value)}
-                    />
-                  </FloatingLabel>
-                </Col>
+                
                 <Col sm="12" md="6" lg="4">
                   <FloatingLabel controlId="precio_servicio" label="Precio">
                     <Form.Control
@@ -98,6 +89,16 @@ function Usuario() {
                       placeholder="ID Cita"
                       value={cod_cita}
                       onChange={(e) => setCodCita(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+                <Col sm="6" md="6" lg="12">
+                  <FloatingLabel controlId="descripcion" label="Descripcion">
+                    <Form.Control
+                      type="text"
+                      placeholder="Ingrese la descripcion"
+                      value={descripcion}
+                      onChange={(e) => setDescripcion(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
