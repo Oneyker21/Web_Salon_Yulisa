@@ -135,6 +135,26 @@ function Header() {
                 <Link to="/citaslist" className="link-unstyled">Citas</Link>
               </NavDropdown.Item>
             </NavDropdown>
+
+            <NavDropdown title="Servicios" id="Servicio">
+              <NavDropdown.Item>
+                <Link to="/servicio" className="link-unstyled">Registrar Servicio</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item>
+                <Link to="/serviciolist" className="link-unstyled">Servicios</Link>
+              </NavDropdown.Item>
+            </NavDropdown>
+
+            <NavDropdown title="Testtimonios" id="Testimonio">
+              <NavDropdown.Item>
+                <Link to="/testimonio" className="link-unstyled">Registrar Citas</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item>
+                <Link to="/testimoniolist" className="link-unstyled">Citas</Link>
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
