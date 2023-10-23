@@ -14,9 +14,6 @@ import TestimonioList from './pages/TestimonioList';
 import Testimonio from './pages/Testimonio';
 
 
-
-
-
 function App() {
   return (
     <Router>
