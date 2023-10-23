@@ -151,6 +151,7 @@ function TestimonioList() {
                     </FloatingLabel>
                   </Col>
 
+
                   <Col sm="6" md="6" lg="8">
                     <FloatingLabel controlId="testimonio" label="Testimonio">
                       <Form.Control
