@@ -1,3 +1,6 @@
+
+/* Estilos Universales */
+
 .navbar-color {
   background-color: #610655;
   /* Color de fondo personalizado */
@@ -52,4 +55,57 @@
 }
 .centrado{
   text-align: center;
+}
+
+textarea {
+  resize: none;
+}
+
+/* Pages Inicio */
+
+.inicio-contactos {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.contenido-principal {
+  text-align: center;
+  padding: 20px;
+}
+
+
+
+/* Pages Contacto */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.informacion-contacto h3,
+.redes-sociales h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.informacion-contacto p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+
+.redes-sociales a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+  margin: 0 10px;
+}
+
+.redes-sociales a:hover {
+  color: #ff6600;
 }
