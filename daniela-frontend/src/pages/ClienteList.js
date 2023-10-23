@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } from 'react-bootstrap';
 import Header from '../components/Header';
+import {FaPencil, FaTrashCan} from 'react-icons/fa6';
 
 function Usuariolist() {
   const [clientes, setClientes] = useState([]);
@@ -122,8 +123,8 @@ function Usuariolist() {
                   <td>{cliente.apellido}</td>
                   <td>{cliente.telefono}</td>
                   <td>
-                    <Button variant="primary" className='actualizar' onClick={() => openModal(cliente)}>Actualizar</Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cliente.id_cliente)}>Eliminar</Button>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(cliente)}><FaPencil/></Button>
+                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cliente.id_cliente)}><FaTrashCan/></Button>
                   </td>
                 </tr>
               ))}

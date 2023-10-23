@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } from 'react-bootstrap';
 import Header from '../components/Header';
+import {FaPencil, FaTrashCan} from 'react-icons/fa6';
 
 function Usuariolist() {
   const [servicios, setServicios] = useState([]);
@@ -115,8 +116,8 @@ function Usuariolist() {
                   <td>{servicio.precio_servicio}</td>
                   <td>{servicio.cod_cita}</td>
                   <td className='buttomsAE'>
-                    <Button variant="primary" className='actualizar' onClick={() => openModal(servicio)}>Actualizar</Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(servicio.id_servicios)}>Eliminar</Button>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(servicio)}><FaPencil/></Button>
+                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(servicio.id_servicios)}><FaTrashCan/></Button>
                   </td>
                 </tr>
               ))}

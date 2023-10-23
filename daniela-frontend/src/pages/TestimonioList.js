@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Card, Form, Modal, FloatingLabel, Row, Col } from 'react-bootstrap';
 import Header from '../components/Header';
+import {FaPencil, FaTrashCan} from 'react-icons/fa6';
 
 function TestimonioList() {
   const [testimonios, setTestimonios] = useState([]);
@@ -119,8 +120,8 @@ function TestimonioList() {
                   <td>{testimonio.testimonio}</td>
                   <td>{testimonio.id_cliente}</td>
                   <td className='buttomsAE'>
-                    <Button variant="primary" className='actualizar' onClick={() => openModal(testimonio)}>Actualizar</Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(testimonio.id_testimonio)}>Eliminar</Button>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(testimonio)}><FaPencil/></Button>
+                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(testimonio.id_testimonio)}><FaTrashCan/></Button>
                   </td>
                 </tr>
               ))}
