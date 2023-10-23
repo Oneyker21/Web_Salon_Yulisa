@@ -108,11 +108,11 @@ function Header() {
             </Nav.Link>
             <NavDropdown title="Empleados" id="Estilistas">
               <NavDropdown.Item>
-                <Link to="/usuario" className="link-unstyled">Registrar Empleado</Link>
+                <Link to="/empleado" className="link-unstyled">Registrar Empleado</Link>
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item>
-                <Link to="/usuariolist" className="link-unstyled">Empleados</Link>
+                <Link to="/verempleado" className="link-unstyled">Empleados</Link>
               </NavDropdown.Item>
             </NavDropdown>
 
@@ -148,11 +148,11 @@ function Header() {
 
             <NavDropdown title="Testtimonios" id="Testimonio">
               <NavDropdown.Item>
-                <Link to="/testimonio" className="link-unstyled">Registrar Citas</Link>
+                <Link to="/testimonio" className="link-unstyled">Registrar Testimonio</Link>
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item>
-                <Link to="/testimoniolist" className="link-unstyled">Citas</Link>
+                <Link to="/testimoniolist" className="link-unstyled">Testimonios</Link>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
