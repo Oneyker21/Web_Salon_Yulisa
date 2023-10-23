@@ -66,9 +66,11 @@ textarea {
 .inicio-contactos {
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 20px;
   padding: 20px;
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
 }
 
 
