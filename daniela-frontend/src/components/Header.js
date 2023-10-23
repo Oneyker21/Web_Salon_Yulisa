@@ -106,20 +106,14 @@ function Header() {
             <Nav.Link>
               <Link to="/about" className="link-unstyled">Contacto</Link>
             </Nav.Link>
-            <NavDropdown title="Usuarios" id="clientes">
+            <NavDropdown title="Empleados" id="Estilistas">
               <NavDropdown.Item>
-                <Link to="/customer" className="link-unstyled">Registrar Usuario</Link>
+                <Link to="/usuario" className="link-unstyled">Registrar Empleado</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
-                <Link to="/actualizar-cliente" className="link-unstyled">Actualizar Usuario</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to="/ver-cliente" className="link-unstyled">Ver Usuario</Link>
+                <Link to="/usuariolist" className="link-unstyled">Empleados</Link>
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item>
-                <Link to="/eliminar-cliente" className="link-unstyled">Eliminar Usuario</Link>
-              </NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="Cita" id=" Cita">
