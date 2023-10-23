@@ -11,8 +11,7 @@ function Home() {
         <main class="inicio-contactos">
           <div class="contenido-principal">
             <h1>Bienvenido al Salón Yulisa</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nisi id purus tristique posuere.
-              Etiam eu lectus a urna varius lacinia. Suspendisse potenti.</p>
+            <p>Gay el que lo lea.</p>
           </div>
         </main>
       </section>

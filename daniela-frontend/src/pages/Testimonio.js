@@ -56,7 +56,7 @@ function Testimonio() {
             <Card.Title className='title'>Registro de Testimonio</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="4">
+                <Col sm="6" md="6" lg="6">
                   <FloatingLabel controlId="fecha_testimonio" label="Fecha del Testimonio">
                     <Form.Control
                       type="date"
@@ -65,23 +65,25 @@ function Testimonio() {
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="12" md="6" lg="8">
-                  <FloatingLabel controlId="testimonio" label="Testimonio">
-                    <Form.Control
-                      as="textarea"
-                      placeholder="Ingrese el testimonio"
-                      value={testimonio}
-                      onChange={(e) => setTestimonio(e.target.value)}
-                    />
-                  </FloatingLabel>
-                </Col>
-                <Col sm="6" md="6" lg="4">
+
+                <Col sm="6" md="6" lg="6">
                   <FloatingLabel controlId="id_cliente" label="ID Cliente">
                     <Form.Control
                       type="text"
                       placeholder="ID del cliente"
                       value={id_cliente}
                       onChange={(e) => setIdCliente(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+
+                <Col sm="12" md="6" lg="12">
+                  <FloatingLabel controlId="testimonio" label="Testimonio">
+                    <Form.Control
+                      as="textarea"
+                      placeholder="Ingrese el testimonio"
+                      value={testimonio}
+                      onChange={(e) => setTestimonio(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
