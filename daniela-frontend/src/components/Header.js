@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Offcanvas, Button, NavDropdown, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import {} from 'react-icons/fa6';
 
 function Header() {
   const [showMenu, setShowMenu] = useState(false);
@@ -88,7 +89,7 @@ function Header() {
             aria-controls="basic-navbar-nav"
             aria-expanded={showMenu ? 'true' : 'false'}
           >
-            Menú
+            Menu
           </Button>
         </Container>
       </Navbar>
