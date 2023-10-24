@@ -88,7 +88,6 @@ function Usuariolist() {
   return (
     <div>
       <Header />
-
       <Card className="m-3">
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Citas</Card.Title>
