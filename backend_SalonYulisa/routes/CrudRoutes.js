@@ -108,9 +108,6 @@ module.exports = (db) => {
     });
   });
 
-  // Repite el proceso para las otras tablas (Empleado, Cita, Servicios, Testimonio)
-
-
 
   //------------------------------------------------CRUD EMPLEADO-----------------------------------------------
 
@@ -217,6 +214,7 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
  
 */
 
+
   // Ruta para leer registros de la tabla Cita
   router.get('/readcitas', (req, res) => {
     const sql = 'SELECT * FROM Cita';
@@ -262,10 +260,10 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
     }
 
     const sql = `
-    UPDATE Cita
-    SET fecha_cita = ?, id_cliente = ?, id_empleado = ?
-    WHERE cod_cita = ?
-  `;
+      UPDATE Cita
+      SET fecha_cita = ?, id_cliente = ?, id_empleado = ?
+      WHERE cod_cita = ?
+    `;
 
     const values = [fecha_cita, id_cliente, id_empleado, cod_cita];
 
@@ -282,7 +280,6 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
   // Ruta para eliminar un registro existente en la tabla Cita por ID
   router.delete('/deletecitas/:cod_cita', (req, res) => {
     const cod_cita = req.params.cod_cita;
-
     const sql = 'DELETE FROM Cita WHERE cod_cita = ?';
 
     db.query(sql, [cod_cita], (err, result) => {
@@ -309,7 +306,6 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
   */
 
 
-
   // Ruta para leer registros de la tabla Servicios
   router.get('/readservicios', (req, res) => {
     const sql = 'SELECT * FROM Servicios';
@@ -326,14 +322,14 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
 
   // Ruta para crear un nuevo registro en la tabla Servicios
   router.post('/createservicios', (req, res) => {
-    const { nombre_servicio, descripcion, precio_servicio, cod_cita } = req.body;
+    const { nombre_servicio, descripcion, precio_servicio } = req.body;
 
-    if (!nombre_servicio || !descripcion || !precio_servicio || !cod_cita) {
+    if (!nombre_servicio || !descripcion || !precio_servicio) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    const sql = `INSERT INTO Servicios (nombre_servicio, descripcion, precio_servicio, cod_cita) VALUES (?, ?, ?, ?)`;
-    const values = [nombre_servicio, descripcion, precio_servicio, cod_cita];
+    const sql = `INSERT INTO Servicios (nombre_servicio, descripcion, precio_servicio) VALUES (?, ?, ?)`;
+    const values = [nombre_servicio, descripcion, precio_servicio];
 
     db.query(sql, values, (err, result) => {
       if (err) {
@@ -348,19 +344,19 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
   // Ruta para actualizar un registro existente en la tabla Servicios por ID
   router.put('/upgradeservicios/:id_servicios', (req, res) => {
     const id_servicios = req.params.id_servicios;
-    const { nombre_servicio, descripcion, precio_servicio, cod_cita } = req.body;
+    const { nombre_servicio, descripcion, precio_servicio } = req.body;
 
-    if (!nombre_servicio || !descripcion || !precio_servicio || !cod_cita) {
+    if (!nombre_servicio || !descripcion || !precio_servicio) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
     const sql = `
-    UPDATE Servicios
-    SET nombre_servicio = ?, descripcion = ?, precio_servicio = ?, cod_cita = ?
-    WHERE id_servicios = ?
-  `;
+      UPDATE Servicios
+      SET nombre_servicio = ?, descripcion = ?, precio_servicio = ?
+      WHERE id_servicios = ?
+    `;
 
-    const values = [nombre_servicio, descripcion, precio_servicio, cod_cita, id_servicios];
+    const values = [nombre_servicio, descripcion, precio_servicio, id_servicios];
 
     db.query(sql, values, (err, result) => {
       if (err) {
@@ -375,7 +371,6 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
   // Ruta para eliminar un registro existente en la tabla Servicios por ID
   router.delete('/deleteservicios/:id_servicios', (req, res) => {
     const id_servicios = req.params.id_servicios;
-
     const sql = 'DELETE FROM Servicios WHERE id_servicios = ?';
 
     db.query(sql, [id_servicios], (err, result) => {
@@ -384,6 +379,75 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
         res.status(500).json({ error: 'Error al eliminar el registro en Servicios' });
       } else {
         res.status(200).json({ message: 'Servicio eliminado exitosamente' });
+      }
+    });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //ServicioCitas
+
+  // Ruta para leer registros de la tabla Cita_Servicio
+  router.get('/readcitaservicio', (req, res) => {
+    const sql = 'SELECT * FROM Cita_Servicio';
+
+    db.query(sql, (err, result) => {
+      if (err) {
+        console.error('Error al leer registros de Cita_Servicio:', err);
+        res.status(500).json({ error: 'Error al leer registros de Cita_Servicio' });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  });
+
+  // Ruta para crear un nuevo registro en la tabla Cita_Servicio
+  router.post('/createcitaservicio', (req, res) => {
+    const { cod_cita, id_servicios } = req.body;
+
+    if (!cod_cita || !id_servicios) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
+
+    const sql = `INSERT INTO Cita_Servicio (cod_cita, id_servicios) VALUES (?, ?)`;
+    const values = [cod_cita, id_servicios];
+
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error al insertar registro en Cita_Servicio:', err);
+        res.status(500).json({ error: 'Error al insertar registro en Cita_Servicio' });
+      } else {
+        res.status(201).json({ message: 'Relación Cita-Servicio creada exitosamente' });
+      }
+    });
+  });
+
+  // Ruta para eliminar un registro existente en la tabla Cita_Servicio por ID
+  router.delete('/deletecitaservicio/:cod_cita/:id_servicios', (req, res) => {
+    const cod_cita = req.params.cod_cita;
+    const id_servicios = req.params.id_servicios;
+    const sql = 'DELETE FROM Cita_Servicio WHERE cod_cita = ? AND id_servicios = ?';
+
+    db.query(sql, [cod_cita, id_servicios], (err, result) => {
+      if (err) {
+        console.error('Error al eliminar el registro en Cita_Servicio:', err);
+        res.status(500).json({ error: 'Error al eliminar el registro en Cita_Servicio' });
+      } else {
+        res.status(200).json({ message: 'Relación Cita-Servicio eliminada exitosamente' });
       }
     });
   });

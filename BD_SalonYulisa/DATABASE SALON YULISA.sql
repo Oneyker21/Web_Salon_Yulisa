@@ -4,8 +4,6 @@ CREATE DATABASE Salon_yulisa;
 # SELECCION DE BD
 USE Salon_yulisa;
 
-select * from bitacora;
-
 # CREACION DE TABLA Cliente
 CREATE TABLE Cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
@@ -23,6 +21,15 @@ CREATE TABLE Empleado (
     direccion VARCHAR(45) NOT NULL
 );
 
+# CREACION DE TABLA Servicios
+CREATE TABLE Servicios (
+    id_servicios INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_servicio VARCHAR(15) NOT NULL,
+    descripcion VARCHAR(50) NOT NULL,
+    precio_servicio INT NOT NULL
+);
+
+# CREACION DE TABLA Cita
 CREATE TABLE Cita (
     cod_cita INT AUTO_INCREMENT PRIMARY KEY,
     fecha_cita DATE NOT NULL,
@@ -32,15 +39,16 @@ CREATE TABLE Cita (
     FOREIGN KEY (id_empleado) REFERENCES Empleado(id_empleado)
 );
 
-CREATE TABLE Servicios (
-    id_servicios INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_servicio VARCHAR(15) NOT NULL,
-    descripcion VARCHAR(50) NOT NULL,
-    precio_servicio INT NOT NULL,
+# Relación entre Cita y Servicios
+CREATE TABLE Cita_Servicio (
     cod_cita INT,
-    FOREIGN KEY (cod_cita) REFERENCES Cita(cod_cita)
+    id_servicios INT,
+    PRIMARY KEY (cod_cita, id_servicios),
+    FOREIGN KEY (cod_cita) REFERENCES Cita(cod_cita),
+    FOREIGN KEY (id_servicios) REFERENCES Servicios(id_servicios)
 );
 
+# CREACION DE TABLA Testimonio
 CREATE TABLE Testimonio (
     id_testimonio INT AUTO_INCREMENT PRIMARY KEY,
     fecha_testimonio DATE NOT NULL,

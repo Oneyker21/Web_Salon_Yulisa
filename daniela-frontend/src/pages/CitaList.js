@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } from 'react-bootstrap';
 import Header from '../components/Header';
-import {FaPencil} from 'react-icons/fa6';
+import {FaPencil, FaTrashCan} from 'react-icons/fa6';
 
 function Usuariolist() {
   const [citas, setCitas] = useState([]);
@@ -109,8 +109,8 @@ function Usuariolist() {
                   <td>{cita.id_cliente}</td>
                   <td>{cita.id_empleado}</td>
                   <td className='buttomsAE'>
-                    <Button variant="primary" className='actualizar' onClick={() => openModal(cita)}>Actualizar<FaPencil/></Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cita.cod_cita)}>Eliminar</Button>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(cita)}><FaPencil/></Button>
+                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cita.cod_cita)}><FaTrashCan/></Button>
                   </td>
                 </tr>
               ))}
