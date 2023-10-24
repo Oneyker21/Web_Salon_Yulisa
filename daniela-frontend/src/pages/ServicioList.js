@@ -36,11 +36,7 @@ function Usuariolist() {
   };
 
   const loadServicios = () => {
-    const url = searchTerm
-      ? `http://localhost:5000/crud/searchcitas?term=${encodeURIComponent(searchTerm)}`
-      : 'http://localhost:5000/crud/readservicios';
-
-    fetch(url)
+    fetch('http://localhost:5000/crud/readservicios')
       .then((response) => response.json())
       .then((data) => setServicios(data))
       .catch((error) => console.error('Error al obtener los servicios:', error));
@@ -89,13 +85,6 @@ function Usuariolist() {
       <Card className="m-3">
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Servicios</Card.Title>
-          <Form.Control
-            type="text"
-            placeholder="Buscar servicio"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="mb-3"
-          />
           <Table striped bordered hover>
             <thead>
               <tr className='centrado'>
