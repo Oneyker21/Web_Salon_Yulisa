@@ -43,11 +43,7 @@ function Usuariolist() {
   };
 
   const loadCitas = () => {
-    const url = searchTerm
-      ? `http://localhost:5000/crud/searchcitas?term=${encodeURIComponent(searchTerm)}`
-      : 'http://localhost:5000/crud/readcitas';
-
-    fetch(url)
+    fetch('http://localhost:5000/crud/readcitas')
       .then((response) => response.json())
       .then((data) => setCitas(data))
       .catch((error) => console.error('Error al obtener las citas:', error));
@@ -96,13 +92,6 @@ function Usuariolist() {
       <Card className="m-3">
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Citas</Card.Title>
-          <Form.Control
-            type="text"
-            placeholder="Buscar cita"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="mb-3"
-          />
           <Table striped bordered hover>
             <thead>
               <tr className='centrado'>
