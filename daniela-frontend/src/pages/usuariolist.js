@@ -38,11 +38,7 @@ function Usuariolist() {
   };
 
   const loadEmpleados = () => {
-    const url = searchTerm
-      ? `http://localhost:5000/crud/searchempleados?term=${encodeURIComponent(searchTerm)}`
-      : 'http://localhost:5000/crud/readempleados';
-
-    fetch(url)
+    fetch('http://localhost:5000/crud/readempleados')
       .then((response) => response.json())
       .then((data) => setEmpleados(data))
       .catch((error) => console.error('Error al obtener los empleados:', error));
@@ -98,13 +94,6 @@ function Usuariolist() {
       <Card className="m-3">
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Empleados</Card.Title>
-          <Form.Control
-            type="text"
-            placeholder="Buscar empleado"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="mb-3"
-          />
           <Table striped bordered hover>
             <thead>
               <tr className='centrado'>
