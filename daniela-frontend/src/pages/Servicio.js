@@ -20,7 +20,6 @@ function Usuario() {
       nombre_servicio,
       descripcion,
       precio_servicio,
-      cod_cita,
     };
 
     try {
@@ -60,7 +59,7 @@ function Usuario() {
             <Card.Title className='title'>Registro de Servicios</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="4">
+                <Col sm="6" md="6" lg="6">
                   <FloatingLabel controlId="nombre_servicio" label="Nombre Del Servicio">
                     <Form.Control
                       type="text"
@@ -71,7 +70,7 @@ function Usuario() {
                   </FloatingLabel>
                 </Col>
                 
-                <Col sm="12" md="6" lg="4">
+                <Col sm="12" md="6" lg="6">
                   <FloatingLabel controlId="precio_servicio" label="Precio">
                     <Form.Control
                       type="number"
@@ -82,16 +81,6 @@ function Usuario() {
                   </FloatingLabel>
                 </Col>
 
-                <Col sm="12" md="6" lg="4">
-                  <FloatingLabel controlId="cod_cita" label="ID Cita">
-                    <Form.Control
-                      type="text"
-                      placeholder="ID Cita"
-                      value={cod_cita}
-                      onChange={(e) => setCodCita(e.target.value)}
-                    />
-                  </FloatingLabel>
-                </Col>
                 <Col sm="6" md="6" lg="12">
                   <FloatingLabel controlId="descripcion" label="Descripcion">
                     <Form.Control

@@ -43,16 +43,30 @@
   text-align: center;
 }
 .actualizar{
+  border-color: blue;
+  border-width: 2px;
+  color: blue;
   margin-right: 5px;
-  font-family: Arial, sans-serif;
   font-size: 14px;
   border-radius: 5px;
+  background: none;
+  &:hover{
+    background-color: blue;
+    border-color: blue;
+  }
 }
 .eliminar{
+  border-width: 2px;
+  border-color: red;
+  color: red;
   margin-left: 5px;
-  font-family: Arial, sans-serif;
   font-size: 14px;
   border-radius: 5px;
+  background: none;
+  &:hover{
+    background-color: red;
+    border-color: red;
+  }
 }
 .centrado{
   text-align: center;
