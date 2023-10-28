@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Card, Form, Modal, FloatingLabel, Row, Col } from 'react-bootstrap';
 import Header from '../components/Header';
-import {FaPencil, FaTrashCan} from 'react-icons/fa6';
+import { FaPencil, FaTrashCan } from 'react-icons/fa6';
 
 function TestimonioList() {
   const [testimonios, setTestimonios] = useState([]);
@@ -80,9 +80,23 @@ function TestimonioList() {
     }
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   useEffect(() => {
     loadTestimonios();
-  }, [searchTerm]);
+  }, []);
+
+  const filteredTestimonios = testimonios.filter((testimonio) => {
+    const search = searchTerm.toLowerCase();
+    return (
+      testimonio.id_testimonio.toString().includes(search) ||
+      formatDateForInput(testimonio.fecha_testimonio).includes(search) ||
+      testimonio.testimonio.toLowerCase().includes(search) ||
+      testimonio.id_cliente.toString().includes(search)
+    );
+  });
 
   return (
     <div>
@@ -91,6 +105,18 @@ function TestimonioList() {
       <Card className="m-3">
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Testimonios</Card.Title>
+          <Row className="mb-3">
+            <Col>
+              <FloatingLabel controlId="search" label="Buscar">
+                <Form.Control
+                  type="text"
+                  placeholder="Buscar"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              </FloatingLabel>
+            </Col>
+          </Row>
           <Table striped bordered hover>
             <thead>
               <tr className='centrado'>
@@ -102,15 +128,15 @@ function TestimonioList() {
               </tr>
             </thead>
             <tbody>
-              {testimonios.map((testimonio) => (
+              {filteredTestimonios.map((testimonio) => (
                 <tr className='centrado' key={testimonio.id_testimonio}>
                   <td>{testimonio.id_testimonio}</td>
                   <td>{formatDateForInput(testimonio.fecha_testimonio)}</td>
                   <td>{testimonio.testimonio}</td>
                   <td>{testimonio.id_cliente}</td>
                   <td className='buttomsAE'>
-                    <Button variant="primary" className='actualizar' onClick={() => openModal(testimonio)}><FaPencil/></Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(testimonio.id_testimonio)}><FaTrashCan/></Button>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(testimonio)}><FaPencil /></Button>
+                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(testimonio.id_testimonio)}><FaTrashCan /></Button>
                   </td>
                 </tr>
               ))}
@@ -119,63 +145,7 @@ function TestimonioList() {
         </Card.Body>
       </Card>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Actualizar Testimonio</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Card className="mt-3">
-            <Card.Body>
-              <Card.Title>Registro de Testimonio</Card.Title>
-              <Form className="mt-3">
-                <Row className="g-3">
-                  <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="fecha_testimonio" label="Fecha de Testimonio">
-                      <Form.Control
-                        type="date"
-                        name="fecha_testimonio"
-                        value={formData.fecha_testimonio}
-                        onChange={handleFormChange}
-                      />
-                    </FloatingLabel>
-                  </Col>
-
-
-                  <Col sm="6" md="6" lg="8">
-                    <FloatingLabel controlId="testimonio" label="Testimonio">
-                      <Form.Control
-                        as="textarea"
-                        name="testimonio"
-                        value={formData.testimonio}
-                        onChange={handleFormChange}
-                      />
-                    </FloatingLabel>
-                  </Col>
-
-                  <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="id_cliente" label="ID Cliente">
-                      <Form.Control
-                        type="text"
-                        name="id_cliente"
-                        value={formData.id_cliente}
-                        onChange={handleFormChange}
-                      />
-                    </FloatingLabel>
-                  </Col>
-                </Row>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cerrar
-          </Button>
-          <Button variant="primary" onClick={handleUpdate}>
-            Actualizar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {/* ... (código del Modal) */}
     </div>
   );
 }

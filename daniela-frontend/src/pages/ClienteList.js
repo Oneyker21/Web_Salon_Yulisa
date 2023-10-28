@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } from 'react-bootstrap';
 import Header from '../components/Header';
-import {FaPencil, FaTrashCan} from 'react-icons/fa6';
+import { FaPencil, FaTrashCan } from 'react-icons/fa6';
 
 function Usuariolist() {
   const [clientes, setClientes] = useState([]);
@@ -15,7 +15,6 @@ function Usuariolist() {
   });
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Función para abrir el modal y pasar los datos del cliente seleccionado
   const openModal = (cliente) => {
     setSelectedCliente(cliente);
 
@@ -28,7 +27,6 @@ function Usuariolist() {
     setShowModal(true);
   };
 
-  // Función para manejar cambios en el formulario
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -44,9 +42,7 @@ function Usuariolist() {
       .catch((error) => console.error('Error al obtener los clientes:', error));
   };
 
-  // Función para enviar el formulario de actualización
   const handleUpdate = () => {
-    // Realiza la solicitud PUT al servidor para actualizar el registro
     fetch(`http://localhost:5000/crud/upgradeclientes/${selectedCliente.id_cliente}`, {
       method: 'PUT',
       headers: {
@@ -56,25 +52,21 @@ function Usuariolist() {
     })
       .then((response) => {
         if (response.ok) {
-          // La actualización fue exitosa, puedes cerrar el modal y refrescar la lista de clientes
           setShowModal(false);
-          loadClientes(); // Cargar la lista de clientes actualizada
+          loadClientes();
         }
       })
       .catch((error) => console.error('Error al actualizar el registro:', error));
   };
 
-  // Función para eliminar un cliente
   const handleDelete = (idCliente) => {
     const confirmation = window.confirm('¿Seguro que deseas eliminar este cliente?');
     if (confirmation) {
-      // Realiza la solicitud DELETE al servidor para eliminar el cliente
       fetch(`http://localhost:5000/crud/deleteclientes/${idCliente}`, {
         method: 'DELETE',
       })
         .then((response) => {
           if (response.ok) {
-            // La eliminación fue exitosa, refresca la lista de clientes
             loadClientes();
           }
         })
@@ -82,7 +74,13 @@ function Usuariolist() {
     }
   };
 
-  // Realiza una solicitud GET al servidor para obtener los clientes
+  const filteredClientes = clientes.filter((cliente) => {
+    const fullName = `${cliente.nombre} ${cliente.apellido}`.toLowerCase();
+    const search = searchTerm.toLowerCase();
+
+    return fullName.includes(search);
+  });
+
   useEffect(() => {
     loadClientes();
   }, [searchTerm]);
@@ -94,6 +92,16 @@ function Usuariolist() {
       <Card className="m-3">
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Clientes</Card.Title>
+
+          <Form className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Buscar por nombre y apellido"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </Form>
+
           <Table striped bordered hover>
             <thead>
               <tr className='centrado'>
@@ -105,15 +113,19 @@ function Usuariolist() {
               </tr>
             </thead>
             <tbody>
-              {clientes.map((cliente) => (
+              {filteredClientes.map((cliente) => (
                 <tr className='centrado' key={cliente.id_cliente}>
                   <td>{cliente.id_cliente}</td>
                   <td>{cliente.nombre}</td>
                   <td>{cliente.apellido}</td>
                   <td>{cliente.telefono}</td>
                   <td>
-                    <Button variant="primary" className='actualizar' onClick={() => openModal(cliente)}><FaPencil/></Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cliente.id_cliente)}><FaTrashCan/></Button>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(cliente)}>
+                      <FaPencil />
+                    </Button>
+                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cliente.id_cliente)}>
+                      <FaTrashCan />
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -122,6 +134,7 @@ function Usuariolist() {
         </Card.Body>
       </Card>
 
+      {/* Modal para actualizar cliente */}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Actualizar Cliente</Modal.Title>
@@ -143,7 +156,6 @@ function Usuariolist() {
                       />
                     </FloatingLabel>
                   </Col>
-
                   <Col sm="6" md="6" lg="4">
                     <FloatingLabel controlId="apellido" label="Apellidos">
                       <Form.Control
@@ -155,7 +167,6 @@ function Usuariolist() {
                       />
                     </FloatingLabel>
                   </Col>
-
                   <Col sm="12" md="6" lg="4">
                     <FloatingLabel controlId="telefono" label="Teléfono">
                       <Form.Control
@@ -167,7 +178,6 @@ function Usuariolist() {
                       />
                     </FloatingLabel>
                   </Col>
-
                 </Row>
               </Form>
             </Card.Body>
