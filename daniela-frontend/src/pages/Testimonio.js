@@ -90,7 +90,7 @@ function Testimonio() {
               </Row>
               <div className="center-button">
                 <Button variant="primary" type="submit" className="mt-3 register-button" size="lg">
-                  Registrar Testimonio
+                  Registrar
                 </Button>
               </div>
             </Form>

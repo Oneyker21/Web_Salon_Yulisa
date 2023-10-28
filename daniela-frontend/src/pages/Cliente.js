@@ -88,7 +88,7 @@ function Usuario() {
                 </Col>
               </Row>
               <div className="center-button">
-                <Button variant="primary" type="submit" className="mt-3 custom-button" size="lg">
+                <Button variant="primary" type="submit" className="mt-3 register-button" size="lg">
                   Registrar
                 </Button>
               </div>
