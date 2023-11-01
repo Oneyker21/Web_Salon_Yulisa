@@ -11,12 +11,11 @@ function Home() {
         <main class="inicio-contactos">
           <div class="contenido-principal">
             <h1>Bienvenido al Salón Yulisa</h1>
-            <p>Gay el que lo lea.</p>
+            <p>todavia nada.</p>
           </div>
         </main>
       </section>
     </div>
   );
 }
-
 export default Home;

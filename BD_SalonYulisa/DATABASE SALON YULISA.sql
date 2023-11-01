@@ -1,6 +1,6 @@
 # CREACION DE LA BASE DE DATOS
 CREATE DATABASE Salon_yulisa;  
-
+select *from bitacora;
 # SELECCION DE BD
 USE Salon_yulisa;
 
@@ -56,3 +56,23 @@ CREATE TABLE Testimonio (
     id_cliente INT,
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
+
+CREATE TABLE Usuario (
+  id_Usuario Int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nombre_Usuario Varchar(30) NOT NULL,
+  contrasena Varchar(16) NOT NULL,
+  rol Varchar(20) NOT NULL
+);
+
+# CREACION DE TABLA Fotos
+CREATE TABLE Fotos (
+    id_foto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_archivo VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(255),
+    ruta VARCHAR(255) NOT NULL,
+    fecha_subida TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+# Ejemplo de cómo insertar una foto
+INSERT INTO Fotos (nombre_archivo, descripcion, ruta) 
+VALUES ('foto1.jpg', 'Descripción de la foto 1', '/ruta/a/foto1.jpg');
