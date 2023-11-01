@@ -133,7 +133,6 @@ function Usuariolist() {
       </Card>
 
       {/* Modal para actualizar servicio */}
-      {/* ... Resto del código para el modal */}
     </div>
   );
 }
