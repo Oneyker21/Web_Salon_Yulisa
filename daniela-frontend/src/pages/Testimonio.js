@@ -13,11 +13,24 @@ function Testimonio() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
+    function getCurrentDateFormatted() {
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      const day = String(currentDate.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    // Usar la función para obtener la fecha formateada
+    const currentDate = getCurrentDateFormatted();
+
     // Crear un objeto con los datos del formulario
     const formData = {
-      fecha_testimonio,
+
+      fecha_testimonio:currentDate,
       testimonio,
       id_cliente,
+
     };
 
     try {
@@ -56,15 +69,6 @@ function Testimonio() {
             <Card.Title className='title'>Registro de Testimonio</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="6">
-                  <FloatingLabel controlId="fecha_testimonio" label="Fecha del Testimonio">
-                    <Form.Control
-                      type="date"
-                      value={fecha_testimonio}
-                      onChange={(e) => setFechaTestimonio(e.target.value)}
-                    />
-                  </FloatingLabel>
-                </Col>
 
                 <Col sm="6" md="6" lg="6">
                   <FloatingLabel controlId="id_cliente" label="ID Cliente">
@@ -77,7 +81,7 @@ function Testimonio() {
                   </FloatingLabel>
                 </Col>
 
-                <Col sm="12" md="6" lg="12">
+                <Col sm="12" md="6" lg="6">
                   <FloatingLabel controlId="testimonio" label="Testimonio">
                     <Form.Control
                       as="textarea"

@@ -17,8 +17,11 @@ function TestimonioList() {
   const openModal = (testimonio) => {
     setSelectedTestimonio(testimonio);
 
+    
+    const formattedFechaTestimonio = formatDateForInput(testimonio.fecha_testimonio);
+
     setFormData({
-      fecha_testimonio: formatDateForInput(testimonio.fecha_testimonio),
+      fecha_testimonio: formattedFechaTestimonio,
       testimonio: testimonio.testimonio,
       id_cliente: testimonio.id_cliente,
     });
@@ -121,8 +124,8 @@ function TestimonioList() {
             <thead>
               <tr className='centrado'>
                 <th>ID Testimonio</th>
-                <th>Fecha de Testimonio</th>
-                <th>Testimonio</th>
+                <th>Fecha</th>
+                <th>Comentario</th>
                 <th>ID Cliente</th>
                 <th>Acciones</th>
               </tr>
@@ -156,34 +159,13 @@ function TestimonioList() {
               <Card.Title>Registro de Testimionio</Card.Title>
               <Form className="mt-3">
                 <Row className="g-3">
-                  <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="fecha_testimonio" label="Fecha del Testimonio">
-                      <Form.Control
-                        type="date"
-                        name="fecha_testimonio"
-                        value={formData.fecha_testimonio}
-                        onChange={handleFormChange}
-                      />
-                    </FloatingLabel>
-                  </Col>
 
-                  <Col sm="6" md="6" lg="4">
+                  <Col sm="6" md="6" lg="12">
                     <FloatingLabel controlId="testimonio" label="Testimonio">
                       <Form.Control
                         type="text"
                         name="testimonio"
                         value={formData.testimonio}
-                        onChange={handleFormChange}
-                      />
-                    </FloatingLabel>
-                  </Col>
-
-                  <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="id_cliente" label="ID Cliente">
-                      <Form.Control
-                        type="text"
-                        name="id_cliente"
-                        value={formData.id_cliente}
                         onChange={handleFormChange}
                       />
                     </FloatingLabel>
