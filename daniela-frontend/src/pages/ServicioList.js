@@ -111,7 +111,6 @@ function Usuariolist() {
                 <th>Servicio</th>
                 <th>Descripción</th>
                 <th>Precio</th>
-                <th>ID Cita</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -122,7 +121,6 @@ function Usuariolist() {
                   <td>{servicio.nombre_servicio}</td>
                   <td>{servicio.descripcion}</td>
                   <td>{servicio.precio_servicio}</td>
-                  <td>{servicio.cod_cita}</td>
                   <td className='buttomsAE'>
                     <Button variant="primary" className='actualizar' onClick={() => openModal(servicio)}><FaPencil/></Button>
                     <Button variant="danger" className='eliminar' onClick={() => handleDelete(servicio.id_servicios)}><FaTrashCan/></Button>

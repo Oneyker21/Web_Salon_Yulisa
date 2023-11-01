@@ -146,6 +146,63 @@ function TestimonioList() {
       </Card>
 
       {/* ... (código del Modal) */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Actualizar Testimonio</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Card className="mt-3">
+            <Card.Body>
+              <Card.Title>Registro de Testimionio</Card.Title>
+              <Form className="mt-3">
+                <Row className="g-3">
+                  <Col sm="6" md="6" lg="4">
+                    <FloatingLabel controlId="fecha_testimonio" label="Fecha del Testimonio">
+                      <Form.Control
+                        type="date"
+                        name="fecha_testimonio"
+                        value={formData.fecha_testimonio}
+                        onChange={handleFormChange}
+                      />
+                    </FloatingLabel>
+                  </Col>
+
+                  <Col sm="6" md="6" lg="4">
+                    <FloatingLabel controlId="testimonio" label="Testimonio">
+                      <Form.Control
+                        type="text"
+                        name="testimonio"
+                        value={formData.testimonio}
+                        onChange={handleFormChange}
+                      />
+                    </FloatingLabel>
+                  </Col>
+
+                  <Col sm="6" md="6" lg="4">
+                    <FloatingLabel controlId="id_cliente" label="ID Cliente">
+                      <Form.Control
+                        type="text"
+                        name="id_cliente"
+                        value={formData.id_cliente}
+                        onChange={handleFormChange}
+                      />
+                    </FloatingLabel>
+                  </Col>
+
+                </Row>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cerrar
+          </Button>
+          <Button variant="primary" onClick={handleUpdate}>
+            Actualizar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
