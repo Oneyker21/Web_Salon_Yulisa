@@ -52,6 +52,7 @@ CREATE TABLE Cita_Servicio (
 CREATE TABLE Testimonio (
     id_testimonio INT AUTO_INCREMENT PRIMARY KEY,
     fecha_testimonio DATE NOT NULL,
+    puntuacion DECIMAL NOT NULL (1,1),
     testimonio VARCHAR(100) NOT NULL,
     id_cliente INT,
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
