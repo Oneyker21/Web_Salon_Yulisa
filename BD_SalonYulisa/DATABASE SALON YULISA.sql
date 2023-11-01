@@ -48,6 +48,7 @@ CREATE TABLE Cita_Servicio (
     FOREIGN KEY (id_servicios) REFERENCES Servicios(id_servicios)
 );
 
+
 # CREACION DE TABLA Testimonio
 CREATE TABLE Testimonio (
     id_testimonio INT AUTO_INCREMENT PRIMARY KEY,
