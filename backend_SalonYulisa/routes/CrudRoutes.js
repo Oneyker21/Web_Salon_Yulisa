@@ -231,95 +231,52 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
   
 
   // Ruta para crear un nuevo registro en la tabla Cita
-// Ruta para crear un nuevo registro en la tabla Cita con relación a Servicios
-router.post('/createcitas', (req, res) => {
-  const { fecha_cita, id_cliente, id_empleado, id_servicios } = req.body;
+  router.post('/createcitas', (req, res) => {
+    const { fecha_cita, id_cliente, id_empleado, id_servicios } = req.body;
 
-  if (!fecha_cita || !id_cliente || !id_empleado || !id_servicios) {
-    return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-  }
-
-  // Verificar si el id_servicios proporcionado existe en la tabla Servicios
-  db.query('SELECT * FROM Servicios WHERE id_servicios = ?', [id_servicios], (error, results) => {
-    if (error || results.length === 0) {
-      return res.status(404).json({ error: 'El ID de Servicio proporcionado no es válido' });
+    if (!fecha_cita || !id_cliente || !id_empleado || !id_servicios) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    // Si el id_servicios existe, proceder a la inserción de la cita
-    const sql = `INSERT INTO Cita (fecha_cita, id_cliente, id_empleado) VALUES (?, ?, ?)`;
-    const values = [fecha_cita, id_cliente, id_empleado];
+    const sql = `INSERT INTO Cita (fecha_cita, id_cliente, id_empleado, id_servicios) VALUES (?, ?, ?, ?)`;
+    const values = [fecha_cita, id_cliente, id_empleado, id_servicios];
 
     db.query(sql, values, (err, result) => {
       if (err) {
         console.error('Error al insertar registro en Cita:', err);
-        return res.status(500).json({ error: 'Error al insertar registro en Cita' });
+        res.status(500).json({ error: 'Error al insertar registro en Cita' });
       } else {
-        const cod_cita = result.insertId; // Obtener el ID de la cita insertada
-
-        // Establecer la relación entre la cita y el servicio en la tabla intermedia Cita_Servicio
-        const sqlRel = `INSERT INTO Cita_Servicio (cod_cita, id_servicios) VALUES (?, ?)`;
-        const valuesRel = [cod_cita, id_servicios];
-
-        db.query(sqlRel, valuesRel, (errRel, resultRel) => {
-          if (errRel) {
-            console.error('Error al relacionar la cita con el servicio:', errRel);
-            return res.status(500).json({ error: 'Error al relacionar la cita con el servicio' });
-          } else {
-            return res.status(201).json({ message: 'Cita creada exitosamente' });
-          }
-        });
+        res.status(201).json({ message: 'Cita creada exitosamente' });
       }
     });
   });
-});
-
 
   // Ruta para actualizar un registro existente en la tabla Cita por ID
-// Ruta para actualizar un registro existente en la tabla Cita por ID con relación a Servicios
-router.put('/upgradecitas/:cod_cita', (req, res) => {
-  const cod_cita = req.params.cod_cita;
-  const { fecha_cita, id_cliente, id_empleado, id_servicios } = req.body;
+  router.put('/upgradecitas/:cod_cita', (req, res) => {
+    const cod_cita = req.params.cod_cita;
+    const { fecha_cita, id_cliente, id_empleado, id_servicios } = req.body;
 
-  if (!fecha_cita || !id_cliente || !id_empleado || !id_servicios) {
-    return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-  }
-
-  // Verificar si el id_servicios proporcionado existe en la tabla Servicios
-  db.query('SELECT * FROM Servicios WHERE id_servicios = ?', [id_servicios], (error, results) => {
-    if (error || results.length === 0) {
-      return res.status(404).json({ error: 'El ID de Servicio proporcionado no es válido' });
+    if (!fecha_cita || !id_cliente || !id_empleado || !id_servicios) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    // Si el id_servicios existe, proceder a la actualización de la cita
     const sql = `
       UPDATE Cita
-      SET fecha_cita = ?, id_cliente = ?, id_empleado = ?
+      SET fecha_cita = ?, id_cliente = ?, id_empleado = ?, id_servicios = ?
       WHERE cod_cita = ?
     `;
-    const values = [fecha_cita, id_cliente, id_empleado, cod_cita];
+
+    const values = [fecha_cita, id_cliente, id_empleado, id_servicios, cod_cita];
 
     db.query(sql, values, (err, result) => {
       if (err) {
         console.error('Error al actualizar el registro en Cita:', err);
-        return res.status(500).json({ error: 'Error al actualizar el registro en Cita' });
+        res.status(500).json({ error: 'Error al actualizar el registro en Cita' });
       } else {
-        // Actualizar la relación entre la cita y el servicio en la tabla intermedia Cita_Servicio
-        const sqlRel = `UPDATE Cita_Servicio SET id_servicios = ? WHERE cod_cita = ?`;
-        const valuesRel = [id_servicios, cod_cita];
-
-        db.query(sqlRel, valuesRel, (errRel, resultRel) => {
-          if (errRel) {
-            console.error('Error al actualizar la relación con el servicio:', errRel);
-            return res.status(500).json({ error: 'Error al actualizar la relación con el servicio' });
-          } else {
-            return res.status(200).json({ message: 'Cita actualizada exitosamente' });
-          }
-        });
+        res.status(200).json({ message: 'Cita actualizada exitosamente' });
       }
     });
   });
-});
-
 
   // Ruta para eliminar un registro existente en la tabla Cita por ID
   router.delete('/deletecitas/:cod_cita', (req, res) => {

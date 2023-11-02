@@ -75,6 +75,7 @@ function Usuario() {
                     />
                   </FloatingLabel>
                 </Col>
+                
                 <Col sm="6" md="6" lg="4">
                   <FloatingLabel controlId="id_cliente" label="ID Cliente">
                     <Form.Control
