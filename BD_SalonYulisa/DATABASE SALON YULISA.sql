@@ -71,8 +71,7 @@ CREATE TABLE Fotos (
     id_foto INT AUTO_INCREMENT PRIMARY KEY,
     nombre_archivo VARCHAR(100) NOT NULL,
     descripcion VARCHAR(255),
-    ruta VARCHAR(255) NOT NULL,
-    fecha_subida TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ruta VARCHAR(255) NOT NULL
 );
 
 # Ejemplo de cómo insertar una foto
