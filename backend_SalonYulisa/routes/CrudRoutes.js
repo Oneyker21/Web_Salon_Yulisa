@@ -231,14 +231,14 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
 
   // Ruta para crear un nuevo registro en la tabla Cita
   router.post('/createcitas', (req, res) => {
-    const { fecha_cita, id_cliente, id_empleado } = req.body;
+    const { fecha_cita, id_cliente, id_empleado, id_servicios } = req.body;
 
-    if (!fecha_cita || !id_cliente || !id_empleado) {
+    if (!fecha_cita || !id_cliente || !id_empleado || !id_servicios) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    const sql = `INSERT INTO Cita (fecha_cita, id_cliente, id_empleado) VALUES (?, ?, ?)`;
-    const values = [fecha_cita, id_cliente, id_empleado];
+    const sql = `INSERT INTO Cita (fecha_cita, id_cliente, id_empleado, id_servicios) VALUES (?, ?, ?, ?)`;
+    const values = [fecha_cita, id_cliente, id_empleado, id_servicios];
 
     db.query(sql, values, (err, result) => {
       if (err) {
@@ -253,19 +253,19 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
   // Ruta para actualizar un registro existente en la tabla Cita por ID
   router.put('/upgradecitas/:cod_cita', (req, res) => {
     const cod_cita = req.params.cod_cita;
-    const { fecha_cita, id_cliente, id_empleado } = req.body;
+    const { fecha_cita, id_cliente, id_empleado, id_servicios } = req.body;
 
-    if (!fecha_cita || !id_cliente || !id_empleado) {
+    if (!fecha_cita || !id_cliente || !id_empleado || !id_servicios) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
     const sql = `
       UPDATE Cita
-      SET fecha_cita = ?, id_cliente = ?, id_empleado = ?
+      SET fecha_cita = ?, id_cliente = ?, id_empleado = ?, id_servicios = ?
       WHERE cod_cita = ?
     `;
 
-    const values = [fecha_cita, id_cliente, id_empleado, cod_cita];
+    const values = [fecha_cita, id_cliente, id_empleado, id_servicios, cod_cita];
 
     db.query(sql, values, (err, result) => {
       if (err) {
