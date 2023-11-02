@@ -9,6 +9,7 @@ function Usuariolist() {
   const [selectedCita, setSelectedCita] = useState({});
   const [formData, setFormData] = useState({
     fecha_cita: '',
+    id_servicios: '',
     id_cliente: '',
     id_empleado: '',
   });
@@ -20,6 +21,7 @@ function Usuariolist() {
 
     setFormData({
       fecha_cita: formattedfechacita,
+      id_servicios: cita.id_servicios,
       id_cliente: cita.id_cliente,
       id_empleado: cita.id_empleado,
     });
@@ -96,6 +98,7 @@ function Usuariolist() {
               <tr className='centrado'>
                 <th>Código</th>
                 <th>Fecha de Cita</th>
+                <th>ID Servicios</th>
                 <th>ID Cliente</th>
                 <th>ID Empleado</th>
                 <th>Acciones</th>
@@ -106,6 +109,7 @@ function Usuariolist() {
                 <tr className='centrado' key={cita.cod_cita}>
                   <td>{cita.cod_cita}</td>
                   <td>{formatDateForInput(cita.fecha_cita)}</td>
+                  <td>{cita.id_servicios}</td>
                   <td>{cita.id_cliente}</td>
                   <td>{cita.id_empleado}</td>
                   <td className='buttomsAE'>
@@ -129,12 +133,24 @@ function Usuariolist() {
               <Card.Title>Registro de Cita</Card.Title>
               <Form className="mt-3">
                 <Row className="g-3">
-                  <Col sm="6" md="6" lg="4">
+                  <Col sm="6" md="6" lg="2">
                     <FloatingLabel controlId="fecha_cita" label="Fecha de Cita">
                       <Form.Control
                         type="date"
                         name="fecha_cita"
                         value={formData.fecha_cita}
+                        onChange={handleFormChange}
+                      />
+                    </FloatingLabel>
+                  </Col>
+                  
+                  
+                  <Col sm="6" md="6" lg="2">
+                    <FloatingLabel controlId="id_servicios" label="ID Servicios">
+                      <Form.Control
+                        type="text"
+                        name="id_servicios"
+                        value={formData.id_servicios}
                         onChange={handleFormChange}
                       />
                     </FloatingLabel>

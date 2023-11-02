@@ -7,6 +7,7 @@ function Usuario() {
   const [fecha_cita, setFechaCita] = useState('');
   const [id_cliente, setIdCliente] = useState('');
   const [id_empleado, setIdEmpleado] = useState('');
+  const [id_servicios, setIdServicios] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ function Usuario() {
       fecha_cita,
       id_cliente,
       id_empleado,
+      id_servicios,
     };
 
     try {
@@ -32,6 +34,7 @@ function Usuario() {
         setFechaCita('');
         setIdCliente('');
         setIdEmpleado('');
+        setIdServicios('');
       } else {
         alert('Error al registrar la cita');
       }
@@ -51,7 +54,7 @@ function Usuario() {
             <Card.Title className='title'>Registro de Citas</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="4">
+                <Col sm="6" md="6" lg="2">
                   <FloatingLabel controlId="fecha_cita" label="Fecha de Cita">
                     <Form.Control
                       type="date"
@@ -61,6 +64,18 @@ function Usuario() {
                     />
                   </FloatingLabel>
                 </Col>
+                
+                <Col sm="6" md="6" lg="2">
+                  <FloatingLabel controlId="id_servicios" label="ID Servicio">
+                    <Form.Control
+                      type="text"
+                      placeholder="ID Servicio"
+                      value={id_servicios}
+                      onChange={(e) => setIdServicios(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+                
                 <Col sm="6" md="6" lg="4">
                   <FloatingLabel controlId="id_cliente" label="ID Cliente">
                     <Form.Control
@@ -82,7 +97,7 @@ function Usuario() {
                     />
                   </FloatingLabel>
                 </Col>
-
+                
               </Row>
               <div className="center-button">
                 <Button variant="primary" type="submit" className="mt-3 register-button" size="lg">
