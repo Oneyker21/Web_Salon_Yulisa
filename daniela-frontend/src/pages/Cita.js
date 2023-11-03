@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function Usuario() {
+function Cita() {
   const [fecha_cita, setFechaCita] = useState('');
   const [id_cliente, setIdCliente] = useState('');
   const [id_empleado, setIdEmpleado] = useState('');
-  const [id_servicios, setIdServicios] = useState('');
+  const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
+  const [serviciosDisponibles, setServiciosDisponibles] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,11 +18,11 @@ function Usuario() {
       fecha_cita,
       id_cliente,
       id_empleado,
-      id_servicios,
+      servicios: serviciosSeleccionados 
     };
 
     try {
-      const response = await fetch('http://localhost:5000/crud/createcitas', {
+      const response = await fetch('http://localhost:5000/crud/createcitas2', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +35,6 @@ function Usuario() {
         setFechaCita('');
         setIdCliente('');
         setIdEmpleado('');
-        setIdServicios('');
       } else {
         alert('Error al registrar la cita');
       }
@@ -43,6 +43,23 @@ function Usuario() {
       alert('Error en la solicitud al servidor');
     }
   };
+
+  useEffect(() => {
+    async function fetchServicios() {
+      try {
+        const response = await fetch('http://localhost:5000/crud/readservicios');
+        if (response.ok) {
+          const data = await response.json();
+          setServiciosDisponibles(data);
+        } else {
+          console.error('Error al obtener servicios:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error al obtener servicios:', error);
+      }
+    }
+    fetchServicios();
+  }, []);
 
   return (
     <div>
@@ -54,7 +71,7 @@ function Usuario() {
             <Card.Title className='title'>Registro de Citas</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="2">
+                <Col sm="6" md="6" lg="4">
                   <FloatingLabel controlId="fecha_cita" label="Fecha de Cita">
                     <Form.Control
                       type="date"
@@ -64,18 +81,6 @@ function Usuario() {
                     />
                   </FloatingLabel>
                 </Col>
-                
-                <Col sm="6" md="6" lg="2">
-                  <FloatingLabel controlId="id_servicios" label="ID Servicio">
-                    <Form.Control
-                      type="text"
-                      placeholder="ID Servicio"
-                      value={id_servicios}
-                      onChange={(e) => setIdServicios(e.target.value)}
-                    />
-                  </FloatingLabel>
-                </Col>
-                
                 <Col sm="6" md="6" lg="4">
                   <FloatingLabel controlId="id_cliente" label="ID Cliente">
                     <Form.Control
@@ -97,10 +102,38 @@ function Usuario() {
                     />
                   </FloatingLabel>
                 </Col>
-                
+
+                <Col sm="12" md="12" lg="12">
+                  <Card className="mt-3">
+                    <Card.Body>
+                      <Form.Group>
+                        <Form.Label className="texto-negrita">Seleccione los servicios:</Form.Label>
+                        {serviciosDisponibles.map((servicio) => (
+                          <Form.Check
+                            className="m-2"
+                            inline
+                            key={servicio.id_servicios}
+                            type="checkbox"
+                            label={servicio.nombre_servicio}
+                            checked={serviciosSeleccionados.includes(servicio.id_servicios)}
+                            onChange={(e) => {
+                              const servicioId = servicio.id_servicios;
+                              if (serviciosSeleccionados.includes(servicioId)) {
+                                setServiciosSeleccionados(serviciosSeleccionados.filter((id) => id !== servicioId));
+                              } else {
+                                setServiciosSeleccionados([...serviciosSeleccionados, servicioId]);
+                              }
+                            }}
+                          />
+                        ))}
+                      </Form.Group>
+                    </Card.Body>
+                  </Card>
+                </Col>
+
               </Row>
               <div className="center-button">
-                <Button variant="primary" type="submit" className="mt-3 register-button" size="lg">
+                <Button variant="primary" type="submit" className="mt-3 custom-button" size="lg">
                   Registrar
                 </Button>
               </div>
@@ -112,4 +145,4 @@ function Usuario() {
   );
 }
 
-export default Usuario;
+export default Cita;

@@ -251,6 +251,36 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
     });
   });
 
+  router.post('/createcitas2', (req, res) => {
+    const { fecha_cita, id_cliente, id_empleado, servicios } = req.body;
+  
+    if (!fecha_cita || !id_cliente || !id_empleado || !servicios) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
+  
+    const sql = `INSERT INTO Cita (fecha_cita, id_cliente, id_empleado) VALUES (?, ?, ?)`;
+    const values = [fecha_cita, id_cliente, id_empleado];
+  
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error al insertar registro en Cita:', err);
+        res.status(500).json({ error: 'Error al insertar registro en Cita' });
+      } else {
+        const cod_cita = result.insertId;
+        const servicioValues = servicios.map((servicio) => [cod_cita, servicio]);
+        const insertCitaServicio = `INSERT INTO Cita_Servicio (cod_cita, id_servicios) VALUES ?`;
+        db.query(insertCitaServicio, [servicioValues], (err) => {
+          if (err) {
+            console.error('Error al insertar servicios en Cita_Servicio:', err);
+            res.status(500).json({ error: 'Error al insertar servicios en Cita_Servicio' });
+          } else {
+            res.status(201).json({ message: 'Cita creada exitosamente' });
+          }
+        });
+      }
+    });
+  });
+
   // Ruta para actualizar un registro existente en la tabla Cita por ID
   router.put('/upgradecitas/:cod_cita', (req, res) => {
     const cod_cita = req.params.cod_cita;
