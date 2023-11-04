@@ -21,9 +21,11 @@ app.use(express.json());
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'gitdev2051',
+    password: 'ONEYKER2105',
     database: 'salon_yulisa'
 });
+
+/* la constraseña de Eliab: gitdev2051 */
 
 db.connect((err) => {
     if (err) {
