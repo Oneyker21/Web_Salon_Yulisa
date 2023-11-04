@@ -35,6 +35,7 @@ function Cita() {
         setFechaCita('');
         setIdCliente('');
         setIdEmpleado('');
+        setServiciosSeleccionados('');
       } else {
         alert('Error al registrar la cita');
       }
