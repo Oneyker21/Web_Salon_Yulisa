@@ -1,6 +1,6 @@
 # CREACION DE LA BASE DE DATOS
 CREATE DATABASE Salon_yulisa;  
-select *from bitacora;
+
 # SELECCION DE BD
 USE Salon_yulisa;
 
@@ -73,7 +73,3 @@ CREATE TABLE Fotos (
     descripcion VARCHAR(255),
     ruta VARCHAR(255) NOT NULL
 );
-
-# Ejemplo de cómo insertar una foto
-INSERT INTO Fotos (nombre_archivo, descripcion, ruta) 
-VALUES ('foto1.jpg', 'Descripción de la foto 1', '/ruta/a/foto1.jpg');
