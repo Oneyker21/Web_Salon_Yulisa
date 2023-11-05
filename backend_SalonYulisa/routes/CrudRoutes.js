@@ -606,3 +606,81 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
 
   return router;
 };
+
+// Ruta para leer registros de la tabla Fotos
+router.get('/readfotos', (req, res) => {
+  const sql = 'SELECT * FROM Fotos';
+
+  db.query(sql, (err, result) => {
+      if (err) {
+          console.error('Error al leer registros de Fotos:', err);
+          res.status(500).json({ error: 'Error al leer registros de Fotos' });
+      } else {
+          res.status(200).json(result);
+      }
+  });
+});
+
+// Ruta para crear un nuevo registro en la tabla Fotos
+router.post('/createfotos', (req, res) => {
+  const { nombre_archivo, descripcion, ruta } = req.body;
+
+  if (!nombre_archivo || !ruta) {
+      return res.status(400).json({ error: 'Nombre de archivo y ruta son obligatorios' });
+  }
+
+  const sql = `INSERT INTO Fotos (nombre_archivo, descripcion, ruta) VALUES (?, ?, ?)`;
+  const values = [nombre_archivo, descripcion, ruta];
+
+  db.query(sql, values, (err, result) => {
+      if (err) {
+          console.error('Error al insertar registro en Fotos:', err);
+          res.status(500).json({ error: 'Error al insertar registro en Fotos' });
+      } else {
+          res.status(201).json({ message: 'Foto creada exitosamente' });
+      }
+  });
+});
+
+// Ruta para actualizar un registro existente en la tabla Fotos por ID
+router.put('/upgradefotos/:id_foto', (req, res) => {
+  const id_foto = req.params.id_foto;
+  const { nombre_archivo, descripcion, ruta } = req.body;
+
+  if (!nombre_archivo || !ruta) {
+      return res.status(400).json({ error: 'Nombre de archivo y ruta son obligatorios' });
+  }
+
+  const sql = `
+      UPDATE Fotos
+      SET nombre_archivo = ?, descripcion = ?, ruta = ?
+      WHERE id_foto = ?
+  `;
+
+  const values = [nombre_archivo, descripcion, ruta, id_foto];
+
+  db.query(sql, values, (err, result) => {
+      if (err) {
+          console.error('Error al actualizar el registro en Fotos:', err);
+          res.status(500).json({ error: 'Error al actualizar el registro en Fotos' });
+      } else {
+          res.status(200).json({ message: 'Foto actualizada exitosamente' });
+      }
+  });
+});
+
+// Ruta para eliminar un registro existente en la tabla Fotos por ID
+router.delete('/deletefotos/:id_foto', (req, res) => {
+  const id_foto = req.params.id_foto;
+
+  const sql = 'DELETE FROM Fotos WHERE id_foto = ?';
+
+  db.query(sql, [id_foto], (err, result) => {
+      if (err) {
+          console.error('Error al eliminar el registro en Fotos:', err);
+          res.status(500).json({ error: 'Error al eliminar el registro en Fotos' });
+      } else {
+          res.status(200).json({ message: 'Foto eliminada exitosamente' });
+      }
+  });
+});
