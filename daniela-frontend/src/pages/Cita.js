@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bootstrap';
+import { Form, Row, Col, Container, FloatingLabel, Card, Button, Dropdown } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/App.css';
 
@@ -116,6 +116,7 @@ function Cita() {
                             key={servicio.id_servicios}
                             type="checkbox"
                             label={servicio.nombre_servicio}
+                            
                             checked={serviciosSeleccionados.includes(servicio.id_servicios)}
                             onChange={(e) => {
                               const servicioId = servicio.id_servicios;
