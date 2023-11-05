@@ -1,6 +1,35 @@
 const express = require('express');
 const router = express.Router();
 
+
+// Ruta para leer los nombres de marca y categoria
+
+// Ruta para obtener los nombres de las categorías
+router.get('/nombreempleado', (req, res) => {
+  const sql = 'SELECT id_empleados, nombre_empleados FROM categorias';
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error al obtener las categorías:', err);
+      res.status(500).json({ error: 'Error al obtener las categorías' });
+    } else {
+      res.status(200).json(result);
+    }
+  });
+});
+
+// Ruta para obtener los nombres de las marcas
+router.get('/nombremarcas', (req, res) => {
+  const sql = 'SELECT id_Marca, nombre_Marca FROM marcas';
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error al obtener las marcas:', err);
+      res.status(500).json({ error: 'Error al obtener las marcas' });
+    } else {
+      res.status(200).json(result);
+    }
+  });
+});
+
 /* curl http://localhost:5000/crud/readclientes */
 
 /* curl -X POST -H "Content-Type: application/json" -d "{\"nombre\":\"NombreCliente\",\"apellido\":\"ApellidoCliente\",\"telefono\":\"1234567890\"}" http://localhost:5000/crud/createclientes */
