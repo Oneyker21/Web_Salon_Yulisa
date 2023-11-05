@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } from 'react-bootstrap';
 import Header from '../components/Header';
-import {FaPencil, FaTrashCan} from 'react-icons/fa6';
+import { FaPencil, FaTrashCan } from 'react-icons/fa6';
 
 function Usuariolist() {
+  const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
+  const [serviciosDisponibles, setServiciosDisponibles] = useState([]);
   const [citas, setCitas] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedCita, setSelectedCita] = useState({});
@@ -13,7 +15,6 @@ function Usuariolist() {
     id_cliente: '',
     id_empleado: '',
   });
-  const [searchTerm, setSearchTerm] = useState('');
 
   const openModal = (cita) => {
     setSelectedCita(cita);
@@ -68,24 +69,35 @@ function Usuariolist() {
       .catch((error) => console.error('Error al actualizar el registro:', error));
   };
 
-  const handleDelete = (codCita) => {
-    const confirmation = window.confirm('¿Seguro que deseas eliminar esta cita?');
+  const handleDelete = (codCita, idServicios) => {
+    const confirmation = window.confirm('¿Seguro que deseas eliminar esta cita y su conexión con el servicio?');
     if (confirmation) {
-      fetch(`http://localhost:5000/crud/deletecitas/${codCita}`, {
+      // Eliminar la conexión cita - servicio
+      fetch(`http://localhost:5000/crud/deletecitaservicio/${codCita}/${idServicios}`, {
         method: 'DELETE',
       })
         .then((response) => {
           if (response.ok) {
-            loadCitas();
+            // Una vez eliminada la conexión, eliminar la cita
+            fetch(`http://localhost:5000/crud/deletecitas/${codCita}`, {
+              method: 'DELETE',
+            })
+              .then((response) => {
+                if (response.ok) {
+                  loadCitas(); // Volver a cargar la lista de citas
+                }
+              })
+              .catch((error) => console.error('Error al eliminar la cita:', error));
           }
         })
-        .catch((error) => console.error('Error al eliminar la cita:', error));
+        .catch((error) => console.error('Error al eliminar la conexión:', error));
     }
   };
+  
 
   useEffect(() => {
     loadCitas();
-  }, [searchTerm]);
+  }, []);
 
   return (
     <div>
@@ -113,8 +125,20 @@ function Usuariolist() {
                   <td>{cita.id_cliente}</td>
                   <td>{cita.id_empleado}</td>
                   <td className='buttomsAE'>
-                    <Button variant="primary" className='actualizar' onClick={() => openModal(cita)}><FaPencil/></Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cita.cod_cita)}><FaTrashCan/></Button>
+                    <Button variant="primary" className='actualizar' onClick={() => openModal(cita)}><FaPencil /></Button>
+                    <Button
+                      variant="danger"
+                      className='eliminar'
+                      onClick={() => {
+                        if (cita.id_servicios) {
+                          handleDelete(cita.cod_cita, cita.id_servicios);
+                        } else {
+                          console.error('id_servicios está indefinido');
+                        }
+                      }}
+                    >
+                      <FaTrashCan />
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -143,40 +167,58 @@ function Usuariolist() {
                       />
                     </FloatingLabel>
                   </Col>
-                  
-                  
-                  <Col sm="6" md="6" lg="2">
-                    <FloatingLabel controlId="id_servicios" label="ID Servicios">
-                      <Form.Control
-                        type="text"
-                        name="id_servicios"
-                        value={formData.id_servicios}
-                        onChange={handleFormChange}
-                      />
-                    </FloatingLabel>
-                  </Col>
+
 
                   <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="id_cliente" label="ID Cliente">
-                      <Form.Control
-                        type="text"
-                        name="id_cliente"
-                        value={formData.id_cliente}
-                        onChange={handleFormChange}
-                      />
-                    </FloatingLabel>
-                  </Col>
+                  <FloatingLabel controlId="id_cliente" label="ID Cliente">
+                    <Form.Control
+                      type="text"
+                      placeholder='ID Cliente'
+                      value={formData.id_cliente}
+                      onChange={handleFormChange}
+                    />
+                  </FloatingLabel>
+                </Col>
 
-                  <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="id_empleado" label="ID Empleado">
-                      <Form.Control
-                        type="text"
-                        name="id_empleado"
-                        value={formData.id_empleado}
-                        onChange={handleFormChange}
-                      />
-                    </FloatingLabel>
-                  </Col>
+                <Col sm="6" md="6" lg="4">
+                  <FloatingLabel controlId="id_empleado" label="ID Empleado">
+                    <Form.Control
+                      type="text"
+                      placeholder="ID Empleado"
+                      value={formData.id_empleado}
+                      onChange={handleFormChange}
+                    />
+                  </FloatingLabel>
+                </Col>
+
+                <Col sm="12" md="12" lg="12">
+                  <Card className="mt-3">
+                    <Card.Body>
+                      <Form.Group>
+                        <Form.Label className="texto-negrita">Seleccione los servicios:</Form.Label>
+                        {serviciosDisponibles.map((servicio) => (
+                          <Form.Check
+                            className="m-2"
+                            inline
+                            key={servicio.id_servicios}
+                            type="checkbox"
+                            label={servicio.nombre_servicio}
+                            
+                            checked={serviciosSeleccionados.includes(servicio.id_servicios)}
+                            onChange={(e) => {
+                              const servicioId = servicio.id_servicios;
+                              if (serviciosSeleccionados.includes(servicioId)) {
+                                setServiciosSeleccionados(serviciosSeleccionados.filter((id) => id !== servicioId));
+                              } else {
+                                setServiciosSeleccionados([...serviciosSeleccionados, servicioId]);
+                              }
+                            }}
+                          />
+                        ))}
+                      </Form.Group>
+                    </Card.Body>
+                  </Card>
+                </Col>
 
                 </Row>
               </Form>
