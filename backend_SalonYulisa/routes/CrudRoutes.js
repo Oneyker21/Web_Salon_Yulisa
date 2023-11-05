@@ -6,11 +6,11 @@ const router = express.Router();
 
 // Ruta para obtener los nombres de las categorías
 router.get('/nombreempleado', (req, res) => {
-  const sql = 'SELECT id_empleados, nombre_empleados FROM categorias';
+  const sql = 'SELECT id_empleados, nombre FROM Empleado';
   db.query(sql, (err, result) => {
     if (err) {
-      console.error('Error al obtener las categorías:', err);
-      res.status(500).json({ error: 'Error al obtener las categorías' });
+      console.error('Error al obtener los empleados:', err);
+      res.status(500).json({ error: 'Error al obtener los empleados' });
     } else {
       res.status(200).json(result);
     }
@@ -18,12 +18,12 @@ router.get('/nombreempleado', (req, res) => {
 });
 
 // Ruta para obtener los nombres de las marcas
-router.get('/nombremarcas', (req, res) => {
-  const sql = 'SELECT id_Marca, nombre_Marca FROM marcas';
+router.get('/nombrecliente', (req, res) => {
+  const sql = 'SELECT id_cliente, nombre FROM Cliente';
   db.query(sql, (err, result) => {
     if (err) {
-      console.error('Error al obtener las marcas:', err);
-      res.status(500).json({ error: 'Error al obtener las marcas' });
+      console.error('Error al obtener los clientes:', err);
+      res.status(500).json({ error: 'Error al obtener los clientes' });
     } else {
       res.status(200).json(result);
     }
