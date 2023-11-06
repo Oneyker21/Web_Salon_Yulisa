@@ -563,30 +563,30 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
 
   // Ruta para actualizar un registro existente en la tabla Testimonio por ID
   router.put('/upgradetestimonios/:id_testimonio', (req, res) => {
-    const id_testimonio = req.params.id_testimonio;
-    const { fecha_testimonio, testimonio, id_cliente, puntuacion } = req.body;
+  const id_testimonio = req.params.id_testimonio;
+  const { fecha_testimonio, testimonio, id_cliente, puntuacion } = req.body;
 
-    if (!fecha_testimonio || !testimonio || !id_cliente || !puntuacion) {
-      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-    }
+  if (!fecha_testimonio || !testimonio || !id_cliente || !puntuacion) {
+    return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+  }
 
-    const sql = `
+  const sql = `
     UPDATE Testimonio
     SET fecha_testimonio = ?, testimonio = ?, id_cliente = ?, puntuacion = ?
     WHERE id_testimonio = ?
   `;
 
-    const values = [fecha_testimonio, testimonio, id_cliente, id_testimonio, puntuacion];
+  const values = [fecha_testimonio, testimonio, id_cliente, puntuacion, id_testimonio]; // Corregir el orden de los valores
 
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        console.error('Error al actualizar el registro en Testimonio:', err);
-        res.status(500).json({ error: 'Error al actualizar el registro en Testimonio' });
-      } else {
-        res.status(200).json({ message: 'Testimonio actualizado exitosamente' });
-      }
-    });
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error al actualizar el registro en Testimonio:', err);
+      res.status(500).json({ error: 'Error al actualizar el registro en Testimonio' });
+    } else {
+      res.status(200).json({ message: 'Testimonio actualizado exitosamente' });
+    }
   });
+});
 
   // Ruta para eliminar un registro existente en la tabla Testimonio por ID
   router.delete('/deletetestimonios/:id_testimonio', (req, res) => {
