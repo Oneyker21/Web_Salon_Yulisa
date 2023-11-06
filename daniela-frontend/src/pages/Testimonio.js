@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 
 function Testimonio() {
-  // Crear un estado para cada campo del formulario
   const [fecha_testimonio, setFechaTestimonio] = useState('');
   const [testimonio, setTestimonio] = useState('');
   const [id_cliente, setIdCliente] = useState('');
+  const [puntuacion, setPuntuacion] = useState('');
 
-  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
     function getCurrentDateFormatted() {
       const currentDate = new Date();
       const year = currentDate.getFullYear();
@@ -21,20 +22,16 @@ function Testimonio() {
       const day = String(currentDate.getDate()).padStart(2, '0');
       return `${year}-${month}-${day}`;
     }
-    // Usar la función para obtener la fecha formateada
     const currentDate = getCurrentDateFormatted();
 
-    // Crear un objeto con los datos del formulario
     const formData = {
-
-      fecha_testimonio:currentDate,
+      puntuacion,
       testimonio,
       id_cliente,
-
+      fecha_testimonio: currentDate,
     };
 
     try {
-      // Realizar una solicitud HTTP al backend para enviar los datos
       const response = await fetch('http://localhost:5000/crud/createtestimonios', {
         method: 'POST',
         headers: {
@@ -44,9 +41,8 @@ function Testimonio() {
       });
 
       if (response.ok) {
-        // El testimonio se creó exitosamente
         alert('Testimonio registrado exitosamente');
-        // Reiniciar los campos del formulario
+        setPuntuacion(0);
         setFechaTestimonio('');
         setTestimonio('');
         setIdCliente('');
@@ -71,6 +67,12 @@ function Testimonio() {
               <Row className="g-3">
 
                 <Col sm="6" md="6" lg="6">
+                  <FloatingLabel controlId="puntuacion" label="">
+                    <StarRating rating={puntuacion} onRatingChange={setPuntuacion} />
+                  </FloatingLabel>
+                </Col>
+
+                <Col sm="6" md="6" lg="6">
                   <FloatingLabel controlId="id_cliente" label="ID Cliente">
                     <Form.Control
                       type="text"
@@ -81,7 +83,7 @@ function Testimonio() {
                   </FloatingLabel>
                 </Col>
 
-                <Col sm="12" md="6" lg="6">
+                <Col sm="12" md="12" lg="12">
                   <FloatingLabel controlId="testimonio" label="Testimonio">
                     <Form.Control
                       as="textarea"
@@ -101,6 +103,37 @@ function Testimonio() {
           </Card.Body>
         </Card>
       </Container>
+    </div>
+  );
+}
+
+function StarRating({ rating, onRatingChange }) {
+  const maxRating = 5;
+  const starSize = 30;
+  const stars = [];
+
+  for (let i = 1; i <= maxRating; i++) {
+    const isSolid = i <= rating;
+
+    const starStyle = {
+      fontSize: `${starSize}px`,
+      cursor: 'pointer',
+      position: 'center',
+    };
+
+    stars.push(
+      <FontAwesomeIcon
+        key={i}
+        icon={isSolid ? solidStar : regularStar}
+        onClick={() => onRatingChange(i)}
+        style={starStyle}
+      />
+    );
+  }
+
+  return (
+    <div className="star-rating-container">
+      <div className="star-rating">{stars}</div>
     </div>
   );
 }
