@@ -11,12 +11,12 @@ function TestimonioList() {
     fecha_testimonio: '',
     testimonio: '',
     id_cliente: '',
+    puntuacion: '',
   });
   const [searchTerm, setSearchTerm] = useState('');
 
   const openModal = (testimonio) => {
     setSelectedTestimonio(testimonio);
-
     
     const formattedFechaTestimonio = formatDateForInput(testimonio.fecha_testimonio);
 
@@ -24,6 +24,7 @@ function TestimonioList() {
       fecha_testimonio: formattedFechaTestimonio,
       testimonio: testimonio.testimonio,
       id_cliente: testimonio.id_cliente,
+      puntuacion: testimonio.puntuacion,
     });
     setShowModal(true);
   };
@@ -91,6 +92,29 @@ function TestimonioList() {
     loadTestimonios();
   }, []);
 
+  function StarRating({ rating }) {
+    const maxRating = 5;
+    const starSize = 20;
+    const stars = [];
+
+    for (let i = 1; i <= maxRating; i++) {
+      const isSolid = i <= rating;
+
+      const starStyle = {
+        fontSize: `${starSize}px`,
+        color: isSolid ? '#FFD700' : '#C0C0C0',
+      };
+
+      stars.push(
+        <span key={i} style={starStyle}>
+          {isSolid ? '★' : '☆'}
+        </span>
+      );
+    }
+
+    return <div>{stars}</div>;
+  }
+
   const filteredTestimonios = testimonios.filter((testimonio) => {
     const search = searchTerm.toLowerCase();
     return (
@@ -125,6 +149,7 @@ function TestimonioList() {
               <tr className='centrado'>
                 <th>ID Testimonio</th>
                 <th>Fecha</th>
+                <th>Puntuación</th>
                 <th>Comentario</th>
                 <th>ID Cliente</th>
                 <th>Acciones</th>
@@ -135,6 +160,9 @@ function TestimonioList() {
                 <tr className='centrado' key={testimonio.id_testimonio}>
                   <td>{testimonio.id_testimonio}</td>
                   <td>{formatDateForInput(testimonio.fecha_testimonio)}</td>
+                  <td>
+                    <StarRating rating={parseInt(testimonio.puntuacion)} />
+                  </td>
                   <td>{testimonio.testimonio}</td>
                   <td>{testimonio.id_cliente}</td>
                   <td className='buttomsAE'>
@@ -148,7 +176,6 @@ function TestimonioList() {
         </Card.Body>
       </Card>
 
-      {/* ... (código del Modal) */}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Actualizar Testimonio</Modal.Title>
@@ -156,10 +183,9 @@ function TestimonioList() {
         <Modal.Body>
           <Card className="mt-3">
             <Card.Body>
-              <Card.Title>Registro de Testimionio</Card.Title>
+              <Card.Title>Registro de Testimonio</Card.Title>
               <Form className="mt-3">
                 <Row className="g-3">
-
                   <Col sm="6" md="6" lg="12">
                     <FloatingLabel controlId="testimonio" label="Testimonio">
                       <Form.Control
@@ -170,7 +196,11 @@ function TestimonioList() {
                       />
                     </FloatingLabel>
                   </Col>
-
+                  <Col sm="6" md="6" lg="12">
+                    <FloatingLabel controlId="puntuacion" label="Puntuación">
+                      <StarRating rating={parseInt(formData.puntuacion)} />
+                    </FloatingLabel>
+                  </Col>
                 </Row>
               </Form>
             </Card.Body>
