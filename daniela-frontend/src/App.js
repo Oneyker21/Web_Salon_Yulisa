@@ -12,6 +12,7 @@ import Cliente from './pages/Cliente';
 import VerCliente from './pages/ClienteList';
 import TestimonioList from './pages/TestimonioList';
 import Testimonio from './pages/Testimonio';
+import Galeria from './pages/Galeria';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/serviciolist" element={<ServicioList />} />
         <Route path="/testimoniolist" element={<TestimonioList />} />
         <Route path="/testimonio" element={<Testimonio />} />
+        <Route path="/galeria" element={<Galeria />} />
       </Routes>
     </Router>
   );

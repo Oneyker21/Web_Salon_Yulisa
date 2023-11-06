@@ -80,6 +80,16 @@ function Header() {
                 </NavDropdown.Item>
               </NavDropdown>
 
+              <NavDropdown title="Galeria" id="Galeria">
+                <NavDropdown.Item>
+                  <Link to="/galeria" className="link-unstyled">Insertar Imagen</Link>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>
+                  <Link to="/testimoniolist" className="link-unstyled">Galeria</Link>
+                </NavDropdown.Item>
+              </NavDropdown>
+
             </Nav>
           </Navbar.Collapse>
           <Button
