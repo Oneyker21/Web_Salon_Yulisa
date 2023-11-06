@@ -73,6 +73,7 @@
 
 .centrado {
   text-align: center;
+  cursor: default;
 }
 
 textarea {
