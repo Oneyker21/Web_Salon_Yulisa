@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Container, Card, Form, Modal, FloatingLabel, Row, Col } from 'react-bootstrap';
 import Header from '../components/Header';
 import { FaPencil, FaTrashCan } from 'react-icons/fa6';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
+
 
 function TestimonioList() {
   const [testimonios, setTestimonios] = useState([]);
@@ -17,7 +21,7 @@ function TestimonioList() {
 
   const openModal = (testimonio) => {
     setSelectedTestimonio(testimonio);
-    
+
     const formattedFechaTestimonio = formatDateForInput(testimonio.fecha_testimonio);
 
     setFormData({
@@ -92,6 +96,45 @@ function TestimonioList() {
     loadTestimonios();
   }, []);
 
+
+  function StarRatingEdit({ rating, onRatingChange }) {
+    const maxRating = 5;
+    const starSize = 30;
+    const stars = [];
+
+    const handleRatingChange = (newRating) => {
+      onRatingChange(newRating);
+    };
+
+    for (let i = 1; i <= maxRating; i++) {
+      const isSolid = i <= rating;
+
+      const starStyle = {
+        fontSize: `${starSize}px`,
+        color: isSolid ? '#FFD700' : '#C0C0C0',
+        cursor: 'pointer',
+        marginRight: '0px',
+        paddingTop: '5px',
+        paddingLeft: '0px',
+      };
+
+      stars.push(
+        <FontAwesomeIcon
+          key={i}
+          icon={isSolid ? solidStar : regularStar}
+          onClick={() => handleRatingChange(i)}
+          style={starStyle}
+        />
+      );
+    }
+
+    return (
+      <div className="star-rating-container">
+        <div className="star-rating">{stars}</div>
+      </div>
+    );
+  }
+
   function StarRating({ rating }) {
     const maxRating = 5;
     const starSize = 20;
@@ -160,9 +203,7 @@ function TestimonioList() {
                 <tr className='centrado' key={testimonio.id_testimonio}>
                   <td>{testimonio.id_testimonio}</td>
                   <td>{formatDateForInput(testimonio.fecha_testimonio)}</td>
-                  <td>
-                    <StarRating rating={parseInt(testimonio.puntuacion)} />
-                  </td>
+                  <td><StarRating rating={parseInt(testimonio.puntuacion)} /></td>
                   <td>{testimonio.testimonio}</td>
                   <td>{testimonio.id_cliente}</td>
                   <td className='buttomsAE'>
@@ -186,7 +227,7 @@ function TestimonioList() {
               <Card.Title>Registro de Testimonio</Card.Title>
               <Form className="mt-3">
                 <Row className="g-3">
-                  <Col sm="6" md="6" lg="12">
+                  <Col sm="6" md="6" lg="9">
                     <FloatingLabel controlId="testimonio" label="Testimonio">
                       <Form.Control
                         type="text"
@@ -196,11 +237,14 @@ function TestimonioList() {
                       />
                     </FloatingLabel>
                   </Col>
-                  <Col sm="6" md="6" lg="12">
-                    <FloatingLabel controlId="puntuacion" label="Puntuación">
-                      <StarRating rating={parseInt(formData.puntuacion)} />
+
+                  <Col sm="6" md="6" lg="3">
+                    <FloatingLabel controlId="puntuacion" label="">
+                      <StarRatingEdit rating={parseInt(formData.puntuacion)} 
+                      onRatingChange={(value) => setFormData({ ...formData, puntuacion: value })} />
                     </FloatingLabel>
                   </Col>
+
                 </Row>
               </Form>
             </Card.Body>
