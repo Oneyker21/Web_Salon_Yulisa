@@ -548,7 +548,7 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    const sql = `INSERT INTO Testimonio (fecha_testimonio, testimonio, id_cliente) VALUES (?, ?, ?, ?)`;
+    const sql =`INSERT INTO Testimonio (fecha_testimonio, testimonio, id_cliente, puntuacion) VALUES (?, ?, ?, ?)`;
     const values = [fecha_testimonio, testimonio, id_cliente, puntuacion];
 
     db.query(sql, values, (err, result) => {
