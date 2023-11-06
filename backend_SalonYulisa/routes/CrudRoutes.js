@@ -563,30 +563,30 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
 
   // Ruta para actualizar un registro existente en la tabla Testimonio por ID
   router.put('/upgradetestimonios/:id_testimonio', (req, res) => {
-  const id_testimonio = req.params.id_testimonio;
-  const { fecha_testimonio, testimonio, id_cliente, puntuacion } = req.body;
+    const id_testimonio = req.params.id_testimonio;
+    const { fecha_testimonio, testimonio, id_cliente, puntuacion } = req.body;
 
-  if (!fecha_testimonio || !testimonio || !id_cliente || !puntuacion) {
-    return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-  }
+    if (!fecha_testimonio || !testimonio || !id_cliente || !puntuacion) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
 
-  const sql = `
+    const sql = `
     UPDATE Testimonio
     SET fecha_testimonio = ?, testimonio = ?, id_cliente = ?, puntuacion = ?
     WHERE id_testimonio = ?
   `;
 
-  const values = [fecha_testimonio, testimonio, id_cliente, puntuacion, id_testimonio]; // Corregir el orden de los valores
+    const values = [fecha_testimonio, testimonio, id_cliente, id_testimonio, puntuacion];
 
-  db.query(sql, values, (err, result) => {
-    if (err) {
-      console.error('Error al actualizar el registro en Testimonio:', err);
-      res.status(500).json({ error: 'Error al actualizar el registro en Testimonio' });
-    } else {
-      res.status(200).json({ message: 'Testimonio actualizado exitosamente' });
-    }
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error al actualizar el registro en Testimonio:', err);
+        res.status(500).json({ error: 'Error al actualizar el registro en Testimonio' });
+      } else {
+        res.status(200).json({ message: 'Testimonio actualizado exitosamente' });
+      }
+    });
   });
-});
 
   // Ruta para eliminar un registro existente en la tabla Testimonio por ID
   router.delete('/deletetestimonios/:id_testimonio', (req, res) => {
@@ -621,101 +621,66 @@ router.get('/readfotos', (req, res) => {
   });
 });
 
-
-
-
-
-
-router.get('/readfoto', (req, res) => {
-
-  const sql = 'SELECT * FROM Fotos';
-
-  db.query(sql, (err, result) => {
-    if (err) {
-      console.error('Error al leer registros de fotos:', err);
-      res.status(500).json({ error: 'Error al leer registros de fotos' });
-    } else {
-      res.status(200).json(result);
-    }
-  });
-});
-
-
-
 // Ruta para crear un nuevo registro en la tabla Fotos
-router.post('/createfoto', (req, res) => {
+router.post('/createfotos', (req, res) => {
   const { nombre_archivo, descripcion, ruta } = req.body;
 
   if (!nombre_archivo || !ruta) {
-    return res.status(400).json({ error: 'El nombre del archivo y la ruta son obligatorios' });
+      return res.status(400).json({ error: 'Nombre de archivo y ruta son obligatorios' });
   }
 
-  const sql = 'INSERT INTO Fotos (nombre_archivo, descripcion, ruta) VALUES (?,?,?)';
+  const sql = `INSERT INTO Fotos (nombre_archivo, descripcion, ruta) VALUES (?, ?, ?)`;
   const values = [nombre_archivo, descripcion, ruta];
 
   db.query(sql, values, (err, result) => {
-    if (err) {
-      console.error('Error al insertar la foto:', err);
-      res.status(500).json({ error: 'Error al insertar la foto' });
-    } else {
-      res.status(201).json({ message: 'Foto insertada con éxito' });
-    }
+      if (err) {
+          console.error('Error al insertar registro en Fotos:', err);
+          res.status(500).json({ error: 'Error al insertar registro en Fotos' });
+      } else {
+          res.status(201).json({ message: 'Foto creada exitosamente' });
+      }
   });
 });
 
-
 // Ruta para actualizar un registro existente en la tabla Fotos por ID
-router.put('/updatefoto/:id', upload.single('nuevaImagen'), (req, res) => {
-  const id = req.params.id;
+router.put('/upgradefotos/:id_foto', (req, res) => {
+  const id_foto = req.params.id_foto;
   const { nombre_archivo, descripcion, ruta } = req.body;
 
-  // Verifica si se proporcionó el nombre del archivo y la ruta
   if (!nombre_archivo || !ruta) {
-    return res.status(400).json({ error: 'El nombre del archivo y la ruta son obligatorios' });
-  }
-
-  let nuevaImagen = ruta; // Mantén la imagen existente por defecto
-
-  // Si se proporciona una nueva imagen a través de la carga de archivos, actualiza `nuevaImagen`
-  if (req.file) {
-    nuevaImagen = 'http://localhost:5000/' + req.file.path;
+      return res.status(400).json({ error: 'Nombre de archivo y ruta son obligatorios' });
   }
 
   const sql = `
-    UPDATE Fotos
-    SET nombre_archivo = ?, descripcion = ?, ruta = ?
-    WHERE id_foto = ?
+      UPDATE Fotos
+      SET nombre_archivo = ?, descripcion = ?, ruta = ?
+      WHERE id_foto = ?
   `;
 
-  const values = [nombre_archivo, descripcion, nuevaImagen, id];
+  const values = [nombre_archivo, descripcion, ruta, id_foto];
 
   db.query(sql, values, (err, result) => {
-    if (err) {
-      console.error('Error al actualizar el registro de la foto:', err);
-      res.status(500).json({ error: 'Error al actualizar el registro de la foto' });
-    } else {
-      res.status(200).json({ message: 'Registro de foto actualizado con éxito' });
-    }
+      if (err) {
+          console.error('Error al actualizar el registro en Fotos:', err);
+          res.status(500).json({ error: 'Error al actualizar el registro en Fotos' });
+      } else {
+          res.status(200).json({ message: 'Foto actualizada exitosamente' });
+      }
   });
 });
 
-
 // Ruta para eliminar un registro existente en la tabla Fotos por ID
-router.delete('/deletefoto/:id', (req, res) => {
-  // Obtén el ID del registro a eliminar desde los parámetros de la URL
-  const id = req.params.id;
+router.delete('/deletefotos/:id_foto', (req, res) => {
+  const id_foto = req.params.id_foto;
 
-  // Realiza la consulta SQL para eliminar el registro por ID
   const sql = 'DELETE FROM Fotos WHERE id_foto = ?';
 
-  // Ejecuta la consulta
-  db.query(sql, [id], (err, result) => {
-    if (err) {
-      console.error('Error al eliminar el registro de la foto:', err);
-      res.status(500).json({ error: 'Error al eliminar el registro de la foto' });
-    } else {
-      // Devuelve un mensaje de éxito
-      res.status(200).json({ message: 'Registro de foto eliminado con éxito' });
-    }
+  db.query(sql, [id_foto], (err, result) => {
+      if (err) {
+          console.error('Error al eliminar el registro en Fotos:', err);
+          res.status(500).json({ error: 'Error al eliminar el registro en Fotos' });
+      } else {
+          res.status(200).json({ message: 'Foto eliminada exitosamente' });
+      }
   });
 });
