@@ -55,6 +55,40 @@ function Testimonio() {
     }
   };
 
+  function StarRating({ rating, onRatingChange }) {
+    const maxRating = 5;
+    const starSize = 30;
+    const stars = [];
+
+    for (let i = 1; i <= maxRating; i++) {
+      const isSolid = i <= rating;
+
+      const starStyle = {
+        fontSize: `${starSize}px`,
+        color: isSolid ? '#FFD700' : '#C0C0C0',
+        cursor: 'pointer',
+        marginRight: '5px', 
+        paddingTop: '12px', 
+        paddingLeft: '10px',
+      };
+
+      stars.push(
+        <FontAwesomeIcon
+          key={i}
+          icon={isSolid ? solidStar : regularStar}
+          onClick={() => onRatingChange(i)}
+          style={starStyle}
+        />
+      );
+    }
+
+    return (
+      <div className="star-rating-container">
+        <div className="star-rating">{stars}</div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Header />
@@ -65,31 +99,30 @@ function Testimonio() {
             <Card.Title className='title'>Registro de Testimonio</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-
-                <Col sm="6" md="6" lg="6">
+                <Col sm="6" md="6" lg="3">
                   <FloatingLabel controlId="puntuacion" label="">
                     <StarRating rating={puntuacion} onRatingChange={setPuntuacion} />
                   </FloatingLabel>
                 </Col>
 
-                <Col sm="6" md="6" lg="6">
-                  <FloatingLabel controlId="id_cliente" label="ID Cliente">
-                    <Form.Control
-                      type="text"
-                      placeholder="ID del cliente"
-                      value={id_cliente}
-                      onChange={(e) => setIdCliente(e.target.value)}
-                    />
-                  </FloatingLabel>
-                </Col>
-
-                <Col sm="12" md="12" lg="12">
+                <Col sm="12" md="12" lg="9">
                   <FloatingLabel controlId="testimonio" label="Testimonio">
                     <Form.Control
                       as="textarea"
                       placeholder="Ingrese el testimonio"
                       value={testimonio}
                       onChange={(e) => setTestimonio(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+
+                <Col sm="6" md="6" lg="2">
+                  <FloatingLabel controlId="id_cliente" label="ID Cliente">
+                    <Form.Control
+                      type="text"
+                      placeholder="ID del cliente"
+                      value={id_cliente}
+                      onChange={(e) => setIdCliente(e.target.value)}
                     />
                   </FloatingLabel>
                 </Col>
@@ -103,37 +136,6 @@ function Testimonio() {
           </Card.Body>
         </Card>
       </Container>
-    </div>
-  );
-}
-
-function StarRating({ rating, onRatingChange }) {
-  const maxRating = 5;
-  const starSize = 30;
-  const stars = [];
-
-  for (let i = 1; i <= maxRating; i++) {
-    const isSolid = i <= rating;
-
-    const starStyle = {
-      fontSize: `${starSize}px`,
-      cursor: 'pointer',
-      position: 'center',
-    };
-
-    stars.push(
-      <FontAwesomeIcon
-        key={i}
-        icon={isSolid ? solidStar : regularStar}
-        onClick={() => onRatingChange(i)}
-        style={starStyle}
-      />
-    );
-  }
-
-  return (
-    <div className="star-rating-container">
-      <div className="star-rating">{stars}</div>
     </div>
   );
 }
