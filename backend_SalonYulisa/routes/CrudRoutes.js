@@ -573,10 +573,11 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
     const sql = `
     UPDATE Testimonio
     SET fecha_testimonio = ?, testimonio = ?, id_cliente = ?, puntuacion = ?
-    WHERE id_testimonio = ?
+    WHERE id_testimonio = ?    
   `;
+ 
+  const values = [fecha_testimonio, testimonio, id_cliente, puntuacion, id_testimonio];
 
-    const values = [fecha_testimonio, testimonio, id_cliente, id_testimonio, puntuacion];
 
     db.query(sql, values, (err, result) => {
       if (err) {
