@@ -4,7 +4,21 @@ const router = express.Router();
 
 
 
-// Ruta para verificar las credenciales y obtener el rol del usuario
+
+
+/* curl http://localhost:5000/crud/readclientes */
+
+/* curl -X POST -H "Content-Type: application/json" -d "{\"nombre\":\"NombreCliente\",\"apellido\":\"ApellidoCliente\",\"telefono\":\"1234567890\"}" http://localhost:5000/crud/createclientes */
+
+/* curl -X PUT -H "Content-Type: application/json" -d "{\"nombre\":\"NuevoNombre\",\"apellido\":\"NuevoApellido\",\"telefono\":\"98765432\"}" http://localhost:5000/crud/upgradeclientes/1 */
+
+/* curl -X DELETE http://localhost:5000/crud/deleteclientes/1 */
+
+
+module.exports = (db) => {
+
+
+  // Ruta para verificar las credenciales y obtener el rol del usuario
 router.post('/login', (req, res) => {
   const { nombre_Usuario, contrasena } = req.body;
 
@@ -29,16 +43,8 @@ router.post('/login', (req, res) => {
   });
 });
 
-/* curl http://localhost:5000/crud/readclientes */
-
-/* curl -X POST -H "Content-Type: application/json" -d "{\"nombre\":\"NombreCliente\",\"apellido\":\"ApellidoCliente\",\"telefono\":\"1234567890\"}" http://localhost:5000/crud/createclientes */
-
-/* curl -X PUT -H "Content-Type: application/json" -d "{\"nombre\":\"NuevoNombre\",\"apellido\":\"NuevoApellido\",\"telefono\":\"98765432\"}" http://localhost:5000/crud/upgradeclientes/1 */
-
-/* curl -X DELETE http://localhost:5000/crud/deleteclientes/1 */
 
 
-module.exports = (db) => {
   // Ruta para leer registros de la tabla Cliente
   router.get('/readclientes', (req, res) => {
     // Realiza una consulta SQL para seleccionar todos los registros de la tabla Cliente
