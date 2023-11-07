@@ -64,7 +64,7 @@ const Login = ({ setRol }) => {
                     <FloatingLabel controlId="contrasena" label="Ingrese su contraseña">
                       <Form.Control
                         placeholder="Ingrese su contraseña"
-                        type="text"
+                        type="password"
                         value={contrasena}
                         onChange={(e) => setContrasena(e.target.value)}
                       />
@@ -87,4 +87,3 @@ const Login = ({ setRol }) => {
 };
 
 export default Login;
-

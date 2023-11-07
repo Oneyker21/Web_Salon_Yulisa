@@ -7,7 +7,7 @@ import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 
 
-function TestimonioList() {
+function TestimonioList({ rol }) {
   const [testimonios, setTestimonios] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedTestimonio, setSelectedTestimonio] = useState({});
@@ -170,7 +170,7 @@ function TestimonioList() {
 
   return (
     <div>
-      <Header />
+      <Header rol={ rol }/>
 
       <Card className="m-3">
         <Card.Body>
