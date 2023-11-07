@@ -2,30 +2,29 @@ const express = require('express');
 const router = express.Router();
 
 
-// Ruta para leer los nombres de marca y categoria
 
-// Ruta para obtener los nombres de las categorías
-router.get('/nombreempleado', (req, res) => {
-  const sql = 'SELECT id_empleados, nombre FROM Empleado';
-  db.query(sql, (err, result) => {
+
+// Ruta para verificar las credenciales y obtener el rol del usuario
+router.post('/login', (req, res) => {
+  const { nombre_Usuario, contrasena } = req.body;
+
+  if (!nombre_Usuario || !contrasena) {
+    return res.status(400).json({ error: 'Nombre de usuario y contraseña son obligatorios' });
+  }
+
+  // Realizar la consulta para verificar las credenciales en la base de datos
+  const sql = `SELECT rol FROM Usuario WHERE nombre_Usuario = ? AND contrasena = ?`;
+  db.query(sql, [nombre_Usuario, contrasena], (err, result) => {
     if (err) {
-      console.error('Error al obtener los empleados:', err);
-      res.status(500).json({ error: 'Error al obtener los empleados' });
-    } else {
-      res.status(200).json(result);
+      console.error('Error al verificar credenciales:', err);
+      return res.status(500).json({ error: 'Error al verificar credenciales' });
     }
-  });
-});
 
-// Ruta para obtener los nombres de las marcas
-router.get('/nombrecliente', (req, res) => {
-  const sql = 'SELECT id_cliente, nombre FROM Cliente';
-  db.query(sql, (err, result) => {
-    if (err) {
-      console.error('Error al obtener los clientes:', err);
-      res.status(500).json({ error: 'Error al obtener los clientes' });
+    if (result.length === 1) {
+      const { rol } = result[0];
+      res.json({ rol }); // Devolver el rol si las credenciales son correctas
     } else {
-      res.status(200).json(result);
+      res.status(401).json({ error: 'Credenciales incorrectas' });
     }
   });
 });
