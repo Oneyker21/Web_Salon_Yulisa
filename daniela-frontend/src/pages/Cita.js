@@ -3,7 +3,7 @@ import { Form, Row, Col, Container, FloatingLabel, Card, Button, Dropdown } from
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function Cita() {
+function Cita({rol}) {
   const [fecha_cita, setFechaCita] = useState('');
   const [id_cliente, setIdCliente] = useState('');
   const [id_empleado, setIdEmpleado] = useState('');
@@ -64,7 +64,7 @@ function Cita() {
 
   return (
     <div>
-      <Header />
+      <Header rol={ rol }/>
 
       <Container>
         <Card className="mt-3">

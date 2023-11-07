@@ -3,7 +3,7 @@ import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bo
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function Usuario() {
+function Usuario({rol}) {
   // Crear un estado para cada campo del formulario
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
@@ -51,7 +51,7 @@ function Usuario() {
 
   return (
     <div>
-      <Header />
+      <Header rol={rol}/>
 
       <Container>
         <Card className="mt-3">

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 
-function Testimonio() {
+function Testimonio({rol}) {
   const [fecha_testimonio, setFechaTestimonio] = useState('');
   const [testimonio, setTestimonio] = useState('');
   const [id_cliente, setIdCliente] = useState('');
@@ -91,7 +91,7 @@ function Testimonio() {
 
   return (
     <div>
-      <Header />
+      <Header rol={rol}/>
 
       <Container>
         <Card className="mt-3">

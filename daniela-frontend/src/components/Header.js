@@ -29,7 +29,7 @@ function Header({ rol }) {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
                   <Nav.Link>
-                    <Link to="/" className="link-unstyled">Inicio</Link>
+                    <Link to="/home" className="link-unstyled">Inicio</Link>
                   </Nav.Link>
                   <Nav.Link>
                     <Link to="/about" className="link-unstyled">Contacto</Link>

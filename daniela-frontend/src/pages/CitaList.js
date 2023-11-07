@@ -3,7 +3,7 @@ import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } 
 import Header from '../components/Header';
 import { FaPencil, FaTrashCan } from 'react-icons/fa6';
 
-function Usuariolist() {
+function Usuariolist({rol}) {
   const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
   const [serviciosDisponibles, setServiciosDisponibles] = useState([]);
   const [citas, setCitas] = useState([]);
@@ -101,7 +101,7 @@ function Usuariolist() {
 
   return (
     <div>
-      <Header />
+      <Header rol={ rol }/>
       <Card className="m-3 ">
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Citas</Card.Title>
