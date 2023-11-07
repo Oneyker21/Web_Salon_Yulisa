@@ -57,4 +57,4 @@ Este proyecto está bajo la licencia (MIT License). Para más detalles, consulta
 ## Contacto
 
 Para cualquier consulta o sugerencia, contáctanos en: <br>
-oneygaleano21@gmail.com || alejandrabaltodano67@gmail.com.
+oneygaleano21@gmail.com || alejandrabaltodano67@gmail.com
