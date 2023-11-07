@@ -24,6 +24,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login setRol={setUserRol} />} />
+        <Route path="/home" element={<Home rol={userRol} />} />
         <Route path="/about" element={<About rol={userRol} />} />
         <Route path="/citas" element={<Citas rol={userRol} />} />
         <Route path="/citaslist" element={<CitasList rol={userRol} />} />
