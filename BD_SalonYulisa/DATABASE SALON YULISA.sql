@@ -12,6 +12,7 @@ CREATE TABLE Cliente (
     telefono VARCHAR(15) NOT NULL
 );
 
+
 # CREACION DE TABLA Empleado
 CREATE TABLE Empleado (
     id_empleado INT AUTO_INCREMENT PRIMARY KEY,
@@ -69,7 +70,6 @@ CREATE TABLE Usuario (
 # CREACION DE TABLA Fotos
 CREATE TABLE Fotos (
     id_foto INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_archivo VARCHAR(100) NOT NULL,
     descripcion VARCHAR(255),
-    ruta VARCHAR(255) NOT NULL
+    imagen LONGTEXT NOT NULL
 );

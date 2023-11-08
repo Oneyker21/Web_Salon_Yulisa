@@ -637,10 +637,8 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
     });
   });
 
-  return router;
-};
 
-// Ruta para leer registros de la tabla Fotos
+  // Ruta para leer registros de la tabla Fotos
 router.get('/readfotos', (req, res) => {
   const sql = 'SELECT * FROM Fotos';
 
@@ -656,14 +654,14 @@ router.get('/readfotos', (req, res) => {
 
 // Ruta para crear un nuevo registro en la tabla Fotos
 router.post('/createfotos', (req, res) => {
-  const { nombre_archivo, descripcion, ruta } = req.body;
+  const {  descripcion, imagen } = req.body;
 
-  if (!nombre_archivo || !ruta) {
+  if (!descripcion || !imagen) {
       return res.status(400).json({ error: 'Nombre de archivo y ruta son obligatorios' });
   }
 
-  const sql = `INSERT INTO Fotos (nombre_archivo, descripcion, ruta) VALUES (?, ?, ?)`;
-  const values = [nombre_archivo, descripcion, ruta];
+  const sql = `INSERT INTO Fotos (descripcion, imagen) VALUES (?, ?)`;
+  const values = [descripcion, imagen];
 
   db.query(sql, values, (err, result) => {
       if (err) {
@@ -678,19 +676,19 @@ router.post('/createfotos', (req, res) => {
 // Ruta para actualizar un registro existente en la tabla Fotos por ID
 router.put('/upgradefotos/:id_foto', (req, res) => {
   const id_foto = req.params.id_foto;
-  const { nombre_archivo, descripcion, ruta } = req.body;
+  const {descripcion, ruta } = req.body;
 
-  if (!nombre_archivo || !ruta) {
-      return res.status(400).json({ error: 'Nombre de archivo y ruta son obligatorios' });
+  if (!descripcion || !ruta) {
+      return res.status(400).json({ error: 'Nombre de archivo y imagen son obligatorios' });
   }
 
   const sql = `
       UPDATE Fotos
-      SET nombre_archivo = ?, descripcion = ?, ruta = ?
+      SET descripcion = ?, imagen = ?
       WHERE id_foto = ?
   `;
 
-  const values = [nombre_archivo, descripcion, ruta, id_foto];
+  const values = [descripcion, imagen, id_foto];
 
   db.query(sql, values, (err, result) => {
       if (err) {
@@ -717,3 +715,7 @@ router.delete('/deletefotos/:id_foto', (req, res) => {
       }
   });
 });
+
+
+  return router;
+};
