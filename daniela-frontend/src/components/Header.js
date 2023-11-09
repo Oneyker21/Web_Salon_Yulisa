@@ -91,7 +91,7 @@ function Header({ rol }) {
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item>
-                      <Link to="/testimoniolist" className="link-unstyled">Galeria</Link>
+                      <Link to="/galerialist" className="link-unstyled">Galeria</Link>
                     </NavDropdown.Item>
                   </NavDropdown>
 
