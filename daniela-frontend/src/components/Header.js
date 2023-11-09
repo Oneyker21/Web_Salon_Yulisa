@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Offcanvas, Button, NavDropdown, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { } from 'react-icons/fa6';
+import { FaRightFromBracket } from 'react-icons/fa6';
 
 
 function Header({ rol }) {
@@ -34,23 +34,24 @@ function Header({ rol }) {
                   <Nav.Link>
                     <Link to="/about" className="link-unstyled">Contacto</Link>
                   </Nav.Link>
-                  <NavDropdown title="Empleados" id="Estilistas">
+
+                  <NavDropdown title="Gestion de usuarios" id="GestUs">
                     <NavDropdown.Item>
                       <Link to="/empleado" className="link-unstyled">Registrar Empleado</Link>
                     </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item>
-                      <Link to="/verempleado" className="link-unstyled">Empleados</Link>
-                    </NavDropdown.Item>
-                  </NavDropdown>
-
-                  <NavDropdown title="Clientes" id="Clientes">
+                    
                     <NavDropdown.Item>
                       <Link to="/cliente" className="link-unstyled">Registrar Cliente</Link>
                     </NavDropdown.Item>
+
                     <NavDropdown.Divider />
+
                     <NavDropdown.Item>
-                      <Link to="/vercliente" className="link-unstyled">Clientes</Link>
+                      <Link to="/verempleado" className="link-unstyled">Listado Empleados</Link>
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item>
+                      <Link to="/vercliente" className="link-unstyled">Listado Clientes</Link>
                     </NavDropdown.Item>
                   </NavDropdown>
 
@@ -93,6 +94,10 @@ function Header({ rol }) {
                       <Link to="/testimoniolist" className="link-unstyled">Galeria</Link>
                     </NavDropdown.Item>
                   </NavDropdown>
+
+                  <Nav.Link>
+                    <Link to="/" className="link-unstyled"> Cerrar Sesión <FaRightFromBracket /></Link>
+                  </Nav.Link>
 
                 </Nav>
               </Navbar.Collapse>
@@ -171,6 +176,9 @@ function Header({ rol }) {
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
+              <Nav.Link>
+                <Link to="/" className="link-unstyled "><FaRightFromBracket /></Link>
+              </Nav.Link>
             </Offcanvas.Body>
           </Offcanvas>
         </div>
@@ -264,7 +272,7 @@ function Header({ rol }) {
                 <Nav.Link>
                   <Link to="/about" className="link-unstyled">Contacto</Link>
                 </Nav.Link>
-                
+
                 <NavDropdown title="Citas" id="Cita">
                   <NavDropdown.Item>
                     <Link to="/citas" className="link-unstyled">Registrar Citas</Link>
