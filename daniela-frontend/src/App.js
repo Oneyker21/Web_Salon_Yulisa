@@ -14,6 +14,7 @@ import TestimonioList from './pages/TestimonioList';
 import Testimonio from './pages/Testimonio';
 import Galeria from './pages/Galeria';
 import GaleriaList from './pages/GaleriaList';
+import Estadisticas from './pages/Estadisticas';
 import Login from './pages/Login';
 
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/testimonio" element={<Testimonio rol={userRol} />} />
         <Route path="/galeria" element={<Galeria rol={userRol} />} />
         <Route path="/galerialist" element={<GaleriaList rol={userRol} />} />
+        <Route path="/estadisticas" element={<Estadisticas rol={userRol} />} />
       </Routes>
     </Router>
   );
