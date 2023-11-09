@@ -65,7 +65,7 @@ function Galeria({ rol }) {  // Define un componente funcional Galeria que recib
                 </Card.Text>
               </Card.Body>
               <Card.Body>
-                <Card.Link href="/producto">Comprar</Card.Link>
+                <Card.Link href="/citas">Reservacion</Card.Link>
               </Card.Body>
             </Card>
           </Col>            
