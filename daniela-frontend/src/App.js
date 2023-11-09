@@ -13,6 +13,7 @@ import VerCliente from './pages/ClienteList';
 import TestimonioList from './pages/TestimonioList';
 import Testimonio from './pages/Testimonio';
 import Galeria from './pages/Galeria';
+import GaleriaList from './pages/GaleriaList';
 import Login from './pages/Login';
 
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/testimoniolist" element={<TestimonioList rol={userRol} />} />
         <Route path="/testimonio" element={<Testimonio rol={userRol} />} />
         <Route path="/galeria" element={<Galeria rol={userRol} />} />
+        <Route path="/galerialist" element={<GaleriaList rol={userRol} />} />
       </Routes>
     </Router>
   );
