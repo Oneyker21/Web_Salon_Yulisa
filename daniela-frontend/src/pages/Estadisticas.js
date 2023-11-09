@@ -25,70 +25,36 @@ function Estadisticas({ rol }) {  // Declaración del componente Estadisticas co
   const [myChart, setMyChart] = useState(null);  // Declaración del estado 'myChart' y su función 'setMyChart' a través de useState, con un valor inicial de 'null'
 
   useEffect(() => {
-    fetch('http://localhost:5000/crud/readcitas')  // Realiza una solicitud GET al servidor para obtener productos
-      .then((response) => response.json())  // Convierte la respuesta a formato JSON
-      .then((data) => setProductos(data))  // Almacena los productos en el estado 'productos'
-      .catch((error) => console.error('Error al obtener los productos:', error));  // Manejo de errores en caso de fallar la solicitud
-  }, []);  // Se ejecuta esta función solo una vez al cargar el componente
-
-  useEffect(() => {
-    if (productos.length > 0) {  // Si hay productos disponibles
-      const ctx = document.getElementById('myChart');  // Obtiene el elemento canvas con el ID 'myChart'
-
-      if (myChart !== null) {
-        myChart.destroy(); // Destruye el gráfico existente antes de crear uno nuevo para evitar conflictos
-      }
-
-      const nombresProductos = productos.map((producto) => producto.nombre);  // Extrae los nombres de los productos
-      const cantidades = productos.map((producto) => producto.cantidad);  // Extrae las cantidades de los productos
-
-      const almacen = new Chart(ctx, {  // Crea un nuevo gráfico de tipo 'bar' con Chart.js y lo asigna al elemento canvas
-        type: 'bar',
-        data: {
-          labels: nombresProductos,  // Asigna los nombres de productos como etiquetas para el eje X
-          datasets: [{
-            label: 'Cantidad disponible',  // Etiqueta para la leyenda del gráfico
-            data: cantidades,  // Asigna las cantidades de productos para la visualización
-            backgroundColor: 'rgba(54, 162, 235, 0.5)',  // Define el color de fondo de las barras
-            borderColor: 'rgba(54, 162, 235, 1)',  // Define el color del borde de las barras
-            borderWidth: 1  // Define el ancho del borde de las barras
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true  // Comienza el eje Y desde cero
-            }
-          }
-        }
-      });
-      setMyChart(almacen); // Guarda la referencia al nuevo gráfico en el estado 'myChart'
-    }
-  }, [productos]);  // Se ejecuta cada vez que hay cambios en 'productos'
+    fetch('http://localhost:5000/readcitas') // Actualiza la ruta para obtener citas y sus detalles
+      .then((response) => response.json())
+      .then((data) => setCitas(data))
+      .catch((error) => console.error('Error al obtener las citas:', error));
+  }, []);
 
   const generarReporteAlmacen = () => {
-    fetch('http://localhost:5000/crud/readproducto')  // Realiza una solicitud GET al servidor para obtener productos
-      .then((response) => response.json())  // Convierte la respuesta a formato JSON
-      .then((productos) => {
-        const doc = new jsPDF();  // Crea un nuevo documento PDF con jsPDF
-        let y = 15; // Posición inicial en el eje Y dentro del documento PDF
+    fetch('http://localhost:5000/readcitas') // Actualiza la ruta para obtener citas y sus detalles
+      .then((response) => response.json())
+      .then((citas) => {
+        const doc = new jsPDF();
+        let y = 15;
 
-        doc.text("Reporte de Estado de Almacén", 20, 10);  // Agrega un título al documento PDF
+        doc.text("Reporte de Citas y Servicios", 20, 10);
 
-        productos.forEach((producto) => {  // Itera sobre los productos para generar el reporte
-          doc.text(`Nombre: ${producto.nombre}`, 20, y);  // Agrega el nombre del producto al documento PDF
-          doc.text(`Cantidad: ${producto.cantidad}`, 20, y + 10);  // Agrega la cantidad del producto al documento PDF
+        citas.forEach((cita) => {
+          doc.text(`Cliente: ${cita.nombre_cliente}`, 20, y);
+          doc.text(`Empleado: ${cita.nombre_empleado}`, 20, y + 10);
+          doc.text(`Servicios: ${cita.servicios}`, 20, y + 20);
 
-          y += 30; // Incrementa la posición Y para el siguiente producto
-          if (y >= 280) {  // Si alcanza el final de la página, crea una nueva página
+          y += 40;
+          if (y >= 280) {
             doc.addPage();
-            y = 15; // Reinicia la posición Y en la nueva página
+            y = 15;
           }
         });
 
-        doc.save("reporte_almacen.pdf");  // Descarga el documento PDF con el nombre 'reporte_almacen.pdf'
+        doc.save("reporte_citas_servicios.pdf");
       })
-      .catch((error) => console.error('Error al obtener los productos:', error));  // Manejo de errores en caso de fallar la solicitud
+      .catch((error) => console.error('Error al obtener las citas:', error));
   };
 
   return(
