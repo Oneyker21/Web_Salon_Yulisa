@@ -3,7 +3,28 @@ import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } 
 import Header from '../components/Header';
 import { FaPencil, FaTrashCan } from 'react-icons/fa6';
 
-function Usuariolist({rol}) {
+const ConfirmDeleteModal = ({ show, onClose, onConfirm }) => {
+  return (
+    <Modal show={show} onHide={onClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>¿Estás seguro?</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        Esta acción eliminará al empleado. ¿Estás seguro de que deseas continuar?
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onClose}>
+          Cerrar
+        </Button>
+        <Button variant="danger" onClick={onConfirm}>
+          Eliminar
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+function Usuariolist({ rol }) {
   const [empleados, setEmpleados] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedEmpleado, setSelectedEmpleado] = useState({});
@@ -14,6 +35,8 @@ function Usuariolist({rol}) {
     direccion: '',
   });
   const [searchTerm, setSearchTerm] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteEmployeeId, setDeleteEmployeeId] = useState(null);
 
   const openModal = (empleado) => {
     setSelectedEmpleado(empleado);
@@ -60,18 +83,25 @@ function Usuariolist({rol}) {
   };
 
   const handleDelete = (idEmpleado) => {
-    const confirmation = window.confirm('¿Seguro que deseas eliminar este empleado?');
-    if (confirmation) {
-      fetch(`http://localhost:5000/crud/deleteempleados/${idEmpleado}`, {
-        method: 'DELETE',
+    setDeleteEmployeeId(idEmpleado);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteEmployeeId(null);
+    setShowDeleteModal(false);
+  };
+
+  const handleDeleteConfirmed = (idEmpleado) => {
+    fetch(`http://localhost:5000/crud/deleteempleados/${idEmpleado}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (response.ok) {
+          loadEmpleados();
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            loadEmpleados();
-          }
-        })
-        .catch((error) => console.error('Error al eliminar el empleado:', error));
-    }
+      .catch((error) => console.error('Error al eliminar el empleado:', error));
   };
 
   const handleSearchChange = (e) => {
@@ -94,7 +124,7 @@ function Usuariolist({rol}) {
 
   return (
     <div>
-      <Header rol={rol}/>
+      <Header rol={rol} />
 
       <Card className="m-3">
         <Card.Body>
@@ -113,7 +143,7 @@ function Usuariolist({rol}) {
           </Row>
           <Table striped bordered hover>
             <thead>
-              <tr className='centrado'>
+              <tr className="centrado">
                 <th>ID</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
@@ -124,15 +154,27 @@ function Usuariolist({rol}) {
             </thead>
             <tbody>
               {filteredEmpleados.map((empleado) => (
-                <tr className='centrado' key={empleado.id_empleado}>
+                <tr className="centrado" key={empleado.id_empleado}>
                   <td>{empleado.id_empleado}</td>
                   <td>{empleado.nombre}</td>
                   <td>{empleado.apellido}</td>
                   <td>{empleado.telefono}</td>
                   <td>{empleado.direccion}</td>
                   <td>
-                    <Button variant="primary" className='actualizar' onClick={() => openModal(empleado)}><FaPencil/></Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(empleado.id_empleado)}><FaTrashCan/></Button>
+                    <Button
+                      variant="primary"
+                      className="actualizar"
+                      onClick={() => openModal(empleado)}
+                    >
+                      <FaPencil />
+                    </Button>
+                    <Button
+                      variant="danger"
+                      className="eliminar"
+                      onClick={() => handleDelete(empleado.id_empleado)}
+                    >
+                      <FaTrashCan />
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -209,6 +251,15 @@ function Usuariolist({rol}) {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <ConfirmDeleteModal
+        show={showDeleteModal}
+        onClose={closeDeleteModal}
+        onConfirm={() => {
+          handleDeleteConfirmed(deleteEmployeeId);
+          closeDeleteModal();
+        }}
+      />
     </div>
   );
 }
