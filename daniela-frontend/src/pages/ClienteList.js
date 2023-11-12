@@ -3,15 +3,15 @@ import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } 
 import Header from '../components/Header';
 import { FaPencil, FaTrashCan } from 'react-icons/fa6';
 
-function Usuariolist({rol}) {
+function Usuariolist({ rol }) {
   const [clientes, setClientes] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedCliente, setSelectedCliente] = useState({});
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
     telefono: '',
-    direccion: '',
   });
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -22,7 +22,6 @@ function Usuariolist({rol}) {
       nombre: cliente.nombre,
       apellido: cliente.apellido,
       telefono: cliente.telefono,
-      direccion: cliente.direccion,
     });
     setShowModal(true);
   };
@@ -59,19 +58,24 @@ function Usuariolist({rol}) {
       .catch((error) => console.error('Error al actualizar el registro:', error));
   };
 
-  const handleDelete = (idCliente) => {
-    const confirmation = window.confirm('¿Seguro que deseas eliminar este cliente?');
-    if (confirmation) {
-      fetch(`http://localhost:5000/crud/deleteclientes/${idCliente}`, {
-        method: 'DELETE',
+  const openDeleteModal = (cliente) => {
+    setSelectedCliente(cliente);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirmed = () => {
+    const idCliente = selectedCliente.id_cliente;
+
+    fetch(`http://localhost:5000/crud/deleteclientes/${idCliente}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (response.ok) {
+          loadClientes();
+          setShowDeleteModal(false); // Cerramos el modal después de la eliminación
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            loadClientes();
-          }
-        })
-        .catch((error) => console.error('Error al eliminar el cliente:', error));
-    }
+      .catch((error) => console.error('Error al eliminar el cliente:', error));
   };
 
   const filteredClientes = clientes.filter((cliente) => {
@@ -87,7 +91,7 @@ function Usuariolist({rol}) {
 
   return (
     <div>
-      <Header rol={rol}/>
+      <Header rol={rol} />
 
       <Card className="m-3">
         <Card.Body>
@@ -123,7 +127,7 @@ function Usuariolist({rol}) {
                     <Button variant="primary" className='actualizar' onClick={() => openModal(cliente)}>
                       <FaPencil />
                     </Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(cliente.id_cliente)}>
+                    <Button variant="danger" className='eliminar' onClick={() => openDeleteModal(cliente)}>
                       <FaTrashCan />
                     </Button>
                   </td>
@@ -189,6 +193,24 @@ function Usuariolist({rol}) {
           </Button>
           <Button variant="primary" onClick={handleUpdate}>
             Actualizar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de confirmación para eliminar cliente */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Eliminar Cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>¿Seguro que deseas eliminar a {selectedCliente.nombre} {selectedCliente.apellido}?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cerrar
+          </Button>
+          <Button variant="danger" onClick={handleDeleteConfirmed}>
+            Eliminar
           </Button>
         </Modal.Footer>
       </Modal>

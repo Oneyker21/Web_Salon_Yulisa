@@ -128,14 +128,8 @@ function Usuariolist({rol}) {
                     <Button variant="primary" className='actualizar' onClick={() => openModal(cita)}><FaPencil /></Button>
                     <Button
                       variant="danger"
-                      className='eliminar'
-                      onClick={() => {
-                        if (cita.id_servicios) {
-                          handleDelete(cita.cod_cita, cita.id_servicios);
-                        } else {
-                          console.error('id_servicios está indefinido');
-                        }
-                      }}
+                      className="eliminar"
+                      onClick={() => handleDelete(cita.cod_cita)}
                     >
                       <FaTrashCan />
                     </Button>
