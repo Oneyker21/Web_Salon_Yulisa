@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 
-
 function TestimonioList({ rol }) {
   const [testimonios, setTestimonios] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedTestimonio, setSelectedTestimonio] = useState({});
   const [formData, setFormData] = useState({
     fecha_testimonio: '',
@@ -74,18 +74,22 @@ function TestimonioList({ rol }) {
   };
 
   const handleDelete = (id_testimonio) => {
-    const confirmation = window.confirm('¿Seguro que deseas eliminar este testimonio?');
-    if (confirmation) {
-      fetch(`http://localhost:5000/crud/deletetestimonios/${id_testimonio}`, {
-        method: 'DELETE',
+    setSelectedTestimonio({ id_testimonio }); // Guardamos el testimonio seleccionado para la confirmación
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirmed = () => {
+    const id_testimonio = selectedTestimonio.id_testimonio;
+    fetch(`http://localhost:5000/crud/deletetestimonios/${id_testimonio}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (response.ok) {
+          loadTestimonios();
+          setShowDeleteModal(false);
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            loadTestimonios();
-          }
-        })
-        .catch((error) => console.error('Error al eliminar el testimonio:', error));
-    }
+      .catch((error) => console.error('Error al eliminar el testimonio:', error));
   };
 
   const handleSearchChange = (e) => {
@@ -95,7 +99,6 @@ function TestimonioList({ rol }) {
   useEffect(() => {
     loadTestimonios();
   }, []);
-
 
   function StarRatingEdit({ rating, onRatingChange }) {
     const maxRating = 5;
@@ -170,7 +173,7 @@ function TestimonioList({ rol }) {
 
   return (
     <div>
-      <Header rol={ rol }/>
+      <Header rol={rol} />
 
       <Card className="m-3">
         <Card.Body>
@@ -240,8 +243,8 @@ function TestimonioList({ rol }) {
 
                   <Col sm="6" md="6" lg="3">
                     <FloatingLabel controlId="puntuacion" label="">
-                      <StarRatingEdit rating={parseInt(formData.puntuacion)} 
-                      onRatingChange={(value) => setFormData({ ...formData, puntuacion: value })} />
+                      <StarRatingEdit rating={parseInt(formData.puntuacion)}
+                        onRatingChange={(value) => setFormData({ ...formData, puntuacion: value })} />
                     </FloatingLabel>
                   </Col>
 
@@ -256,6 +259,23 @@ function TestimonioList({ rol }) {
           </Button>
           <Button variant="primary" onClick={handleUpdate}>
             Actualizar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Eliminar Testimonio</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>¿Seguro que deseas eliminar este testimonio?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cerrar
+          </Button>
+          <Button variant="danger" onClick={handleDeleteConfirmed}>
+            Eliminar
           </Button>
         </Modal.Footer>
       </Modal>
