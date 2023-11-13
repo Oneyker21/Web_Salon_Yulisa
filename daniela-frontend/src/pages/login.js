@@ -46,14 +46,23 @@ const Home = ({ setRol }) => {
 
   return (
     <div>
-      <div className="center-button">
-        <Button variant="primary" onClick={handleShowLoginModal} className="mt-3">
-          Iniciar Sesión
-        </Button>
-        <Button variant="secondary" className="mt-3 ms-2">
-          Registrarse
-        </Button>
-      </div>
+      <section id="inicio">
+        <main class="inicio-contactos">
+          <div class="contenido-principal">
+            <h1>Bienvenido al Salón Yulisa</h1>
+            <p>todavia nada.</p>
+            <div className="center-button">
+              <Button variant="primary" onClick={handleShowLoginModal} className="mt-3">
+                Iniciar Sesión
+              </Button>
+              <Button variant="secondary" className="mt-3 ms-2">
+                Registrarse
+              </Button>
+            </div>
+          </div>
+        </main>
+      </section>
+
 
       <Modal show={showLoginModal} onHide={handleCloseLoginModal} centered>
         <Modal.Header closeButton>
@@ -86,10 +95,11 @@ const Home = ({ setRol }) => {
                 </FloatingLabel>
               </Col>
             </Row>
-
-            <Button variant="primary" type="submit" block className="mt-3">
-              Iniciar Sesión
-            </Button>
+            <div className='center-button'>
+              <Button variant="primary" type="submit" block className="mt-3">
+                Iniciar Sesión
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>
