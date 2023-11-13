@@ -18,6 +18,82 @@ const router = express.Router();
 module.exports = (db) => {
 
 
+
+// Ruta para obtener los servicios asociados a una cita
+router.get('/readcitaservicios/:cod_cita', (req, res) => {
+  const cod_cita = req.params.cod_cita;
+  const sql = 'SELECT * FROM Cita_Servicio WHERE cod_cita = ?';
+  db.query(sql, [cod_cita], (err, result) => {
+    if (err) {
+      console.error('Error al leer servicios de cita:', err);
+      res.status(500).json({ error: 'Error al leer servicios de cita' });
+    } else {
+      res.status(200).json(result);
+    }
+  });
+});
+
+// Ruta para actualizar los servicios asociados a una cita
+router.put('/updatecitaservicios/:cod_cita', (req, res) => {
+  const cod_cita = req.params.cod_cita;
+  const { servicios } = req.body;
+
+  // Eliminar los servicios existentes asociados a la cita
+  const deleteCitaServicioSql = 'DELETE FROM Cita_Servicio WHERE cod_cita = ?';
+  db.query(deleteCitaServicioSql, [cod_cita], (err) => {
+    if (err) {
+      console.error('Error al eliminar servicios de cita:', err);
+      return res.status(500).json({ error: 'Error al eliminar servicios de cita' });
+    }
+
+    // Insertar los nuevos servicios asociados a la cita
+    const insertCitaServicioSql = 'INSERT INTO Cita_Servicio (cod_cita, id_servicios) VALUES ?';
+    const servicioValues = servicios.map((servicioId) => [cod_cita, servicioId]);
+
+    db.query(insertCitaServicioSql, [servicioValues], (err) => {
+      if (err) {
+        console.error('Error al insertar servicios en Cita_Servicio:', err);
+        return res.status(500).json({ error: 'Error al insertar servicios en Cita_Servicio' });
+      }
+
+      return res.status(200).json({ message: 'Servicios de cita actualizados exitosamente' });
+    });
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Ruta para verificar las credenciales y obtener el rol del usuario
 router.post('/login', (req, res) => {
   const { nombre_Usuario, contrasena } = req.body;
@@ -145,18 +221,6 @@ router.post('/login', (req, res) => {
 
   //------------------------------------------------CRUD EMPLEADO-----------------------------------------------
 
-  /*  
-   curl http://localhost:5000/crud/readempleados
- 
-   curl -X POST -H "Content-Type: application/json" -d "{\"nombre\":\"Oneyker\",\"apellido\":\"Galeano\",\"telefono\":\"12345678\",\"direccion\":\"la chula mula\"}" http://localhost:5000/crud/createempleados
- 
-  curl -X PUT -H "Content-Type: application/json" -d "{\"nombre\":\"NuevoNombre\",\"apellido\":\"NuevoApellido\",\"telefono\":\"NuevoTelefono\",\"direccion\":\"NuevaDireccion\"}" http://localhost:5000/crud/upgradeempleados/1
- 
-   curl -X DELETE http://localhost:5000/crud/deleteempleados/1 */
-
-
-
-
   // Ruta para leer registros de la tabla Empleado
   router.get('/readempleados', (req, res) => {
     const sql = 'SELECT * FROM Empleado';
@@ -236,17 +300,6 @@ router.post('/login', (req, res) => {
   });
 
   //------------------------------------------------CRUD CITAS-----------------------------------------------
-
-  /* 
-curl http://localhost:5000/crud/readcitas
-
-curl -X POST -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-05\",\"id_cliente\":1,\"id_empleado\":2}" http://localhost:5000/crud/createcitas
-
-curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_cita\":\"2023-10-06\",\"id_cliente\":3,\"id_empleado\":4}" http://localhost:5000/crud/upgradecitas/1
-
-curl -X DELETE http://localhost:5000/crud/deletecitas/1
- 
-*/
 
 
   // Ruta para leer registros de la tabla Cita
@@ -386,16 +439,7 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
 
 
   //------------------------------------------------CRUD SERVICIOS-----------------------------------------------
-  /* 
-  curl http://localhost:5000/crud/readservicios
 
-  curl -X POST -H "Content-Type: application/json" -d "{\"nombre_servicio\":\"NombreServicio\",\"descripcion\":\"DescripciónServicio\",\"precio_servicio\":100,\"cod_cita\":1}" http://localhost:5000/crud/createservicios
-
-  curl -X PUT -H "Content-Type: application/json" -d "{\"nombre_servicio\":\"NuevoNombre\",\"descripcion\":\"NuevaDescripción\",\"precio_servicio\":200,\"cod_cita\":2}" http://localhost:5000/crud/upgradeservicios/1
-
-  curl -X DELETE http://localhost:5000/crud/deleteservicios/1
-
-  */
 
 
   // Ruta para leer registros de la tabla Servicios
@@ -476,58 +520,7 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //ServicioCitas
-
-  // Ruta para leer registros de la tabla Cita_Servicio
-  router.get('/readcitaservicio', (req, res) => {
-    const sql = 'SELECT * FROM Cita_Servicio';
-
-    db.query(sql, (err, result) => {
-      if (err) {
-        console.error('Error al leer registros de Cita_Servicio:', err);
-        res.status(500).json({ error: 'Error al leer registros de Cita_Servicio' });
-      } else {
-        res.status(200).json(result);
-      }
-    });
-  });
-
-  // Ruta para crear un nuevo registro en la tabla Cita_Servicio
-  router.post('/createcitaservicio', (req, res) => {
-    const { cod_cita, id_servicios } = req.body;
-
-    if (!cod_cita || !id_servicios) {
-      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-    }
-
-    const sql = `INSERT INTO Cita_Servicio (cod_cita, id_servicios) VALUES (?, ?)`;
-    const values = [cod_cita, id_servicios];
-
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        console.error('Error al insertar registro en Cita_Servicio:', err);
-        res.status(500).json({ error: 'Error al insertar registro en Cita_Servicio' });
-      } else {
-        res.status(201).json({ message: 'Relación Cita-Servicio creada exitosamente' });
-      }
-    });
-  });
-
+ 
   // Ruta para eliminar un registro existente en la tabla Cita_Servicio por ID
   router.delete('/deletecitaservicio/:cod_cita/:id_servicios', (req, res) => {
     const cod_cita = req.params.cod_cita;
@@ -544,19 +537,7 @@ curl -X DELETE http://localhost:5000/crud/deletecitas/1
     });
   });
 
-
   //------------------------------------------------CRUD TESTIMONIOS-----------------------------------------------
-
-  /* 
-    curl http://localhost:5000/crud/readtestimonios
-  
-    curl -X POST -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-05\",\"testimonio\":\"Este es un testimonio\",\"id_cliente\":1}" http://localhost:5000/crud/createtestimonios
-  
-    curl -X PUT -H "Content-Type: application/json" -d "{\"fecha_testimonio\":\"2023-10-10\",\"testimonio\":\"Testimonio actualizado\",\"id_cliente\":2}" http://localhost:5000/crud/upgradetestimonios/1
-  
-    curl -X DELETE http://localhost:5000/crud/deletetestimonios/1
-  
-  */
 
   // Ruta para leer registros de la tabla Testimonio
   router.get('/readtestimonios', (req, res) => {
