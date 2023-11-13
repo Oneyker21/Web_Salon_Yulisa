@@ -306,7 +306,7 @@ router.post('/login', (req, res) => {
   router.get('/readcitas', (req, res) => {
     const sql = `
       SELECT Cita.*, GROUP_CONCAT(Servicios.nombre_servicio SEPARATOR ', ') as servicios, 
-      Cliente.nombre as nombre_cliente, Empleado.nombre as nombre_empleado
+      Cliente.nombre as nombre_cliente,Cliente.apellido as apellido_cliente, Empleado.nombre as nombre_empleado
       FROM Cita
       LEFT JOIN Cita_Servicio ON Cita.cod_cita = Cita_Servicio.cod_cita
       LEFT JOIN Servicios ON Cita_Servicio.id_servicios = Servicios.id_servicios
