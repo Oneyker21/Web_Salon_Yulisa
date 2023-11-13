@@ -203,7 +203,7 @@ function Usuariolist({ rol }) {
           <Modal.Title>Eliminar Cliente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>¿Seguro que deseas eliminar a {selectedCliente.nombre} {selectedCliente.apellido}?</p>
+          <p>¿Seguro que deseas eliminar a <b>{selectedCliente.nombre} {selectedCliente.apellido}?</b></p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>

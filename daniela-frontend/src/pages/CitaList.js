@@ -3,18 +3,66 @@ import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } 
 import Header from '../components/Header';
 import { FaPencil, FaTrashCan } from 'react-icons/fa6';
 
-function Usuariolist({rol}) {
+function Usuariolist({ rol }) {
   const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
   const [serviciosDisponibles, setServiciosDisponibles] = useState([]);
   const [citas, setCitas] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedCita, setSelectedCita] = useState({});
+
   const [formData, setFormData] = useState({
     fecha_cita: '',
     id_servicios: '',
     id_cliente: '',
     id_empleado: '',
   });
+
+  const loadServiciosDisponibles = () => {
+    fetch('http://localhost:5000/crud/readservicios')
+      .then((response) => response.json())
+      .then((data) => setServiciosDisponibles(data))
+      .catch((error) => console.error('Error al obtener servicios disponibles:', error));
+  };
+
+  const loadServiciosCita = (codCita) => {
+    fetch(`http://localhost:5000/crud/readcitaservicios/${codCita}`)
+      .then((response) => response.json())
+      .then((data) => setServiciosSeleccionados(data.map((servicio) => servicio.id_servicios)))
+      .catch((error) => console.error('Error al obtener servicios de cita:', error));
+  };
+
+  const handleUpdateServicios = () => {
+    fetch(`http://localhost:5000/crud/updatecitaservicios/${selectedCita.cod_cita}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ servicios: serviciosSeleccionados }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setShowModal(false);
+          loadCitas();
+        }
+      })
+      .catch((error) => console.error('Error al actualizar los servicios de la cita:', error));
+  };
+
+  const handleDeleteCita = (codCita) => {
+    const confirmation = window.confirm('¿Seguro que deseas eliminar esta cita?');
+    if (confirmation) {
+      fetch(`http://localhost:5000/crud/deletecitas/${codCita}`, {
+        method: 'DELETE',
+      })
+        .then((response) => {
+          if (response.ok) {
+            loadCitas(); // Volver a cargar la lista de citas
+          }
+        })
+        .catch((error) => console.error('Error al eliminar la cita:', error));
+    }
+  };
+
 
   const openModal = (cita) => {
     setSelectedCita(cita);
@@ -69,30 +117,6 @@ function Usuariolist({rol}) {
       .catch((error) => console.error('Error al actualizar el registro:', error));
   };
 
-  const handleDelete = (codCita, idServicios) => {
-    const confirmation = window.confirm('¿Seguro que deseas eliminar esta cita y su conexión con el servicio?');
-    if (confirmation) {
-      // Eliminar la conexión cita - servicio
-      fetch(`http://localhost:5000/crud/deletecitaservicio/${codCita}/${idServicios}`, {
-        method: 'DELETE',
-      })
-        .then((response) => {
-          if (response.ok) {
-            // Una vez eliminada la conexión, eliminar la cita
-            fetch(`http://localhost:5000/crud/deletecitas/${codCita}`, {
-              method: 'DELETE',
-            })
-              .then((response) => {
-                if (response.ok) {
-                  loadCitas(); // Volver a cargar la lista de citas
-                }
-              })
-              .catch((error) => console.error('Error al eliminar la cita:', error));
-          }
-        })
-        .catch((error) => console.error('Error al eliminar la conexión:', error));
-    }
-  };
 
 
   useEffect(() => {
@@ -101,7 +125,7 @@ function Usuariolist({rol}) {
 
   return (
     <div>
-      <Header rol={ rol }/>
+      <Header rol={rol} />
       <Card className="m-3 ">
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Citas</Card.Title>
@@ -129,13 +153,7 @@ function Usuariolist({rol}) {
                     <Button
                       variant="danger"
                       className='eliminar'
-                      onClick={() => {
-                        if (cita.id_servicios) {
-                          handleDelete(cita.cod_cita, cita.id_servicios);
-                        } else {
-                          console.error('id_servicios está indefinido');
-                        }
-                      }}
+                      onClick={() => handleDeleteCita(cita.cod_cita)}
                     >
                       <FaTrashCan />
                     </Button>
@@ -204,7 +222,6 @@ function Usuariolist({rol}) {
                               key={servicio.id_servicios}
                               type="checkbox"
                               label={servicio.nombre_servicio}
-
                               checked={serviciosSeleccionados.includes(servicio.id_servicios)}
                               onChange={(e) => {
                                 const servicioId = servicio.id_servicios;
@@ -230,11 +247,16 @@ function Usuariolist({rol}) {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={handleUpdate}>
+          <Button variant="primary" onClick={handleUpdate} onClick={handleUpdateServicios}>
             Actualizar
           </Button>
         </Modal.Footer>
       </Modal>
+
+
+
+
+
     </div>
   );
 }
