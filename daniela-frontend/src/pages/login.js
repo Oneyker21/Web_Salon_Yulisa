@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, Container, Row, Col, FloatingLabel } from 'react-bootstrap';
+import { Form, Button, Card, Container, Row, Col, FloatingLabel, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ setRol }) => {
+const Home = ({ setRol }) => {
   const navigate = useNavigate();
-
-  const [nombre_Usuario, setNombre_Usuario] = useState('');
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [nombre_Usuario, setNombreUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
 
-  const handleSubmit = async event => {
-    event.preventDefault(); 
+  const handleShowLoginModal = () => {
+    setShowLoginModal(true);
+  };
 
-    // Objeto con los datos del formulario
+  const handleCloseLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
+  const handleLogin = async () => {
     const formData = {
       nombre_Usuario,
       contrasena
@@ -25,11 +30,10 @@ const Login = ({ setRol }) => {
         },
         body: JSON.stringify(formData)
       });
-  
+
       if (response.ok) {
         const { rol } = await response.json();
-  
-        setRol(rol); // Actualiza el estado del rol solo si las credenciales son correctas
+        setRol(rol);
         navigate('/home');
       } else {
         console.log('Credenciales incorrectas');
@@ -41,49 +45,65 @@ const Login = ({ setRol }) => {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+    <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
       <Row className="justify-content-md-center">
         <Col md={12}>
           <Card>
             <Card.Body>
-              <Card.Title className="mb-3">Incio de Sesión</Card.Title>
-              <Form onSubmit={handleSubmit}>
-
-                <Row>
-                  <Col sm="12" md="12" lg="12" className="mb-3">
-                    <FloatingLabel controlId="nombre_Usuario" label="Ingrese su usuario">
-                      <Form.Control
-                        placeholder="Ingrese su usuario"
-                        type="text"
-                        value={nombre_Usuario}
-                        onChange={(e) => setNombre_Usuario(e.target.value)}
-                      />
-                    </FloatingLabel>
-                  </Col>
-                  <Col sm="12" md="12" lg="12">
-                    <FloatingLabel controlId="contrasena" label="Ingrese su contraseña">
-                      <Form.Control
-                        placeholder="Ingrese su contraseña"
-                        type="password"
-                        value={contrasena}
-                        onChange={(e) => setContrasena(e.target.value)}
-                      />
-                    </FloatingLabel>
-                  </Col>
-                </Row>
-
-                <div className="center-button">
-                  <Button variant="primary" type="submit" block className="mt-3">
-                    Iniciar Sesión
-                  </Button>
-                </div>
-              </Form>
+              <Card.Title className="mb-3">Pantalla Principal</Card.Title>
+              <div className="center-button">
+                <Button variant="primary" onClick={handleShowLoginModal} className="mt-3">
+                  Iniciar Sesión
+                </Button>
+                <Button variant="secondary" className="mt-3 ms-2">
+                  Registrarse
+                </Button>
+              </div>
             </Card.Body>
           </Card>
         </Col>
       </Row>
+
+      <Modal show={showLoginModal} onHide={handleCloseLoginModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Iniciar Sesión</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleLogin();
+            }}
+          >
+            <Row>
+              <Col sm="12" md="12" lg="12" className="mb-3">
+                <FloatingLabel controlId="nombreUsuarioModal" label="Ingrese su usuario">
+                  <Form.Control
+                    placeholder="Ingrese su usuario"
+                    type="text"
+                    onChange={(e) => setNombreUsuario(e.target.value)}
+                  />
+                </FloatingLabel>
+              </Col>
+              <Col sm="12" md="12" lg="12">
+                <FloatingLabel controlId="contrasenaModal" label="Ingrese su contraseña">
+                  <Form.Control
+                    placeholder="Ingrese su contraseña"
+                    type="password"
+                    onChange={(e) => setContrasena(e.target.value)}
+                  />
+                </FloatingLabel>
+              </Col>
+            </Row>
+
+            <Button variant="primary" type="submit" block className="mt-3">
+              Iniciar Sesión
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 };
 
-export default Login;
+export default Home;
