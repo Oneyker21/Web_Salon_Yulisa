@@ -8,6 +8,7 @@ function Usuariolist({ rol }) {
   const [serviciosDisponibles, setServiciosDisponibles] = useState([]);
   const [citas, setCitas] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedCita, setSelectedCita] = useState({});
 
   const [formData, setFormData] = useState({
@@ -16,7 +17,6 @@ function Usuariolist({ rol }) {
     id_cliente: '',
     id_empleado: '',
   });
-
 
   const loadServiciosDisponibles = () => {
     fetch('http://localhost:5000/crud/readservicios')
@@ -64,7 +64,6 @@ function Usuariolist({ rol }) {
     }
   };
 
-
   const openModal = (cita) => {
     setSelectedCita(cita);
     loadServiciosDisponibles();
@@ -104,6 +103,11 @@ function Usuariolist({ rol }) {
       .catch((error) => console.error('Error al obtener las citas:', error));
   };
 
+  const openDeleteModal = (cita) => {
+    setSelectedCita(cita);
+    setShowDeleteModal(true);
+  };
+  
   const handleUpdate = () => {
     fetch(`http://localhost:5000/crud/upgradecitas/${selectedCita.cod_cita}`, {
       method: 'PUT',
@@ -123,8 +127,7 @@ function Usuariolist({ rol }) {
   const handleUpdateAll = () => {
     handleUpdate();
     handleUpdateServicios();
-  }
-
+  };
 
   useEffect(() => {
     loadCitas();
@@ -160,7 +163,7 @@ function Usuariolist({ rol }) {
                     <Button
                       variant="danger"
                       className='eliminar'
-                      onClick={() => handleDeleteCita(cita.cod_cita)}
+                      onClick={() => openDeleteModal(cita)}
                     >
                       <FaTrashCan />
                     </Button>
@@ -168,7 +171,6 @@ function Usuariolist({ rol }) {
                 </tr>
               ))}
             </tbody>
-
           </Table>
         </Card.Body>
       </Card>
@@ -193,7 +195,6 @@ function Usuariolist({ rol }) {
                       />
                     </FloatingLabel>
                   </Col>
-
 
                   <Col sm="6" md="6" lg="4">
                     <FloatingLabel controlId="id_cliente" label="ID Cliente">
@@ -259,7 +260,25 @@ function Usuariolist({ rol }) {
           </Button>
         </Modal.Footer>
       </Modal>
-      
+
+      {/* Modal de confirmación para eliminar cita */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>¿Estás seguro?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Esta acción eliminará la cita de <b>{selectedCita.nombre_cliente} {selectedCita.apellido_cliente}</b>.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cerrar
+          </Button>
+          <Button variant="danger" onClick={() => handleDeleteCita(selectedCita.cod_cita)}>
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 }
