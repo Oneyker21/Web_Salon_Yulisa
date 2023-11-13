@@ -17,6 +17,7 @@ function Usuariolist({ rol }) {
     id_empleado: '',
   });
 
+
   const loadServiciosDisponibles = () => {
     fetch('http://localhost:5000/crud/readservicios')
       .then((response) => response.json())
@@ -66,6 +67,9 @@ function Usuariolist({ rol }) {
 
   const openModal = (cita) => {
     setSelectedCita(cita);
+    loadServiciosDisponibles();
+    loadServiciosCita(cita.cod_cita);
+    setShowModal(true);
     const formattedfechacita = formatDateForInput(cita.fecha_cita);
 
     setFormData({
@@ -116,7 +120,10 @@ function Usuariolist({ rol }) {
       })
       .catch((error) => console.error('Error al actualizar el registro:', error));
   };
-
+const handleUpdateAll = () =>{
+  handleUpdate();
+  handleUpdateServicios();
+}
 
 
   useEffect(() => {
@@ -247,7 +254,7 @@ function Usuariolist({ rol }) {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={handleUpdate} onClick={handleUpdateServicios}>
+          <Button variant="primary" onClick={handleUpdateAll}>
             Actualizar
           </Button>
         </Modal.Footer>
