@@ -120,10 +120,10 @@ function Usuariolist({ rol }) {
       })
       .catch((error) => console.error('Error al actualizar el registro:', error));
   };
-const handleUpdateAll = () =>{
-  handleUpdate();
-  handleUpdateServicios();
-}
+  const handleUpdateAll = () => {
+    handleUpdate();
+    handleUpdateServicios();
+  }
 
 
   useEffect(() => {
@@ -259,11 +259,7 @@ const handleUpdateAll = () =>{
           </Button>
         </Modal.Footer>
       </Modal>
-
-
-
-
-
+      
     </div>
   );
 }
