@@ -50,10 +50,6 @@ Las contribuciones son bienvenidas. Si quieres contribuir a este proyecto, sigue
 4. Sube tus cambios a tu fork: `git push origin feature/NuevaCaracteristica`
 5. Abre un pull request al repositorio original.
 
-## Licencia
-
-Este proyecto está bajo la licencia (MIT License). Para más detalles, consulta el archivo LICENSE.
-
 ## Contacto
 
 Para cualquier consulta o sugerencia, contáctanos en: <br>
