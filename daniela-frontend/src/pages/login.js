@@ -45,26 +45,17 @@ const Home = ({ setRol }) => {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-      <Row className="justify-content-md-center">
-        <Col md={12}>
-          <Card>
-            <Card.Body>
-              <Card.Title className="mb-3">Pantalla Principal</Card.Title>
-              <div className="center-button">
-                <Button variant="primary" onClick={handleShowLoginModal} className="mt-3">
-                  Iniciar Sesión
-                </Button>
-                <Button variant="secondary" className="mt-3 ms-2">
-                  Registrarse
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+    <div>
+      <div className="center-button">
+        <Button variant="primary" onClick={handleShowLoginModal} className="mt-3">
+          Iniciar Sesión
+        </Button>
+        <Button variant="secondary" className="mt-3 ms-2">
+          Registrarse
+        </Button>
+      </div>
 
-      <Modal show={showLoginModal} onHide={handleCloseLoginModal}>
+      <Modal show={showLoginModal} onHide={handleCloseLoginModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>Iniciar Sesión</Modal.Title>
         </Modal.Header>
@@ -102,7 +93,7 @@ const Home = ({ setRol }) => {
           </Form>
         </Modal.Body>
       </Modal>
-    </Container>
+    </div>
   );
 };
 
