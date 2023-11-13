@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, Container, Row, Col, FloatingLabel, Modal } from 'react-bootstrap';
+import { Form, Button, Card, Container, Row, Col, FloatingLabel, Modal, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const Home = ({ setRol }) => {
@@ -8,6 +8,7 @@ const Home = ({ setRol }) => {
   const [nombre_Usuario, setNombreUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMensaje, setErrorMensaje] = useState('');
 
   const handleShowLoginModal = () => {
     setShowLoginModal(true);
@@ -20,16 +21,16 @@ const Home = ({ setRol }) => {
   const handleLogin = async () => {
     const formData = {
       nombre_Usuario,
-      contrasena
+      contrasena,
     };
 
     try {
       const response = await fetch('http://localhost:5000/crud/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -38,18 +39,23 @@ const Home = ({ setRol }) => {
         navigate('/home');
       } else {
         console.log('Credenciales incorrectas');
-        alert('¡Credenciales incorrectas!');
+        setErrorMensaje('¡usuario o contraseña incorrecto!');
+
+        setTimeout(() => {
+          setErrorMensaje('');
+        }, 4000);
       }
     } catch (error) {
       console.error('Error en la solicitud: ', error);
     }
   };
 
+
   return (
     <div>
       <section id="inicio">
-        <main class="inicio-contactos">
-          <div class="contenido-principal">
+        <main className="inicio-contactos">
+          <div className="contenido-principal">
             <h1>Bienvenido al Salón Yulisa</h1>
             <p>todavía nada.</p>
             <div className="center-button">
@@ -69,6 +75,13 @@ const Home = ({ setRol }) => {
           <Modal.Title>Iniciar Sesión</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
+          {errorMensaje && (
+            <Alert variant="danger" className="mt-3 alert">
+              {errorMensaje}
+            </Alert>
+          )}
+
           <Form
             onSubmit={(e) => {
               e.preventDefault();
@@ -77,18 +90,18 @@ const Home = ({ setRol }) => {
           >
             <Row>
               <Col sm="12" md="12" lg="12" className="mb-3">
-                <FloatingLabel controlId="nombreUsuarioModal" label="Ingrese su usuario">
+                <FloatingLabel controlId="nombreUsuarioModal" label="Usuario">
                   <Form.Control
-                    placeholder="Ingrese su usuario"
+                    placeholder="Usuario"
                     type="text"
                     onChange={(e) => setNombreUsuario(e.target.value)}
                   />
                 </FloatingLabel>
               </Col>
               <Col sm="12" md="12" lg="12" className="mb-3">
-                <FloatingLabel controlId="contrasenaModal" label="Ingrese su contraseña">
+                <FloatingLabel controlId="contrasenaModal" label="Contraseña">
                   <Form.Control
-                    placeholder="Ingrese su contraseña"
+                    placeholder="Contraseña"
                     type={showPassword ? 'text' : 'password'}
                     onChange={(e) => setContrasena(e.target.value)}
                   />
@@ -110,6 +123,7 @@ const Home = ({ setRol }) => {
           </Form>
         </Modal.Body>
       </Modal>
+
     </div>
   );
 };
