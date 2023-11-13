@@ -7,6 +7,7 @@ const Home = ({ setRol }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [nombre_Usuario, setNombreUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleShowLoginModal = () => {
     setShowLoginModal(true);
@@ -50,7 +51,7 @@ const Home = ({ setRol }) => {
         <main class="inicio-contactos">
           <div class="contenido-principal">
             <h1>Bienvenido al Salón Yulisa</h1>
-            <p>todavia nada.</p>
+            <p>todavía nada.</p>
             <div className="center-button">
               <Button variant="primary" onClick={handleShowLoginModal} className="mt-3">
                 Iniciar Sesión
@@ -62,7 +63,6 @@ const Home = ({ setRol }) => {
           </div>
         </main>
       </section>
-
 
       <Modal show={showLoginModal} onHide={handleCloseLoginModal} centered>
         <Modal.Header closeButton>
@@ -85,17 +85,24 @@ const Home = ({ setRol }) => {
                   />
                 </FloatingLabel>
               </Col>
-              <Col sm="12" md="12" lg="12">
+              <Col sm="12" md="12" lg="12" className="mb-3">
                 <FloatingLabel controlId="contrasenaModal" label="Ingrese su contraseña">
                   <Form.Control
                     placeholder="Ingrese su contraseña"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     onChange={(e) => setContrasena(e.target.value)}
                   />
                 </FloatingLabel>
               </Col>
+              <Col sm="12" md="12" lg="12">
+                <Form.Check
+                  type="checkbox"
+                  label="Mostrar contraseña"
+                  onChange={() => setShowPassword(!showPassword)}
+                />
+              </Col>
             </Row>
-            <div className='center-button'>
+            <div className="center-button">
               <Button variant="primary" type="submit" block className="mt-3">
                 Iniciar Sesión
               </Button>
