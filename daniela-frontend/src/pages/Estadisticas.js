@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';  // Importación de React, useEffect y useState desde 'react'
+/* import React, { useEffect, useState } from 'react';  // Importación de React, useEffect y useState desde 'react'
 import Header from '../components/Header';  // Importación del componente Header desde la ruta '../components/Header'
 import { Button, Row, Col, Card, Container } from 'react-bootstrap';  // Importación de componentes específicos desde 'react-bootstrap'
 import jsPDF from 'jspdf';  // Importación de jsPDF para la generación de documentos PDF
@@ -123,3 +123,4 @@ function Estadisticas({ rol }) {  // Declaración del componente Estadisticas co
 }
 
 export default Estadisticas;  // Exporta el componente Estadisticas para su uso en otras partes de la aplicación
+ */

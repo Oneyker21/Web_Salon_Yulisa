@@ -10,20 +10,20 @@ app.use(express.json({ limit: '50mb' }));
 // Configuración de la conexión a la base de datos
 
 /* Daniela */
-/* const db = mysql.createConnection({
+const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'Mysql2023',
     database: 'salon_yulisa'
-}); */
+});
 
 /* Oneyker */
-const db = mysql.createConnection({
+/* const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'ONEYKER2105',
     database: 'salon_yulisa'
-});
+}); */
 
 /* la constraseña de Eliab: gitdev2051 */
 
