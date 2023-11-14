@@ -133,6 +133,64 @@ function Usuariolist({rol}) {
       </Card>
 
       {/* Modal para actualizar servicio */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Actualizar Cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Card className="mt-3">
+            <Card.Body>
+              <Card.Title>Registro de Cliente</Card.Title>
+              <Form className="mt-3">
+                <Row className="g-3">
+                  <Col sm="6" md="6" lg="4">
+                    <FloatingLabel controlId="nombre_servicio" label="Sevicio">
+                      <Form.Control
+                        type="text"
+                        placeholder="Ingrese los nombres"
+                        name="nombre_servicio"
+                        value={formData.nombre_servicio}
+                        onChange={handleFormChange}
+                      />
+                    </FloatingLabel>
+                  </Col>
+                  <Col sm="6" md="6" lg="4">
+                    <FloatingLabel controlId="descripcion" label="Descripcion">
+                      <Form.Control
+                        type="text"
+                        placeholder="Ingrese los apellidos"
+                        name="descripcion"
+                        value={formData.descripcion}
+                        onChange={handleFormChange}
+                      />
+                    </FloatingLabel>
+                  </Col>
+                  <Col sm="12" md="6" lg="4">
+                    <FloatingLabel controlId="precio_servicio" label="Precio">
+                      <Form.Control
+                        type="number"
+                        placeholder="Ingrese el teléfono"
+                        name="precio_servicio"
+                        value={formData.precio_servicio}
+                        onChange={handleFormChange}
+                      />
+                    </FloatingLabel>
+                  </Col>
+                </Row>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cerrar
+          </Button>
+          <Button variant="primary" onClick={handleUpdate}>
+            Actualizar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 }
