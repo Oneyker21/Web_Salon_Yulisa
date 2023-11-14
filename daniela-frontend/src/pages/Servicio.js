@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bootstrap';
+import { Form, Row, Col, Container, FloatingLabel, Card, Button, Alert } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function Usuario({rol}) {
-  // Crear un estado para cada campo del formulario
+function Usuario({ rol }) {
   const [nombre_servicio, setNombreServicio] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precio_servicio, setPrecioServicio] = useState('');
-  const [cod_cita, setCodCita] = useState('');
+  const [alerta, setAlerta] = useState(null);
 
-
-  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Crear un objeto con los datos del formulario
+    if (!nombre_servicio || !descripcion || !precio_servicio) {
+      mostrarAlerta('warning', '¡Todos los campos deben estar llenos!');
+      return;
+    }
+
     const formData = {
       nombre_servicio,
       descripcion,
@@ -23,7 +24,6 @@ function Usuario({rol}) {
     };
 
     try {
-      // Realizar una solicitud HTTP al backend para enviar los datos
       const response = await fetch('http://localhost:5000/crud/createservicios', {
         method: 'POST',
         headers: {
@@ -33,28 +33,42 @@ function Usuario({rol}) {
       });
 
       if (response.ok) {
-        // El registro se creó exitosamente
-        alert('Registro exitoso');
-        // Reiniciar los campos del formulario
+        mostrarAlerta('success', 'Registro exitoso');
         setNombreServicio('');
         setDescripcion('');
         setPrecioServicio('');
-        setCodCita('');
       } else {
-        alert('Error al registrar el servicio');
+        mostrarAlerta('danger', 'Error al registrar el servicio');
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
-      alert('Error en la solicitud al servidor');
+      mostrarAlerta('danger', 'Error en la solicitud al servidor');
     }
+  };
+
+  const mostrarAlerta = (tipo, mensaje) => {
+    setAlerta({ tipo, mensaje });
+    setTimeout(() => {
+      setAlerta(null);
+    }, 4000);
   };
 
   return (
     <div>
-      <Header rol={rol}/>
-
+      <Header rol={rol} />
+      <div style={{ position: 'relative' }}>
+        {alerta && (
+          <Alert
+            variant={alerta.tipo}
+            className="position-absolute mt-4 start-50 translate-middle p-2"
+            style={{ zIndex: 1, transition: 'opacity 1s ease-in-out' }}
+          >
+            {alerta.mensaje}
+          </Alert>
+        )}
+      </div>
       <Container>
-        <Card className="mt-3">
+        <Card className="mt-5">
           <Card.Body>
             <Card.Title className='title'>Registro de Servicios</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
@@ -69,18 +83,21 @@ function Usuario({rol}) {
                     />
                   </FloatingLabel>
                 </Col>
-                
                 <Col sm="12" md="6" lg="6">
                   <FloatingLabel controlId="precio_servicio" label="Precio">
                     <Form.Control
                       type="number"
-                      placeholder="Ingrese el teléfono"
+                      placeholder="Ingrese el precio"
                       value={precio_servicio}
-                      onChange={(e) => setPrecioServicio(e.target.value)}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (/^\d*$/.test(inputValue) || inputValue === "") {
+                          setPrecioServicio(inputValue);
+                        }
+                      }}
                     />
                   </FloatingLabel>
                 </Col>
-
                 <Col sm="6" md="6" lg="12">
                   <FloatingLabel controlId="descripcion" label="Descripcion">
                     <Form.Control
@@ -91,7 +108,6 @@ function Usuario({rol}) {
                     />
                   </FloatingLabel>
                 </Col>
-
               </Row>
               <div className="center-button">
                 <Button variant="primary" type="submit" className="mt-3 register-button" size="lg">
