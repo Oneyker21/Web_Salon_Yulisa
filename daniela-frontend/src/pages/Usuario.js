@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Container, FloatingLabel, Card, Button, Alert } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/App.css';
@@ -11,7 +11,6 @@ function Usuario({ rol }) {
   const [alerta, setAlerta] = useState(null);
 
   const nombreApellidoRegex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/;
-  const telefonoRegex = /^\d+$/;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,12 +21,7 @@ function Usuario({ rol }) {
     }
 
     if (!nombreApellidoRegex.test(nombre) || !nombreApellidoRegex.test(apellido)) {
-      mostrarAlerta('warning', '¡Los nombres y los apellido deben comenzar con mayúsculas!');
-      return;
-    }
-
-    if (!telefonoRegex.test(telefono)) {
-      mostrarAlerta('warning', '¡El teléfono debe contener solo números!');
+      mostrarAlerta('warning', '¡Los nombres y los apellidos deben comenzar con mayúsculas!');
       return;
     }
 
@@ -69,25 +63,31 @@ function Usuario({ rol }) {
     }, 4000);
   };
 
+  const handleChangeTelefono = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*$/.test(inputValue) || inputValue === "") {
+      setTelefono(inputValue);
+    }
+  };
+
   return (
     <div>
       <Header rol={rol} />
       <div style={{ position: 'relative' }}>
-              {alerta && (
-                <Alert
-                  variant={alerta.tipo}
-                  className="position-absolute mt-4 start-50 translate-middle p-2"
-                  style={{ zIndex: 1, opacity: alerta ? 1 : 0, transition: 'opacity 0.5s ease-in-out' }}
-                >
-                  {alerta.mensaje}
-                </Alert>
-              )}
-            </div>
+        {alerta && (
+          <Alert
+            variant={alerta.tipo}
+            className="position-absolute mt-4 start-50 translate-middle p-2"
+            style={{ zIndex: 1, opacity: alerta ? 1 : 0, transition: 'opacity 0.5s ease-in-out' }}
+          >
+            {alerta.mensaje}
+          </Alert>
+        )}
+      </div>
       <Container>
         <Card className="mt-5">
           <Card.Body>
             <Card.Title className='title'>Registro de Empleados</Card.Title>
-            
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
                 <Col sm="6" md="6" lg="4">
@@ -116,7 +116,7 @@ function Usuario({ rol }) {
                       type="number"
                       placeholder="Ingrese el teléfono"
                       value={telefono}
-                      onChange={(e) => setTelefono(e.target.value)}
+                      onChange={handleChangeTelefono}
                     />
                   </FloatingLabel>
                 </Col>
