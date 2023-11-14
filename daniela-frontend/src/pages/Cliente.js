@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Container, FloatingLabel, Card, Button, Alert } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/App.css';
@@ -10,7 +10,7 @@ function Usuario({ rol }) {
   const [alerta, setAlerta] = useState(null);
 
   const nombreApellidoRegex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/;
-  const telefonoRegex = /^\d+e$/;
+  const telefonoRegex = /^\d+$/;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,10 +82,8 @@ function Usuario({ rol }) {
       </div>
       <Container>
         <Card className="mt-5">
-          <Card.Body >
-
+          <Card.Body>
             <Card.Title className='title'>Registro de Clientes</Card.Title>
-
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
                 <Col sm="6" md="6" lg="4">
@@ -114,7 +112,12 @@ function Usuario({ rol }) {
                       type="number"
                       placeholder="Ingrese el teléfono"
                       value={telefono}
-                      onChange={(e) => setTelefono(e.target.value)}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (/^\d*$/.test(inputValue) || inputValue === "") {
+                          setTelefono(inputValue);
+                        }
+                      }}
                     />
                   </FloatingLabel>
                 </Col>
