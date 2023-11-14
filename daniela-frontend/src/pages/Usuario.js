@@ -1,20 +1,36 @@
-import React, { useState } from 'react';
-import { Form, Row, Col, Container, FloatingLabel, Card, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Form, Row, Col, Container, FloatingLabel, Card, Button, Alert } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function Usuario({rol}) {
-  // Crear un estado para cada campo del formulario
+function Usuario({ rol }) {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [direccion, setDireccion] = useState('');
+  const [alerta, setAlerta] = useState(null);
 
-  // Función para manejar el envío del formulario
+  const nombreApellidoRegex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/;
+  const telefonoRegex = /^\d+$/;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Crear un objeto con los datos del formulario
+    if (!nombre || !apellido || !telefono || !direccion) {
+      mostrarAlerta('warning', 'Todos los campos deben estar llenos');
+      return;
+    }
+
+    if (!nombreApellidoRegex.test(nombre) || !nombreApellidoRegex.test(apellido)) {
+      mostrarAlerta('warning', 'El nombre y el apellido deben comenzar con mayúscula');
+      return;
+    }
+
+    if (!telefonoRegex.test(telefono)) {
+      mostrarAlerta('warning', 'El teléfono debe contener solo números');
+      return;
+    }
+
     const formData = {
       nombre,
       apellido,
@@ -23,7 +39,6 @@ function Usuario({rol}) {
     };
 
     try {
-      // Realizar una solicitud HTTP al backend para enviar los datos
       const response = await fetch('http://localhost:5000/crud/createempleados', {
         method: 'POST',
         headers: {
@@ -33,30 +48,46 @@ function Usuario({rol}) {
       });
 
       if (response.ok) {
-        // El registro se creó exitosamente
-        alert('Registro exitoso');
-        // Reiniciar los campos del formulario
+        mostrarAlerta('success', 'Registro exitoso');
         setNombre('');
         setApellido('');
         setTelefono('');
         setDireccion('');
       } else {
-        alert('Error al registrar el cliente');
+        mostrarAlerta('danger', 'Error al registrar el empleado');
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
-      alert('Error en la solicitud al servidor');
+      mostrarAlerta('danger', 'Error en la solicitud al servidor');
     }
+  };
+
+  const mostrarAlerta = (tipo, mensaje) => {
+    setAlerta({ tipo, mensaje });
+    setTimeout(() => {
+      setAlerta(null);
+    }, 4000);
   };
 
   return (
     <div>
-      <Header rol={rol}/>
-
+      <Header rol={rol} />
+      <div style={{ position: 'relative' }}>
+              {alerta && (
+                <Alert
+                  variant={alerta.tipo}
+                  className="position-absolute mt-4 start-50 translate-middle p-2"
+                  style={{ zIndex: 1, opacity: alerta ? 1 : 0, transition: 'opacity 0.5s ease-in-out' }}
+                >
+                  {alerta.mensaje}
+                </Alert>
+              )}
+            </div>
       <Container>
-        <Card className="mt-3">
+        <Card className="mt-5">
           <Card.Body>
             <Card.Title className='title'>Registro de Empleados</Card.Title>
+            
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
                 <Col sm="6" md="6" lg="4">
@@ -82,7 +113,7 @@ function Usuario({rol}) {
                 <Col sm="12" md="6" lg="4">
                   <FloatingLabel controlId="telefono" label="Teléfono">
                     <Form.Control
-                      type="text"
+                      type="number"
                       placeholder="Ingrese el teléfono"
                       value={telefono}
                       onChange={(e) => setTelefono(e.target.value)}
@@ -90,10 +121,10 @@ function Usuario({rol}) {
                   </FloatingLabel>
                 </Col>
                 <Col sm="12" md="6" lg="12">
-                  <FloatingLabel controlId="direccion" label="Direccion">
+                  <FloatingLabel controlId="direccion" label="Dirección">
                     <Form.Control
                       type="text"
-                      placeholder="Ingrese la direccion"
+                      placeholder="Ingrese la dirección"
                       value={direccion}
                       onChange={(e) => setDireccion(e.target.value)}
                     />
