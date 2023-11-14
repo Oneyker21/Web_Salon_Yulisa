@@ -83,8 +83,10 @@ function Usuario({ rol }) {
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="12" md="6" lg="6">
-                  <FloatingLabel controlId="precio_servicio" label="Precio">
+                <Col sm="12" md="6" lg="6" >
+                  <FloatingLabel p-4 controlId="precio_servicio" label="">
+                    <div className='input-group'>
+                      <span className='input-group-text'>C$</span>
                     <Form.Control
                       type="number"
                       placeholder="Ingrese el precio"
@@ -96,6 +98,7 @@ function Usuario({ rol }) {
                         }
                       }}
                     />
+                    </div>
                   </FloatingLabel>
                 </Col>
                 <Col sm="6" md="6" lg="12">

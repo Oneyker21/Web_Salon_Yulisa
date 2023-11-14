@@ -125,7 +125,7 @@ function Usuariolist({ rol }) {
                   <td>{servicio.id_servicios}</td>
                   <td>{servicio.nombre_servicio}</td>
                   <td>{servicio.descripcion}</td>
-                  <td><span>C$</span>{servicio.precio_servicio}</td>
+                  <td><span>C$</span>{servicio.precio_servicio.toFixed(2)}</td>
                   <td className='buttomsAE'>
                     <Button variant="primary" className='actualizar' onClick={() => openModal(servicio)}><FaPencil/></Button>
                     <Button variant="danger" className='eliminar' onClick={() => openDeleteModal(servicio)}><FaTrashCan/></Button>
