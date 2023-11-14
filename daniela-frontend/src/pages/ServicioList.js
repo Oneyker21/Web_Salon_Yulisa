@@ -3,9 +3,10 @@ import { Table, Button, Container, Card, Row, Col, Form, Modal, FloatingLabel } 
 import Header from '../components/Header';
 import { FaPencil, FaTrashCan } from 'react-icons/fa6';
 
-function Usuariolist({rol}) {
+function Usuariolist({ rol }) {
   const [servicios, setServicios] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedServicio, setSelectedServicio] = useState({});
   const [formData, setFormData] = useState({
     nombre_servicio: '',
@@ -60,19 +61,24 @@ function Usuariolist({rol}) {
       .catch((error) => console.error('Error al actualizar el registro:', error));
   };
 
-  const handleDelete = (idServicio) => {
-    const confirmation = window.confirm('¿Seguro que deseas eliminar este servicio?');
-    if (confirmation) {
-      fetch(`http://localhost:5000/crud/deleteservicios/${idServicio}`, {
-        method: 'DELETE',
+  const openDeleteModal = (servicio) => {
+    setSelectedServicio(servicio);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirmed = () => {
+    const idServicio = selectedServicio.id_servicios;
+
+    fetch(`http://localhost:5000/crud/deleteservicios/${idServicio}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (response.ok) {
+          loadServicios();
+          setShowDeleteModal(false); // Cerramos el modal después de la eliminación
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            loadServicios();
-          }
-        })
-        .catch((error) => console.error('Error al eliminar el servicio:', error));
-    }
+      .catch((error) => console.error('Error al eliminar el servicio:', error));
   };
 
   const filteredServicios = servicios.filter((servicio) => {
@@ -88,13 +94,12 @@ function Usuariolist({rol}) {
 
   return (
     <div>
-      <Header rol={rol}/>
+      <Header rol={rol} />
 
       <Card className="m-3">
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Servicios</Card.Title>
-          
-          {/* Input para la búsqueda */}
+
           <Form className="mb-3">
             <Form.Control
               type="text"
@@ -123,7 +128,7 @@ function Usuariolist({rol}) {
                   <td><span>C$</span>{servicio.precio_servicio}</td>
                   <td className='buttomsAE'>
                     <Button variant="primary" className='actualizar' onClick={() => openModal(servicio)}><FaPencil/></Button>
-                    <Button variant="danger" className='eliminar' onClick={() => handleDelete(servicio.id_servicios)}><FaTrashCan/></Button>
+                    <Button variant="danger" className='eliminar' onClick={() => openDeleteModal(servicio)}><FaTrashCan/></Button>
                   </td>
                 </tr>
               ))}
@@ -135,19 +140,19 @@ function Usuariolist({rol}) {
       {/* Modal para actualizar servicio */}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Actualizar Cliente</Modal.Title>
+          <Modal.Title>Actualizar Servicio</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Card className="mt-3">
             <Card.Body>
-              <Card.Title>Registro de Cliente</Card.Title>
+              <Card.Title>Registro de Servicio</Card.Title>
               <Form className="mt-3">
                 <Row className="g-3">
                   <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="nombre_servicio" label="Sevicio">
+                    <FloatingLabel controlId="nombre_servicio" label="Servicio">
                       <Form.Control
                         type="text"
-                        placeholder="Ingrese los nombres"
+                        placeholder="Ingrese el nombre del servicio"
                         name="nombre_servicio"
                         value={formData.nombre_servicio}
                         onChange={handleFormChange}
@@ -155,10 +160,10 @@ function Usuariolist({rol}) {
                     </FloatingLabel>
                   </Col>
                   <Col sm="6" md="6" lg="4">
-                    <FloatingLabel controlId="descripcion" label="Descripcion">
+                    <FloatingLabel controlId="descripcion" label="Descripción">
                       <Form.Control
                         type="text"
-                        placeholder="Ingrese los apellidos"
+                        placeholder="Ingrese la descripción"
                         name="descripcion"
                         value={formData.descripcion}
                         onChange={handleFormChange}
@@ -169,7 +174,7 @@ function Usuariolist({rol}) {
                     <FloatingLabel controlId="precio_servicio" label="Precio">
                       <Form.Control
                         type="number"
-                        placeholder="Ingrese el teléfono"
+                        placeholder="Ingrese el precio"
                         name="precio_servicio"
                         value={formData.precio_servicio}
                         onChange={handleFormChange}
@@ -191,6 +196,23 @@ function Usuariolist({rol}) {
         </Modal.Footer>
       </Modal>
 
+      {/* Modal de confirmación para eliminar servicio */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Eliminar Servicio</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>¿Seguro que deseas eliminar el servicio <b>{selectedServicio.nombre_servicio}</b>?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cerrar
+          </Button>
+          <Button variant="danger" onClick={handleDeleteConfirmed}>
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
