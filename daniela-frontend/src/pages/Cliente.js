@@ -10,23 +10,23 @@ function Usuario({ rol }) {
   const [alerta, setAlerta] = useState(null);
 
   const nombreApellidoRegex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/;
-  const telefonoRegex = /^\d+$/;
+  const telefonoRegex = /^\d+e$/;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!nombre || !apellido || !telefono) {
-      mostrarAlerta('warning', 'Todos los campos deben estar llenos');
+      mostrarAlerta('warning', '¡Todos los campos deben estar llenos!');
       return;
     }
 
     if (!nombreApellidoRegex.test(nombre) || !nombreApellidoRegex.test(apellido)) {
-      mostrarAlerta('warning', 'El nombre y el apellido deben comenzar con mayúscula');
+      mostrarAlerta('warning', '¡Los nombres y el apellidos deben comenzar con mayúsculas!');
       return;
     }
 
     if (!telefonoRegex.test(telefono)) {
-      mostrarAlerta('warning', 'El teléfono debe contener solo números');
+      mostrarAlerta('warning', '¡El teléfono debe contener solo números!');
       return;
     }
 
