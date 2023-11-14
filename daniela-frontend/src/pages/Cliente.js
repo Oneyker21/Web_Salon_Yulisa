@@ -21,7 +21,7 @@ function Usuario({ rol }) {
     }
 
     if (!nombreApellidoRegex.test(nombre) || !nombreApellidoRegex.test(apellido)) {
-      mostrarAlerta('warning', '¡Los nombres y el apellidos deben comenzar con mayúsculas!');
+      mostrarAlerta('warning', '¡Los nombres y los apellidos deben comenzar con mayúsculas!');
       return;
     }
 

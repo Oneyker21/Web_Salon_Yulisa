@@ -17,17 +17,17 @@ function Usuario({ rol }) {
     e.preventDefault();
 
     if (!nombre || !apellido || !telefono || !direccion) {
-      mostrarAlerta('warning', 'Todos los campos deben estar llenos');
+      mostrarAlerta('warning', '¡Todos los campos deben estar llenos!');
       return;
     }
 
     if (!nombreApellidoRegex.test(nombre) || !nombreApellidoRegex.test(apellido)) {
-      mostrarAlerta('warning', 'El nombre y el apellido deben comenzar con mayúscula');
+      mostrarAlerta('warning', '¡Los nombres y los apellido deben comenzar con mayúsculas!');
       return;
     }
 
     if (!telefonoRegex.test(telefono)) {
-      mostrarAlerta('warning', 'El teléfono debe contener solo números');
+      mostrarAlerta('warning', '¡El teléfono debe contener solo números!');
       return;
     }
 
