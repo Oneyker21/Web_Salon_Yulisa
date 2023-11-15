@@ -3,7 +3,7 @@ import { Form, Row, Col, Container, FloatingLabel, Card, Button, Dropdown } from
 import Header from '../components/Header';
 import '../styles/App.css';
 
-function Cita({rol}) {
+function Cita({ rol }) {
   const [fecha_cita, setFechaCita] = useState('');
   const [id_cliente, setIdCliente] = useState('');
   const [id_empleado, setIdEmpleado] = useState('');
@@ -12,13 +12,13 @@ function Cita({rol}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
 
     const formData = {
       fecha_cita,
       id_cliente,
       id_empleado,
-      servicios: serviciosSeleccionados 
+      servicios: serviciosSeleccionados
     };
 
     try {
@@ -64,7 +64,7 @@ function Cita({rol}) {
 
   return (
     <div>
-      <Header rol={ rol }/>
+      <Header rol={rol} />
 
       <Container>
         <Card className="mt-3">
@@ -72,7 +72,7 @@ function Cita({rol}) {
             <Card.Title className='title'>Registro de Citas</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="4">
+                <Col sm="6" md="6" lg="2">
                   <FloatingLabel controlId="fecha_cita" label="Fecha de Cita">
                     <Form.Control
                       type="date"
@@ -82,29 +82,8 @@ function Cita({rol}) {
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="6" md="6" lg="4">
-                  <FloatingLabel controlId="id_cliente" label="ID Cliente">
-                    <Form.Control
-                      type="text"
-                      placeholder='ID Cliente'
-                      value={id_cliente}
-                      onChange={(e) => setIdCliente(e.target.value)}
-                    />
-                  </FloatingLabel>
-                </Col>
 
-                <Col sm="6" md="6" lg="4">
-                  <FloatingLabel controlId="id_empleado" label="ID Empleado">
-                    <Form.Control
-                      type="text"
-                      placeholder="ID Empleado"
-                      value={id_empleado}
-                      onChange={(e) => setIdEmpleado(e.target.value)}
-                    />
-                  </FloatingLabel>
-                </Col>
-
-                <Col sm="12" md="12" lg="12">
+                <Col sm="6" md="6" lg="10">
                   <Card className="mt-3">
                     <Card.Body>
                       <Form.Group>
@@ -116,7 +95,7 @@ function Cita({rol}) {
                             key={servicio.id_servicios}
                             type="checkbox"
                             label={servicio.nombre_servicio}
-                            
+
                             checked={serviciosSeleccionados.includes(servicio.id_servicios)}
                             onChange={(e) => {
                               const servicioId = servicio.id_servicios;
@@ -131,6 +110,28 @@ function Cita({rol}) {
                       </Form.Group>
                     </Card.Body>
                   </Card>
+                </Col>
+
+                <Col sm="6" md="6" lg="2">
+                  <FloatingLabel controlId="id_cliente" label="ID Cliente">
+                    <Form.Control
+                      type="text"
+                      placeholder='ID Cliente'
+                      value={id_cliente}
+                      onChange={(e) => setIdCliente(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+
+                <Col sm="6" md="6" lg="2">
+                  <FloatingLabel controlId="id_empleado" label="ID Empleado">
+                    <Form.Control
+                      type="text"
+                      placeholder="ID Empleado"
+                      value={id_empleado}
+                      onChange={(e) => setIdEmpleado(e.target.value)}
+                    />
+                  </FloatingLabel>
                 </Col>
 
               </Row>
