@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Row, Col, Container, FloatingLabel, Card, Button, Dropdown } from 'react-bootstrap';
+import { Form, Row, Col, Container, FloatingLabel, Card, Button, Alert } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/App.css';
 
@@ -9,10 +9,15 @@ function Cita({ rol }) {
   const [id_empleado, setIdEmpleado] = useState('');
   const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
   const [serviciosDisponibles, setServiciosDisponibles] = useState([]);
+  const [alerta, setAlerta] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!fecha_cita || !id_cliente || !id_empleado || serviciosSeleccionados.length === 0) {
+      mostrarAlerta('warning', '¡Todos los campos deben estar llenos!');
+      return;
+    }
 
     const formData = {
       fecha_cita,
@@ -31,18 +36,25 @@ function Cita({ rol }) {
       });
 
       if (response.ok) {
-        alert('Registro de cita exitoso');
+        mostrarAlerta('success', 'Registro de cita exitoso');
         setFechaCita('');
         setIdCliente('');
         setIdEmpleado('');
-        setServiciosSeleccionados('');
+        setServiciosSeleccionados([]);
       } else {
-        alert('Error al registrar la cita');
+        mostrarAlerta('danger', 'Error al registrar la cita');
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
-      alert('Error en la solicitud al servidor');
+      mostrarAlerta('danger', 'Error en la solicitud al servidor');
     }
+  };
+
+  const mostrarAlerta = (tipo, mensaje) => {
+    setAlerta({ tipo, mensaje });
+    setTimeout(() => {
+      setAlerta(null);
+    }, 4000);
   };
 
   useEffect(() => {
@@ -65,9 +77,20 @@ function Cita({ rol }) {
   return (
     <div>
       <Header rol={rol} />
+      <div style={{ position: 'relative' }}>
+        {alerta && (
+          <Alert
+            variant={alerta.tipo}
+            className="position-absolute mt-4 start-50 translate-middle p-2"
+            style={{ zIndex: 1, transition: 'opacity 1s ease-in-out' }}
+          >
+            {alerta.mensaje}
+          </Alert>
+        )}
+      </div>
 
       <Container>
-        <Card className="mt-3">
+        <Card className="mt-5">
           <Card.Body>
             <Card.Title className='title'>Registro de Citas</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
@@ -82,7 +105,6 @@ function Cita({ rol }) {
                     />
                   </FloatingLabel>
                 </Col>
-
                 <Col sm="6" md="6" lg="10">
                   <Card className="mt-3">
                     <Card.Body>
@@ -95,7 +117,6 @@ function Cita({ rol }) {
                             key={servicio.id_servicios}
                             type="checkbox"
                             label={servicio.nombre_servicio}
-
                             checked={serviciosSeleccionados.includes(servicio.id_servicios)}
                             onChange={(e) => {
                               const servicioId = servicio.id_servicios;
@@ -111,7 +132,6 @@ function Cita({ rol }) {
                     </Card.Body>
                   </Card>
                 </Col>
-
                 <Col sm="6" md="6" lg="2">
                   <FloatingLabel controlId="id_cliente" label="ID Cliente">
                     <Form.Control
@@ -122,7 +142,6 @@ function Cita({ rol }) {
                     />
                   </FloatingLabel>
                 </Col>
-
                 <Col sm="6" md="6" lg="2">
                   <FloatingLabel controlId="id_empleado" label="ID Empleado">
                     <Form.Control
@@ -133,7 +152,6 @@ function Cita({ rol }) {
                     />
                   </FloatingLabel>
                 </Col>
-
               </Row>
               <div className="center-button">
                 <Button variant="primary" type="submit" className="mt-3 custom-button" size="lg">
@@ -143,6 +161,7 @@ function Cita({ rol }) {
             </Form>
           </Card.Body>
         </Card>
+
       </Container>
     </div>
   );
