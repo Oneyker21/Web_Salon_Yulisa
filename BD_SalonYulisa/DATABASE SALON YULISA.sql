@@ -9,9 +9,10 @@ CREATE TABLE Cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
-    telefono VARCHAR(15) NOT NULL
+    telefono VARCHAR(15) NOT NULL,
+    id_Usuario INT NOT NULL,
+    FOREIGN KEY (id_Usuario) REFERENCES Usuario(id_Usuario);
 );
-
 
 # CREACION DE TABLA Empleado
 CREATE TABLE Empleado (
@@ -19,7 +20,16 @@ CREATE TABLE Empleado (
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
-    direccion VARCHAR(45) NOT NULL
+    direccion VARCHAR(45) NOT NULL,
+    id_Usuario INT NOT NULL,
+    FOREIGN KEY (id_Usuario) REFERENCES Usuario(id_Usuario);
+);
+
+CREATE TABLE Usuario (
+  id_Usuario Int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nombre_Usuario Varchar(30) NOT NULL,
+  contrasena Varchar(16) NOT NULL,
+  rol Varchar(20) NOT NULL
 );
 
 # CREACION DE TABLA Servicios
@@ -58,13 +68,6 @@ CREATE TABLE Testimonio (
     testimonio VARCHAR(100) NOT NULL,
     id_cliente INT,
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
-);
-
-CREATE TABLE Usuario (
-  id_Usuario Int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  nombre_Usuario Varchar(30) NOT NULL,
-  contrasena Varchar(16) NOT NULL,
-  rol Varchar(20) NOT NULL
 );
 
 # CREACION DE TABLA Fotos
