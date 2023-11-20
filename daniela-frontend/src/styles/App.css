@@ -134,7 +134,12 @@ footer {
   color: #ff6600;
 }
 
-.input-group-text{
+.input-group-text {
   padding-top: 16px;
   padding-bottom: 16px;
+}
+
+#fecha_cita{
+  margin-top: 17px;
+  padding: 36px;
 }

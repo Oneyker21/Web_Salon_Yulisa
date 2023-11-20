@@ -95,7 +95,9 @@ function Cita({ rol }) {
             <Card.Title className='title'>Registro de Citas</Card.Title>
             <Form className="mt-3" onSubmit={handleSubmit}>
               <Row className="g-3">
-                <Col sm="6" md="6" lg="2">
+
+
+                <Col sm="6" md="6" lg="3">
                   <FloatingLabel controlId="fecha_cita" label="Fecha de Cita">
                     <Form.Control
                       type="date"
@@ -105,7 +107,7 @@ function Cita({ rol }) {
                     />
                   </FloatingLabel>
                 </Col>
-                <Col sm="6" md="6" lg="10">
+                <Col sm="6" md="6" lg="9">
                   <Card className="mt-3">
                     <Card.Body>
                       <Form.Group>
