@@ -541,8 +541,13 @@ router.post('/login', (req, res) => {
 
   // Ruta para leer registros de la tabla Testimonio
   router.get('/readtestimonios', (req, res) => {
-    const sql = 'SELECT * FROM Testimonio';
-
+    const sql = `
+    SELECT Testimonio.*,
+    Cliente.nombre as nombre_cliente,Cliente.apellido as apellido_cliente
+    FROM Testimonio
+    LEFT JOIN Cliente ON Testimonio.id_cliente = Cliente.id_cliente
+    GROUP BY Testimonio.id_testimonio
+  `;
     db.query(sql, (err, result) => {
       if (err) {
         console.error('Error al leer registros de Testimonio:', err);

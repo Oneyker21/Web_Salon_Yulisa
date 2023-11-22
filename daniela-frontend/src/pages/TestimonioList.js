@@ -197,7 +197,7 @@ function TestimonioList({ rol }) {
                 <th>Fecha</th>
                 <th>Puntuación</th>
                 <th>Comentario</th>
-                <th>ID Cliente</th>
+                <th>Cliente</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -208,7 +208,7 @@ function TestimonioList({ rol }) {
                   <td>{formatDateForInput(testimonio.fecha_testimonio)}</td>
                   <td><StarRating rating={parseInt(testimonio.puntuacion)} /></td>
                   <td>{testimonio.testimonio}</td>
-                  <td>{testimonio.id_cliente}</td>
+                  <td>{testimonio.nombre_cliente}</td>
                   <td className='buttomsAE'>
                     <Button variant="primary" className='actualizar' onClick={() => openModal(testimonio)}><FaPencil /></Button>
                     <Button variant="danger" className='eliminar' onClick={() => handleDelete(testimonio.id_testimonio)}><FaTrashCan /></Button>
