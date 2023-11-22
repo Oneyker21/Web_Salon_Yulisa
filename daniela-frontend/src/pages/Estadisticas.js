@@ -73,7 +73,7 @@ function Estadisticas({ rol }) {  // Declaración del componente Estadisticas co
         const doc = new jsPDF();  // Crea un nuevo documento PDF con jsPDF
         let y = 15; // Posición inicial en el eje Y dentro del documento PDF
 
-        doc.text("Reporte de Estado de Almacén", 20, 10);  // Agrega un título al documento PDF
+        doc.text("Reporte de citas", 20, 10);  // Agrega un título al documento PDF
 
         productos.forEach((producto) => {  // Itera sobre los productos para generar el reporte
           doc.text(`Nombre: ${producto.nombre}`, 20, y);  // Agrega el nombre del producto al documento PDF
@@ -86,9 +86,9 @@ function Estadisticas({ rol }) {  // Declaración del componente Estadisticas co
           }
         });
 
-        doc.save("reporte_almacen.pdf");  // Descarga el documento PDF con el nombre 'reporte_almacen.pdf'
+        doc.save("reporte_citas.pdf");  // Descarga el documento PDF con el nombre 'reporte_citas.pdf'
       })
-      .catch((error) => console.error('Error al obtener los productos:', error));  // Manejo de errores en caso de fallar la solicitud
+      .catch((error) => console.error('Error al obtener las citas:', error));  // Manejo de errores en caso de fallar la solicitud
   };
 
   return(

@@ -144,9 +144,9 @@ function Usuariolist({ rol }) {
               <tr className='centrado'>
                 <th>Código</th>
                 <th>Fecha de Cita</th>
-                <th>ID Servicios</th>
-                <th>ID Cliente</th>
-                <th>ID Empleado</th>
+                <th>Servicios</th>
+                <th>Cliente</th>
+                <th>Empleado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
