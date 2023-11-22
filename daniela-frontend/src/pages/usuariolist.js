@@ -130,16 +130,17 @@ function Usuariolist({ rol }) {
         <Card.Body>
           <Card.Title className="mb-6 title">Listado de Empleados</Card.Title>
           <Row className="mb-3">
-            <Col>
-              <FloatingLabel controlId="search" label="Buscar">
-                <Form.Control
-                  type="text"
-                  placeholder="Buscar"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-              </FloatingLabel>
-            </Col>
+
+          <Form className="mb-3">
+            <Form.Control
+              className='search-bar'
+              type="text"
+              placeholder="Buscar"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </Form>
+
           </Row>
           <Table striped bordered hover>
             <thead>

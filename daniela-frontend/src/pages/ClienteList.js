@@ -99,8 +99,9 @@ function Usuariolist({ rol }) {
 
           <Form className="mb-3">
             <Form.Control
+              className='search-bar'
               type="text"
-              placeholder="Buscar por nombre y apellido"
+              placeholder="Buscar"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />

@@ -11,6 +11,11 @@
   text-align: center;
 }
 
+.search-bar{
+  margin-top: 14px;
+  border: solid 2px rgba(0, 0, 0, 0.5);
+}
+
 .register-button {
   background-color: rgb(97, 6, 85);
   color: #ffffff;
@@ -24,7 +29,11 @@
     border-color: #a02f91;
   }
 }
-
+.register-button:active{
+  background-color: #610655 !important;
+  color: #ffffff !important;
+  border-color: #610655 !important;
+}
 
 .title {
   color: #000000;
