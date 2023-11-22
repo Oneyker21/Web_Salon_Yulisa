@@ -190,7 +190,7 @@ function TestimonioList({ rol }) {
               </FloatingLabel>
             </Col>
           </Row>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead>
               <tr className='centrado'>
                 <th>ID Testimonio</th>
