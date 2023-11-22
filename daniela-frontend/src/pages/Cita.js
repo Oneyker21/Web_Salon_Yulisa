@@ -98,7 +98,7 @@ function Cita({ rol }) {
 
 
                 <Col sm="6" md="6" lg="3">
-                  <FloatingLabel controlId="fecha_cita" label="Fecha de Cita">
+                  <FloatingLabel controlId="fecha_cita" label="">
                     <Form.Control
                       type="date"
                       placeholder='Fecha de Cita'

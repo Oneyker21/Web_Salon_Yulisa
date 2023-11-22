@@ -149,7 +149,7 @@ router.post('/login', (req, res) => {
     }
 
     // Realiza la consulta SQL para insertar un nuevo registro en la tabla Cliente
-    const sql = `INSERT INTO Cliente (nombre, apellido, telefono) VALUES (?, ?, ?)`;
+    const sql = `CALL CrearCliente(?, ?, ?)`;
     const values = [nombre, apellido, telefono];
 
     // Ejecuta la consulta
