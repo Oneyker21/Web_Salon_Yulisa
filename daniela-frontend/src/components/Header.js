@@ -20,7 +20,7 @@ function Header({ rol }) {
           {/* Navbar principal */}
           <Navbar className="navbar-color" variant="dark" expand="md">
             <Container>
-              <Navbar.Brand href="/">Salon Yulisa</Navbar.Brand>
+              <Navbar.Brand href="/home">Salon Yulisa</Navbar.Brand>
               <Navbar.Toggle
                 aria-controls="basic-navbar-nav"
                 style={{ display: 'none' }}
