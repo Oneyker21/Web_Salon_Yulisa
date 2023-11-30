@@ -12,6 +12,10 @@ function Header({ rol }) {
     setShowMenu(!showMenu);
   };
 
+  const cerrarSesion = () => {
+    localStorage.removeItem('userRol');
+  }
+
   return (
     <div>
       {rol === 'admin' && (
@@ -100,7 +104,7 @@ function Header({ rol }) {
                   </NavDropdown>
 
                   <Nav.Link>
-                    <Link to="/" className="link-unstyled"> Cerrar Sesión <FaRightFromBracket /></Link>
+                    <Link to="/" onClick={cerrarSesion} className="link-unstyled"> Cerrar Sesión <FaRightFromBracket /></Link>
                   </Nav.Link>
 
                 </Nav>
