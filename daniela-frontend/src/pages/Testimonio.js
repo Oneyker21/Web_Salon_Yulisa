@@ -5,8 +5,10 @@ import '../styles/App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Testimonio({rol}) {
+function Testimonio({ rol }) {
   const [fecha_testimonio, setFechaTestimonio] = useState('');
   const [testimonio, setTestimonio] = useState('');
   const [id_cliente, setIdCliente] = useState('');
@@ -14,6 +16,21 @@ function Testimonio({rol}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
+    const notifySuccess = (message) => {
+      toast.success(message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 800, // Auto cerrar después de 3 segundos
+      });
+    };
+
+    const notifyError = (message) => {
+      toast.error(message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 800,
+      });
+    };
 
     function getCurrentDateFormatted() {
       const currentDate = new Date();
@@ -41,13 +58,13 @@ function Testimonio({rol}) {
       });
 
       if (response.ok) {
-        alert('Testimonio registrado exitosamente');
+        notifySuccess('Resgistro exitoso');
         setPuntuacion(0);
         setFechaTestimonio('');
         setTestimonio('');
         setIdCliente('');
       } else {
-        alert('Error al registrar el testimonio');
+        notifyError('Error al registrar');
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
@@ -67,8 +84,8 @@ function Testimonio({rol}) {
         fontSize: `${starSize}px`,
         color: isSolid ? '#FFD700' : '#C0C0C0',
         cursor: 'pointer',
-        marginRight: '5px', 
-        paddingTop: '12px', 
+        marginRight: '5px',
+        paddingTop: '12px',
         paddingLeft: '10px',
       };
 
@@ -91,7 +108,10 @@ function Testimonio({rol}) {
 
   return (
     <div>
-      <Header rol={rol}/>
+
+      <ToastContainer />
+
+      <Header rol={rol} />
 
       <Container>
         <Card className="mt-3">

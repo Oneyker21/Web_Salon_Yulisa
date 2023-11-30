@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Card, Container, Row, Col, FloatingLabel, Modal, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 const Home = ({ setRol }) => {
   const navigate = useNavigate();
@@ -106,14 +107,15 @@ const Home = ({ setRol }) => {
                     onChange={(e) => setContrasena(e.target.value)}
                   />
                 </FloatingLabel>
+                <Button
+                        variant="link"
+                        className="show-password-button"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                      </Button>
               </Col>
-              <Col sm="12" md="12" lg="12">
-                <Form.Check
-                  type="checkbox"
-                  label="Mostrar contraseña"
-                  onChange={() => setShowPassword(!showPassword)}
-                />
-              </Col>
+            
             </Row>
             <div className="center-button">
               <Button variant="primary" type="submit" block className="mt-3">
