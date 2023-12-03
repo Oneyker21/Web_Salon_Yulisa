@@ -107,7 +107,7 @@ function Usuariolist({ rol }) {
             />
           </Form>
 
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead>
               <tr className='centrado'>
                 <th>ID</th>

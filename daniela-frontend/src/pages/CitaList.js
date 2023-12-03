@@ -138,8 +138,8 @@ function Usuariolist({ rol }) {
       <Header rol={rol} />
       <Card className="m-3 ">
         <Card.Body>
-          <Card.Title className="mb-6 title">Listado de Citas</Card.Title>
-          <Table striped bordered hover>
+          <Card.Title className="mb-6 title" >Listado de Citas</Card.Title>
+          <Table striped bordered hover responsive>
             <thead>
               <tr className='centrado'>
                 <th>Código</th>

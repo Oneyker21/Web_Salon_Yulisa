@@ -9,9 +9,7 @@ CREATE TABLE Cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    id_Usuario INT NOT NULL,
-    FOREIGN KEY (id_Usuario) REFERENCES Usuario(id_Usuario);
+    telefono VARCHAR(15) NOT NULL
 );
 
 # CREACION DE TABLA Empleado
@@ -20,9 +18,7 @@ CREATE TABLE Empleado (
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
-    direccion VARCHAR(45) NOT NULL,
-    id_Usuario INT NOT NULL,
-    FOREIGN KEY (id_Usuario) REFERENCES Usuario(id_Usuario);
+    direccion VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE Usuario (
@@ -76,3 +72,20 @@ CREATE TABLE Fotos (
     descripcion VARCHAR(255),
     imagen LONGTEXT NOT NULL
 );
+
+DELIMITER //
+
+CREATE PROCEDURE CrearCliente(
+    IN p_nombre VARCHAR(50),
+    IN p_apellido VARCHAR(50),
+    IN p_telefono VARCHAR(15)
+)
+BEGIN
+    INSERT INTO Cliente (nombre, apellido, telefono)
+    VALUES (p_nombre, p_apellido, p_telefono);
+END //
+
+DELIMITER ;
+
+
+INSERT INTO Usuario (nombre_Usuario,contrasena, rol) VALUES ('daniela','123456','admin');

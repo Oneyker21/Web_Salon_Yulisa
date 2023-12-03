@@ -107,7 +107,7 @@ function Estadisticas({ rol }) {
           <Col sm="12" md="12" lg="12">
             <Card>
               <Card.Body>
-                <Card.Title>Estado del citas</Card.Title>
+                <Card.Title>Estado de las citas</Card.Title>
                 <canvas id="myChart" style={{ height: '100%' }}></canvas>
               </Card.Body>
               <Card.Body>
