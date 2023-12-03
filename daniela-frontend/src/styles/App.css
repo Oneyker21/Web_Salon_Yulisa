@@ -170,3 +170,22 @@ footer {
     background-color: #0000ff !important;
   }
 }
+
+.sin-acceso-container .sin-acceso-card{
+  align-items: center;
+  margin-top: 220px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+  
+  .center{
+    text-align: center;
+  }
+  
+  .separator-container {
+    text-align: center; /* Centra el contenido en línea */
+  }
